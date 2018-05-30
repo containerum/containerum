@@ -11,8 +11,6 @@ install:
   - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
   - helm init --client-only
   - helm plugin install https://github.com/chartmuseum/helm-push
-  - go get github.com/mikefarah/yq
-  - sudo apt-get install jq
 
 script:
   - helm repo add containerum ${MUSEUM}
@@ -20,7 +18,6 @@ script:
   - rm $NAME-1.0.tgz
 
 before_deploy:
-  - yq write --inplace charts/$NAME/values.yaml image.tag "${TRAVIS_TAG}"
   - mkdir -p /tmp/charts
   - helm package charts/$NAME --version="${TRAVIS_TAG}" --dependency-update --destination /tmp/charts
   - helm repo add chartmuseum ${MUSEUM}
@@ -31,10 +28,6 @@ deploy:
     file:
       - "/tmp/charts/$NAME-${TRAVIS_TAG}.tgz"
     skip_cleanup: true
-    on:
-      tags: true
-  - provider: script
-    script: docker push "${IMAGE_NAME}:latest" && docker push "${IMAGE_NAME}:${TRAVIS_TAG}"
     on:
       tags: true
   - provider: script
