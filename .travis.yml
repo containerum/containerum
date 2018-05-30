@@ -17,7 +17,7 @@ install:
 script:
   - helm repo add containerum ${MUSEUM}
   - helm package charts/$NAME --version="1.0" --dependency-update
-  - rm $NAME-${TRAVIS_TAG}.tgz
+  - rm $NAME-1.0.tgz
 
 before_deploy:
   - yq write --inplace charts/$NAME/values.yaml image.tag "${TRAVIS_TAG}"
