@@ -22,7 +22,6 @@ script:
 before_deploy:
   - mkdir -p /tmp/charts
   - helm package charts/$NAME --version="${TRAVIS_TAG}" --dependency-update --destination /tmp/charts
-  - helm repo add chartmuseum ${MUSEUM}
 
 deploy:
   - provider: releases
@@ -33,6 +32,7 @@ deploy:
     on:
       tags: true
   - provider: script
-    script: helm push -u ${HELM_USER} -p ${HELM_PASSWORD} "/tmp/charts/$NAME-${TRAVIS_TAG}.tgz" chartmuseum
+    script: helm push -u ${HELM_USER} -p ${HELM_PASSWORD} "/tmp/charts/$NAME-${TRAVIS_TAG}.tgz" containerum
+    skip_cleanup: true
     on:
       tags: true
