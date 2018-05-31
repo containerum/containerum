@@ -56,7 +56,7 @@ dependencies:
       - auth
       - platform
   - name: mail
-    version: "~v1.0.0-rc.0"
+    version: "v1.0.0-rc.2"
     repository: https://charts.containerum.io
     tags:
       - back
