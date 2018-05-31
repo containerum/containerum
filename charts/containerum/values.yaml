@@ -1,16 +1,64 @@
 tags:
   db: false
-  platform: true
+  platform: false
+  platformdb: true
+  postgresql: true
+  mail: true
+  user: true
 
 ingress:
-  enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  path: /
-  hosts:
-    - example.com
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  ui:
+    enabled: true
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    path: /
+    hosts:
+      - example.com
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  api:
+    enabled: true
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    path: /
+    hosts:
+      - api.example.com
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+
+mail:
+  persistence:
+    enabled: false
+
+
+user-manager:
+  tags:
+    platformdb: true
+  env:
+    global:
+      CH_USER_PG_DBNAME: containerum
+      CH_USER_PG_LOGIN: postgres
+    local:
+      CH_USER_PG_ADDR: null
+
+
+postgresql:
+  persistence:
+    enabled: false
+  postgresDatabase: containerum
+  # postgresUser: postgres
+  # postgresPassword: password
+
+
+mongodb:
+  persistence:
+    enabled: false
+  # mongodbUsername: postgres
+  # mongodbPassword: password

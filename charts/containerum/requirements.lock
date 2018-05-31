@@ -10,7 +10,7 @@ dependencies:
   version: v1.0.0
 - name: user-manager
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.0
+  version: v1.0.0-rc.4
 - name: resource
   repository: https://charts.containerum.io
   version: v1.0.0-rc.4
@@ -25,9 +25,9 @@ dependencies:
   version: v1.0.0-rc.0
 - name: mail
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.0
+  version: v1.0.0-rc.1
 - name: ui
   repository: https://charts.containerum.io
   version: v1.0.0-rc.0
-digest: sha256:9e2188c95bedc95d2412bca81c0a23d2f79c8fbfdb8e6ece95952fb6a588abcf
-generated: 2018-05-30T12:34:36.50977878+03:00
+digest: sha256:564fc71a8c09b54565b013c00b0b1102afe33d9e802faa6db20e1c145c0d1b26
+generated: 2018-05-31T15:20:57.5973883+03:00

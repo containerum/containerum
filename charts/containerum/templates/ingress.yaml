@@ -1,10 +1,12 @@
-{{- if .Values.ingress.enabled -}}
-{{- $fullName := include "containerum.fullname" . -}}
-{{- $ingressPath := .Values.ingress.path -}}
+{{- $fullName := .Release.Name -}}
+{{- $ingressUIPath := .Values.ingress.ui.path -}}
+{{- $ingressAPIPath := .Values.ingress.api.path -}}
+
+{{- if .Values.ingress.ui.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullName }}-ui
   labels:
     app: {{ template "containerum.name" . }}
     chart: {{ template "containerum.chart" . }}
@@ -15,9 +17,9 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
+{{- if .Values.ingress.ui.tls }}
   tls:
-  {{- range .Values.ingress.tls }}
+  {{- range .Values.ingress.ui.tls }}
     - hosts:
       {{- range .hosts }}
         - {{ . }}
@@ -26,13 +28,52 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
+  {{- range .Values.ingress.ui.hosts }}
     - host: {{ . }}
       http:
         paths:
-          - path: {{ $ingressPath }}
+          - path: {{ $ingressUIPath }}
             backend:
-              serviceName: {{ $fullName }}
+              serviceName: {{ $fullName }}-ui
+              servicePort: http
+  {{- end }}
+{{- end }}
+
+---
+
+{{- if .Values.ingress.api.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-api
+  labels:
+    app: {{ template "containerum.name" . }}
+    chart: {{ template "containerum.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- with .Values.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+{{- if .Values.ingress.api.tls }}
+  tls:
+  {{- range .Values.ingress.api.tls }}
+    - hosts:
+      {{- range .hosts }}
+        - {{ . }}
+      {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+{{- end }}
+  rules:
+  {{- range .Values.ingress.api.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $ingressAPIPath }}
+            backend:
+              serviceName: {{ $fullName }}-api-gateway
               servicePort: http
   {{- end }}
 {{- end }}

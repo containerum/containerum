@@ -2,7 +2,6 @@ dependencies:
   - name: postgresql
     repository: https://kubernetes-charts.storage.googleapis.com
     version: 0.12.0
-    alias: postgres
     tags:
       - db
       - postgresql
@@ -11,9 +10,9 @@ dependencies:
     version: "2.0.6"
     repository: https://kubernetes-charts.storage.googleapis.com
     tags:
-    - db
-    - postgresql
-    - platform
+      - db
+      - mongo
+      - platform
   - name: api-gateway
     version: "~v1.0.0"
     repository: https://charts.containerum.io
@@ -22,7 +21,7 @@ dependencies:
       - gateway
       - platform
   - name: user-manager
-    version: "v1.0.0-rc.0"
+    version: "v1.0.0-rc.4"
     repository: https://charts.containerum.io
     tags:
       - back
@@ -57,7 +56,7 @@ dependencies:
       - auth
       - platform
   - name: mail
-    version: "v1.0.0-rc.0"
+    version: "~v1.0.0-rc.0"
     repository: https://charts.containerum.io
     tags:
       - back
