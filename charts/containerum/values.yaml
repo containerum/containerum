@@ -7,6 +7,7 @@ tags:
   mail: true
   user: true
   permissions: true
+  resource: true
 
 ingress:
   ui:
