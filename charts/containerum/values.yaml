@@ -8,6 +8,7 @@ tags:
   user: true
   permissions: true
   resource: true
+  kube: true
 
 ingress:
   ui:
@@ -68,7 +69,6 @@ resource:
   env:
     local:
       CH_RESOURCE_MONGO_ADDR: null
-
 
 postgresql:
   persistence:

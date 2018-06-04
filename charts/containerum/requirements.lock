@@ -19,7 +19,7 @@ dependencies:
   version: v1.0.0-rc.5
 - name: kube
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.0
+  version: v1.0.0-rc.1
 - name: auth
   repository: https://charts.containerum.io
   version: v1.0.0-rc.0
@@ -29,5 +29,5 @@ dependencies:
 - name: ui
   repository: https://charts.containerum.io
   version: v1.0.0-rc.0
-digest: sha256:82cb1847bc456e8febd0cc5e361f1874808506bd2f585a58ff1fe1be78e61679
-generated: 2018-06-04T16:45:39.241613108+03:00
+digest: sha256:61d34389f1a450fee1b199248e4f82b631dbd38cddc3453556102f61243cf128
+generated: 2018-06-04T19:54:02.520847735+03:00
