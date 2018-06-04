@@ -91,7 +91,7 @@ Please submit any comments and report Containerum project bugs or issues in this
 In case you have questions about Containerum, there are several ways you can reach out to our team: by filling out the form on our [support page](https://containerum.com/support/) or by email at support@containerum.io.
 
 ## Docs
-You can find the documentation for Containerum - фил фри ту адд
+You can find the Documentation and Quick Start tutorial for Containerum in the [Docs section](https://docs.containerum.com/docs/about/) on our website or in the [Docs repository](https://github.com/containerum/docs) here on GutHub. Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
 
 ## License
 Copyright (c) 2015-2018 Exon LV.
