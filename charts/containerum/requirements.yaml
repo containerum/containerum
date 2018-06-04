@@ -35,7 +35,7 @@ dependencies:
       - resource
       - platform
   - name: permissions
-    version: "v1.0.0-rc.3"
+    version: "v1.0.0-rc.4"
     repository: https://charts.containerum.io
     tags:
       - back

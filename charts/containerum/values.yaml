@@ -3,8 +3,10 @@ tags:
   platform: false
   platformdb: true
   postgresql: true
+  mongo: true
   mail: true
   user: true
+  permissions: true
 
 ingress:
   ui:
@@ -48,6 +50,16 @@ user-manager:
     local:
       CH_USER_PG_ADDR: null
 
+
+permissions:
+  tags:
+    platformdb: true
+  env:
+    global:
+      DB_BASE: containerum
+      DB_USER: postgres
+    local:
+      DB_HOST: null
 
 postgresql:
   persistence:
