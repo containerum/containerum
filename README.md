@@ -14,9 +14,9 @@ Containerum consists of several components:
 * **auth** handles user authorization and token management
 * **mail** is a mail client and newsletter template manager
 * **ui** is Web User Interface for Containerum
-* **chkit** is  CLI for Containerum 
+* **chkit** is CLI for Containerum 
 
-Картинка, отражающая взаимодействие компонентов
+**Картинка, отражающая взаимодействие компонентов**
 
 ## Prerequisites
 Before installing Containerum make sure you have the following components:
