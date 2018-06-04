@@ -28,14 +28,14 @@ dependencies:
       - user
       - platform
   - name: resource
-    version: "v1.0.0-rc.4"
+    version: "v1.0.0-rc.5"
     repository: https://charts.containerum.io
     tags:
       - back
       - resource
       - platform
   - name: permissions
-    version: "v1.0.0-rc.4"
+    version: "v1.0.0-rc.5"
     repository: https://charts.containerum.io
     tags:
       - back

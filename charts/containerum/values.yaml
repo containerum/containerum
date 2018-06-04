@@ -61,6 +61,14 @@ permissions:
     local:
       DB_HOST: null
 
+resource:
+  tags:
+    platformdb: true
+  env:
+    local:
+      CH_RESOURCE_MONGO_ADDR: null
+
+
 postgresql:
   persistence:
     enabled: false
