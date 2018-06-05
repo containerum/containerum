@@ -22,7 +22,7 @@ and 2 databases:
 
 Basically, Containerum architecture looks like this:
 
-![Containerum_components](components-3.svg)
+![Containerum_components](components.svg)
 
 
 ## Prerequisites
