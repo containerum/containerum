@@ -36,7 +36,7 @@ Before installing Containerum make sure you have the following components:
 
 * You can use [Let's Kube](https://github.com/containerum/letskube) utility to install the latest verions of Docker and Kubernetes on your VMs.
 
-## How to install (Quick start)
+## How to install
 To launch Containerum on your VMs run 
 
 ``` 
@@ -98,7 +98,7 @@ Please submit any comments and report Containerum project bugs or issues in this
 In case you have questions about Containerum, there are several ways you can reach out to our team: by filling out the form on our [support page](https://containerum.com/support/) or by email at support@containerum.io.
 
 ## Docs
-You can find the Documentation and Quick Start tutorial for Containerum in the [Docs section](https://docs.containerum.com/docs/about/) on our website or in the [Docs repository](https://github.com/containerum/docs) here on GutHub. Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
+You can find the Documentation and Quick Start tutorial for Containerum in the [Docs section](https://docs.containerum.com/docs/about/) on our website or in the Docs repository here on GutHub (coming soon!). Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
 
 ## License
 Copyright (c) 2015-2018 Exon LV.
