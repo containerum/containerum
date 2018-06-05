@@ -1,7 +1,7 @@
 # Containerum
+![Containerum logo](logo_containerum.svg)
 
 ## Overview
-![Containerum logo](containerum_logo.svg)
 
 Containerum is open source package manager and UI for Kubernetes. Containerum is built to aid cluster management, teamwork and resource allocation. Containerum runs on top of any Kubernetes cluster and provides a friendly Web UI for cluster management. 
 
