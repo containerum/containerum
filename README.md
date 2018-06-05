@@ -2,7 +2,7 @@
 
 ## Overview
 
-Containerum is open source package manager and UI for Kubernetes. Containerum is built to aid cluster management, teamwork and resource allocation. Containerum runs on top of any Kubernetes cluster and provides a friendly Web UI for cluster management. 
+Containerum is open source package manager and UI for Kubernetes. Containerum is built to aid cluster management, teamwork and resource allocation. Containerum runs on top of any Kubernetes cluster and provides a friendly Web UI for cluster management.
 
 Containerum consists of several components:
 
@@ -14,7 +14,7 @@ Containerum consists of several components:
 * **auth** handles user authorization and token management
 * **mail** is a mail client and newsletter template manager
 * **ui** is Web User Interface for Containerum
-* **chkit** is CLI for Containerum 
+* **chkit** is CLI for Containerum
 
 and 2 databases:
 * MongoDB
@@ -37,9 +37,9 @@ Before installing Containerum make sure you have the following components:
 * You can use [Let's Kube](https://github.com/containerum/letskube) utility to install the latest verions of Docker and Kubernetes on your VMs.
 
 ## How to install
-To launch Containerum on your VMs run 
+To launch Containerum on your Kubernetes Cluster run 
 
-``` 
+```
 helm repo add https://charts.containerum.io
 helm repo update
 helm install containerum/containerum
@@ -59,7 +59,7 @@ helm install containerum/containerum
 
 2) Create installation scripts for AWS, GCE, MA, DO
 	- Create scripts for automated purchase of VMs
-	- Create script for managed Kubernetes installation 
+	- Create script for managed Kubernetes installation
 	- Create an application for backups and recovery
 	- Create scripts for updates
 	- Add Containerum apps to installation
@@ -91,7 +91,7 @@ helm install containerum/containerum
 8) Add admin control features
 
 ## Contributing
-We welcome any help from the open source community. To submit your contributions, fork the project you want to contribute to (e.g. *permissions, auth, etc.*), commit changes and create a pull request. We will review the changes and include them to the project. 
+We welcome any help from the open source community. To submit your contributions, fork the project you want to contribute to (e.g. *permissions, auth, etc.*), commit changes and create a pull request. We will review the changes and include them to the project.
 
 ## Issues and Support
 Please submit any comments and report Containerum project bugs or issues in this repository.
