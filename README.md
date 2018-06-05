@@ -1,4 +1,3 @@
-# Containerum
 ![Containerum logo](logo.svg)
 
 ## Overview
