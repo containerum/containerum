@@ -2,7 +2,7 @@
 ![Containerum logo](https://exonlab.ru/img/exoncontainerum.png)
 
 ## Overview
-Containerum is open source package manager and UI for Kubernetes. Containerum is built to aid cluster management, teamwork and resource allocation. Containerum communicates with Kubernetes via API.
+Containerum is open source package manager and UI for Kubernetes. Containerum is built to aid cluster management, teamwork and resource allocation. Containerum runs on top of any Kubernetes cluster and provides a friendly Web UI for cluster management. 
 
 Containerum consists of several components:
 
@@ -16,7 +16,8 @@ Containerum consists of several components:
 * **ui** is Web User Interface for Containerum
 * **chkit** is CLI for Containerum 
 
-**Картинка, отражающая взаимодействие компонентов**
+![Containerum_componenets](containerum_components.svg)
+
 
 ## Prerequisites
 Before installing Containerum make sure you have the following components:
