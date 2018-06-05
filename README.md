@@ -37,7 +37,7 @@ Before installing Containerum make sure you have the following components:
 * You can use [Let's Kube](https://github.com/containerum/letskube) utility to install the latest verions of Docker and Kubernetes on your VMs.
 
 ## How to install (Quick start)
-To test Containerum on your VMs run 
+To launch Containerum in test mode on your VMs run 
 
 ``` 
 helm repo add https://charts.containerum.io
@@ -46,6 +46,10 @@ helm install containerum/containerum
 ```
 
 To install Containerum with all components and dependencies, run
+```
+Добавить команды
+```
+
 ## Roadmap
 
 1) Create scripts to setup CI/CD Pipelines for
