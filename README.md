@@ -22,7 +22,7 @@ and 2 databases:
 
 
 
-![Containerum_components](components.pg)
+![Containerum_components](components.png)
 
 
 ## Prerequisites
