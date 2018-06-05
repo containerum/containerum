@@ -20,9 +20,9 @@ and 2 databases:
 * MongoDB
 * PostgreSQL
 
+Basically, Containerum architecture looks like this:
 
-
-![Containerum_components](Components-2.svg)
+![Containerum_components](Components-3.svg)
 
 
 ## Prerequisites
