@@ -41,7 +41,6 @@ mail:
   persistence:
     enabled: false
 
-
 user-manager:
   tags:
     platformdb: true
@@ -51,7 +50,6 @@ user-manager:
       CH_USER_PG_LOGIN: postgres
     local:
       CH_USER_PG_ADDR: null
-
 
 permissions:
   tags:
@@ -67,8 +65,16 @@ resource:
   tags:
     platformdb: true
   env:
+    global:
+      CH_RESOURCE_MONGO_DB: containerum
+      CH_RESOURCE_MONGO_LOGIN: mongo
     local:
       CH_RESOURCE_MONGO_ADDR: null
+
+gateway:
+  env:
+    local:
+      SERVICE_HOST_PREFIX: release-name
 
 postgresql:
   persistence:
@@ -81,5 +87,6 @@ postgresql:
 mongodb:
   persistence:
     enabled: false
-  # mongodbUsername: postgres
+  mongodbDatabase: containerum
+  mongodbUsername: mongo
   # mongodbPassword: password

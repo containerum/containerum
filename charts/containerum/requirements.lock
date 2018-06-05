@@ -13,7 +13,7 @@ dependencies:
   version: v1.0.0-rc.5
 - name: resource
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.5
+  version: v1.0.0-rc.7
 - name: permissions
   repository: https://charts.containerum.io
   version: v1.0.0-rc.5
@@ -29,5 +29,5 @@ dependencies:
 - name: ui
   repository: https://charts.containerum.io
   version: v1.0.0-rc.0
-digest: sha256:61d34389f1a450fee1b199248e4f82b631dbd38cddc3453556102f61243cf128
-generated: 2018-06-04T19:54:02.520847735+03:00
+digest: sha256:1bd99200dd782de9f792b40cb2b3fffa28b19b16ddf096a8da47a6a134f37d4a
+generated: 2018-06-05T15:01:04.850190002+03:00
