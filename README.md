@@ -21,7 +21,7 @@ and 2 databases:
 * PostgreSQL
 
 
-![Containerum_componenets](components.png)
+![Containerum_componenets](components.svg)
 
 
 ## Prerequisites
