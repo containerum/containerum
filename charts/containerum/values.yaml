@@ -11,6 +11,7 @@ tags:
   kube: true
   gateway: true
   auth: true
+  ui: true
 
 ingress:
   ui:
