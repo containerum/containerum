@@ -1,5 +1,5 @@
 # Containerum
-![Containerum logo](logo_containerum.svg)
+![Containerum logo](logo.svg)
 
 ## Overview
 
