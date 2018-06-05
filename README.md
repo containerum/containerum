@@ -26,9 +26,9 @@ Before installing Containerum make sure you have the following components:
 * Kubernetes *1.5 or higher*
 * Helm
 
-*or
+*or*
 
-You can use [Let's Kube](https://github.com/containerum/letskube) utility to install the latest verions of Docker and Kubernetes on your VMs.
+* You can use [Let's Kube](https://github.com/containerum/letskube) utility to install the latest verions of Docker and Kubernetes on your VMs.
 
 ## How to install (Quick start)
 Run 
