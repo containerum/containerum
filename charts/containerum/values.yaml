@@ -10,6 +10,7 @@ tags:
   resource: true
   kube: true
   gateway: true
+  auth: true
 
 ingress:
   ui:
@@ -39,6 +40,10 @@ ingress:
 
 
 mail:
+  persistence:
+    enabled: false
+
+auth:
   persistence:
     enabled: false
 
@@ -77,6 +82,10 @@ api-gateway:
     local:
       SERVICE_HOST_PREFIX: release-name
       GRPC_AUTH_ADDRESS: null
+
+auth:
+  persistence:
+    enabled: false
 
 postgresql:
   persistence:

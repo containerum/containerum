@@ -49,7 +49,7 @@ dependencies:
       - kube
       - platform
   - name: auth
-    version: "v1.0.0-rc.0"
+    version: "v1.0.0-rc.1"
     repository: https://charts.containerum.io
     tags:
       - back

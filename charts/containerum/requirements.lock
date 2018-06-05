@@ -22,12 +22,12 @@ dependencies:
   version: v1.0.0-rc.1
 - name: auth
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.0
+  version: v1.0.0-rc.1
 - name: mail
   repository: https://charts.containerum.io
   version: v1.0.0-rc.2
 - name: ui
   repository: https://charts.containerum.io
   version: v1.0.0-rc.0
-digest: sha256:09406306d9316656a0f7dd1d62ce791160ac2687d132a33c23f69527601bdd0a
-generated: 2018-06-05T16:53:00.751664899+03:00
+digest: sha256:2791a5f6a4fa3213425dfd234d64263935bf01d2debd5a5e9f0a6b93d27d3262
+generated: 2018-06-05T19:33:32.141659783+03:00
