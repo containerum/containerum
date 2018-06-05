@@ -1,5 +1,5 @@
 # Containerum
-![Containerum logo](https://exon.lv/img/exoncontainerum.png)
+![Containerum logo](https://github.com/voskvv/containerum/blob/patch-1/logo_containerum.svg)
 
 ## Overview
 Containerum is open source package manager and UI for Kubernetes. Containerum is built to aid cluster management, teamwork and resource allocation. Containerum communicates with Kubernetes via API.
