@@ -7,7 +7,7 @@ dependencies:
   version: 2.0.6
 - name: api-gateway
   repository: https://charts.containerum.io
-  version: v1.0.0
+  version: v1.0.1-rc.0
 - name: user-manager
   repository: https://charts.containerum.io
   version: v1.0.0-rc.5
@@ -29,5 +29,5 @@ dependencies:
 - name: ui
   repository: https://charts.containerum.io
   version: v1.0.0-rc.0
-digest: sha256:1bd99200dd782de9f792b40cb2b3fffa28b19b16ddf096a8da47a6a134f37d4a
-generated: 2018-06-05T15:01:04.850190002+03:00
+digest: sha256:09406306d9316656a0f7dd1d62ce791160ac2687d132a33c23f69527601bdd0a
+generated: 2018-06-05T16:53:00.751664899+03:00

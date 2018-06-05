@@ -9,6 +9,7 @@ tags:
   permissions: true
   resource: true
   kube: true
+  gateway: true
 
 ingress:
   ui:
@@ -71,10 +72,11 @@ resource:
     local:
       CH_RESOURCE_MONGO_ADDR: null
 
-gateway:
+api-gateway:
   env:
     local:
       SERVICE_HOST_PREFIX: release-name
+      GRPC_AUTH_ADDRESS: null
 
 postgresql:
   persistence:
