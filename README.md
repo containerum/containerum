@@ -16,6 +16,7 @@ Containerum consists of several components:
 * **ui** is Web User Interface for Containerum
 * **chkit** is CLI for Containerum 
 
+
 ![Containerum_componenets](containerum_components.svg)
 
 
