@@ -31,6 +31,7 @@ Before installing Containerum make sure you have the following components:
 * Docker
 * Kubernetes *1.5 or higher*
 * Helm
+* Installed [Kubernetes Ingress Controller](https://github.com/nginxinc/kubernetes-ingress/blob/master/docs/installation.md)
 
 *or*
 
