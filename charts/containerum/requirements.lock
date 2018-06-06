@@ -28,6 +28,6 @@ dependencies:
   version: v1.0.0-rc.2
 - name: ui
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.0
-digest: sha256:2791a5f6a4fa3213425dfd234d64263935bf01d2debd5a5e9f0a6b93d27d3262
-generated: 2018-06-05T19:33:32.141659783+03:00
+  version: v1.0.0-rc.1
+digest: sha256:d975ec9a0f55608684b93357f1d1229f7609c358f8cf2f7b5411509ca5142bd8
+generated: 2018-06-05T20:11:08.184686703+03:00
