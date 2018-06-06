@@ -74,6 +74,6 @@ spec:
           - path: {{ $ingressAPIPath }}
             backend:
               serviceName: {{ $fullName }}-api-gateway
-              servicePort: http
+              servicePort: 8082
   {{- end }}
 {{- end }}
