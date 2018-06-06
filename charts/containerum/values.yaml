@@ -59,6 +59,9 @@ user-manager:
       CH_USER_PG_LOGIN: postgres
     local:
       CH_USER_PG_ADDR: null
+      CH_USER_MAIL_URL: null
+      CH_USER_AUTH_GRPC_ADDR: null
+      CH_USER_PERMISSIONS_URL: null
       ## if CH_USER_ADMIN_PASSWORD null then admin doesn't creates
       CH_USER_ADMIN_PASSWORD: verystrongpassword
 
