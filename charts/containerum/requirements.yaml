@@ -21,7 +21,7 @@ dependencies:
       - gateway
       - platform
   - name: user-manager
-    version: "v1.0.0-rc.5"
+    version: "v1.0.0-rc.6"
     repository: https://charts.containerum.io
     tags:
       - back

@@ -6,8 +6,8 @@ tags:
 ingress:
   ui:
     enabled: true
-    annotations:
-      kubernetes.io/ingress.class: nginx
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     path: /
     hosts:
@@ -18,8 +18,8 @@ ingress:
     #      - chart-example.local
   api:
     enabled: true
-    annotations:
-      kubernetes.io/ingress.class: nginx
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     path: /
     hosts:
@@ -59,6 +59,8 @@ user-manager:
       CH_USER_PG_LOGIN: postgres
     local:
       CH_USER_PG_ADDR: null
+      ## if CH_USER_ADMIN_PASSWORD null then admin doesn't creates
+      CH_USER_ADMIN_PASSWORD: verystrongpassword
 
 permissions:
   tags:
