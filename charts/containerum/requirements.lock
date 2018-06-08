@@ -10,24 +10,24 @@ dependencies:
   version: v1.0.1-rc.0
 - name: user-manager
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.6
+  version: v1.0.1-rc.0
 - name: resource
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.7
+  version: v1.0.1-rc.0
 - name: permissions
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.5
+  version: v1.0.0
 - name: kube
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.1
+  version: v1.0.1-rc.0
 - name: auth
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.1
+  version: v1.0.0
 - name: mail
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.2
+  version: v1.0.0
 - name: ui
   repository: https://charts.containerum.io
-  version: v1.0.0-rc.2
-digest: sha256:38bf8aff468bb13836df702b30cc8882f82114dac1074f141b110bb6ebbac48f
-generated: 2018-06-06T20:23:00.623122772+03:00
+  version: v1.0.1-rc.0
+digest: sha256:5704430f14a6001ca193dee0e7b6c372d474a81e3382e5bee5ec6be17d7dae2c
+generated: 2018-06-08T14:00:20.544316421+03:00
