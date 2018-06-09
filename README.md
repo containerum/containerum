@@ -10,7 +10,7 @@ Containerum consists of several components:
 * **user-manager** is a service for managing users, groups, credentials, blacklists for Containerum
 * **resource** manages Kubernetes namespace objects: deployments, ingresses, etc.
 * **permissions** manage user access to enable teamwork
-* **kube** is a set of API for communication between Containerum and K8s
+* **kube-api** is a set of API for communication between Containerum and K8s
 * **auth** handles user authorization and token management
 * **mail** is a mail client and newsletter template manager
 * **ui** is Web User Interface for Containerum
