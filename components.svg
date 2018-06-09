@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1194px" height="864px" viewBox="0 0 1194 864" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>components</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="components" transform="translate(89.000000, 91.000000)">
+            <g id="lines" transform="translate(136.000000, 51.000000)">
+                <path d="M254.591727,259.651551 L254.591727,328.214797" id="Line" stroke="#D9D9D9"></path>
+                <path d="M128,463 L128,531.563246" id="Line" stroke="#D9D9D9"></path>
+                <path d="M127.613309,135.221957 L127.613309,434.868735" id="Line" stroke="#D9D9D9"></path>
+                <path d="M402.521583,137.126492 L402.521583,436.77327" id="Line" stroke="#D9D9D9"></path>
+                <path d="M704.730216,135.856802 L704.730216,435.50358" id="Line" stroke="#D9D9D9"></path>
+                <path d="M253.956835,137.126492 L253.956835,218.386635" id="Line-2" stroke="#D9D9D9"></path>
+                <path d="M565.053957,135.856802 L565.053957,217.116945" id="Line-2" stroke="#D9D9D9"></path>
+                <path d="M566.323741,0 L566.323741,87.6085919" id="Line-2" stroke="#D9D9D9"></path>
+                <path d="M126.978417,0 L126.978417,87.6085919" id="Line-2" stroke="#D9D9D9"></path>
+                <path d="M0.634892086,139.031026 L0.634892086,236.797136" id="Line" stroke="#D1D1D1"></path>
+                <path d="M0.634892086,215.212411 L0.634892086,312.97852" id="Line" stroke="#D1D1D1"></path>
+            </g>
+            <g id="K8s" transform="translate(748.000000, 479.000000)">
+                <g id="2">
+                    <g id="Rectangle-9" fill-rule="nonzero">
+                        <g id="path-1-link" fill="#000000">
+                            <rect id="path-1" x="0" y="0" width="191" height="70" rx="4"></rect>
+                        </g>
+                        <g id="path-1-link" fill="#F4F4F4">
+                            <rect id="path-1" x="0" y="0" width="191" height="70" rx="4"></rect>
+                        </g>
+                    </g>
+                    <text id="Kubernetes" fill="#4A4A4A" font-family="OpenSans, Open Sans" font-size="15" font-weight="normal">
+                        <tspan x="55" y="39">Kubernetes</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="Gateway-API" transform="translate(0.000000, 127.000000)">
+                <g id="Rectangle-9" fill-rule="nonzero">
+                    <g id="path-5-link" fill="#000000">
+                        <rect id="path-5" x="0" y="0" width="978" height="64" rx="4"></rect>
+                    </g>
+                    <g id="path-5-link" fill="#D0D0D0">
+                        <rect id="path-5" x="0" y="0" width="978" height="64" rx="4"></rect>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(445.000000, 22.000000)" fill="#4A4A4A" font-family="Helvetica" font-size="15" font-weight="normal">
+                    <g id="Gateway-API">
+                        <text>
+                            <tspan x="0.160626974" y="15.52">Gateway API</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="Kube" transform="translate(748.000000, 366.000000)">
+                <g id="Rectangle-9" fill-rule="nonzero">
+                    <g id="path-7-link" fill="#000000">
+                        <rect id="path-7" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                    <g id="path-7-link" fill="#F4F4F4">
+                        <rect id="path-7" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(64.000000, 21.000000)" fill="#4A4A4A" font-family="OpenSans, Open Sans" font-size="15" font-weight="normal">
+                    <g id="Kube-api">
+                        <text>
+                            <tspan x="0.327348661" y="16.52">Kube-api</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="Mail" transform="translate(443.000000, 485.000000)">
+                <g id="Rectangle-9" fill-rule="nonzero">
+                    <g id="path-9-link" fill="#000000">
+                        <rect id="path-9" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                    <g id="path-9-link" fill="#F4F4F4">
+                        <rect id="path-9" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(81.000000, 21.000000)" fill="#4A4A4A" font-family=".AppleSystemUIFont" font-size="15" font-weight="normal">
+                    <g id="Mail">
+                        <text>
+                            <tspan x="0.0509831207" y="15.52">Mail</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="Users" transform="translate(295.000000, 254.000000)">
+                <g id="Rectangle-9" fill-rule="nonzero">
+                    <g id="path-13-link" fill="#000000">
+                        <rect id="path-13" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                    <g id="path-13-link" fill="#F4F4F4">
+                        <rect id="path-13" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(75.000000, 22.000000)" fill="#4A4A4A" font-family="Helvetica" font-size="15" font-weight="normal">
+                    <g id="Users">
+                        <text>
+                            <tspan x="0.01554358" y="15.52">Users</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="Web-UI" transform="translate(166.000000, 0.000000)">
+                <g id="Rectangle-9" fill-rule="nonzero">
+                    <g id="path-15-link" fill="#000000">
+                        <rect id="path-15" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                    <g id="path-15-link" fill="#9B9B9B">
+                        <rect id="path-15" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                </g>
+                <g id="UI" transform="translate(70.000000, 21.000000)" fill="#FFFFFF" font-family="OpenSans, Open Sans" font-size="15" font-weight="normal">
+                    <g id="Web-UI">
+                        <text>
+                            <tspan x="0" y="16.8">Web UI</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="PostgreSQL" transform="translate(99.000000, 436.000000)" fill="#4A4A4A" font-family="Helvetica" font-size="15" font-weight="normal">
+                <g id="PostreSQL">
+                    <text>
+                        <tspan x="0" y="15">PostreSQL</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="Permissions" transform="translate(42.000000, 254.000000)">
+                <g id="Rectangle-9" fill-rule="nonzero">
+                    <g id="path-17-link" fill="#000000">
+                        <rect id="path-17" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                    <g id="path-17-link" fill="#F4F4F4">
+                        <rect id="path-17" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                </g>
+                <g id="Resource-Manager" transform="translate(55.000000, 22.000000)" fill="#4A4A4A" font-family="Helvetica" font-size="15" font-weight="normal">
+                    <g id="Permissions">
+                        <text>
+                            <tspan x="0" y="15.52">Permissions</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="chkit" transform="translate(606.000000, 0.000000)">
+                <g id="Rectangle-9" fill-rule="nonzero">
+                    <g id="path-19-link" fill="#000000">
+                        <rect id="path-19" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                    <g id="path-19-link" fill="#9B9B9B">
+                        <rect id="path-19" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(78.000000, 21.000000)" fill="#FFFFFF" font-family="OpenSans, Open Sans" font-size="15" font-weight="normal">
+                    <g id="chkit">
+                        <text>
+                            <tspan x="0.0245589073" y="16.8">chkit</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="Auth" transform="translate(606.000000, 254.000000)">
+                <g id="Rectangle-9" fill-rule="nonzero">
+                    <g id="path-21-link" fill="#000000">
+                        <rect id="path-21" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                    <g id="path-21-link" fill="#F4F4F4">
+                        <rect id="path-21" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(79.000000, 21.000000)" fill="#4A4A4A" font-family=".AppleSystemUIFont" font-size="15" font-weight="normal">
+                    <g id="Auth">
+                        <text>
+                            <tspan x="0.091783886" y="15.52">Auth</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="001-cylinder-2" transform="translate(103.000000, 337.000000)">
+                <rect id="Rectangle-path" fill="#B9B7BA" fill-rule="nonzero" x="0" y="52.84375" width="5.53066038" height="5.5625"></rect>
+                <g id="Rectangle" transform="translate(2.528302, 17.800000)">
+                    <g id="path-23-link" fill="#F4F4F4" fill-rule="nonzero">
+                        <rect id="path-23" x="0.126415094" y="0" width="60.1735849" height="58.74"></rect>
+                    </g>
+                    <rect id="Rectangle-path" stroke="#979797" x="0.758490566" y="0.635714286" width="58.909434" height="57.4685714"></rect>
+                </g>
+                <ellipse id="Oval-2" fill="#F4F4F4" fill-rule="nonzero" cx="31.8566038" cy="76.985" rx="28.3169811" ry="6.675"></ellipse>
+                <ellipse id="Oval" fill="#F4F4F4" fill-rule="nonzero" cx="33.1839623" cy="15.575" rx="27.8745283" ry="12.905"></ellipse>
+                <polygon id="Rectangle-path" fill="#B9B7BA" fill-rule="nonzero" points="0 36.1186987 5.53066038 36.1186987 5.53066038 64.6472013 0 65.6743652"></polygon>
+                <path d="M33.1839623,0 C14.2663384,0 0,7.17284375 0,16.6875 L0,36.15625 L5.53066038,36.15625 L5.53066038,26.1604375 C11.3765684,30.5770625 21.373237,33.375 33.1839623,33.375 C44.9946875,33.375 54.9913561,30.5770625 60.8372642,26.1604375 L60.8372642,72.3125 C60.8372642,77.5662812 49.0127123,83.4375 33.1839623,83.4375 C17.3552123,83.4375 5.53066038,77.5662812 5.53066038,72.3125 L5.53066038,63.96875 L0,63.96875 L0,72.3125 C0,81.8271562 14.2663384,89 33.1839623,89 C52.1015861,89 66.3679245,81.8271562 66.3679245,72.3125 L66.3679245,16.6875 C66.3679245,7.17284375 52.1015861,0 33.1839623,0 Z M33.1839623,27.8125 C17.3552123,27.8125 5.53066038,21.9412812 5.53066038,16.6875 C5.53066038,11.4337187 17.3552123,5.5625 33.1839623,5.5625 C49.0127123,5.5625 60.8372642,11.4337187 60.8372642,16.6875 C60.8372642,21.9412812 49.0127123,27.8125 33.1839623,27.8125 Z" id="Shape" fill="#B9B7BA" fill-rule="nonzero"></path>
+            </g>
+            <g id="001-cylinder-2" transform="translate(357.000000, 337.000000)">
+                <rect id="Rectangle-path" fill="#B9B7BA" fill-rule="nonzero" x="0" y="52.84375" width="5.53066038" height="5.5625"></rect>
+                <g id="Rectangle" transform="translate(2.528302, 17.800000)">
+                    <g id="path-24-link" fill="#F4F4F4" fill-rule="nonzero">
+                        <rect id="path-24" x="0.126415094" y="0" width="60.1735849" height="58.74"></rect>
+                    </g>
+                    <rect id="Rectangle-path" stroke="#979797" x="0.758490566" y="0.635714286" width="58.909434" height="57.4685714"></rect>
+                </g>
+                <ellipse id="Oval-2" fill="#F4F4F4" fill-rule="nonzero" cx="31.8566038" cy="76.985" rx="28.3169811" ry="6.675"></ellipse>
+                <ellipse id="Oval" fill="#F4F4F4" fill-rule="nonzero" cx="33.1839623" cy="15.575" rx="27.8745283" ry="12.905"></ellipse>
+                <polygon id="Rectangle-path" fill="#B9B7BA" fill-rule="nonzero" points="0 36.1186987 5.53066038 36.1186987 5.53066038 64.6472013 0 65.6743652"></polygon>
+                <path d="M33.1839623,0 C14.2663384,0 0,7.17284375 0,16.6875 L0,36.15625 L5.53066038,36.15625 L5.53066038,26.1604375 C11.3765684,30.5770625 21.373237,33.375 33.1839623,33.375 C44.9946875,33.375 54.9913561,30.5770625 60.8372642,26.1604375 L60.8372642,72.3125 C60.8372642,77.5662812 49.0127123,83.4375 33.1839623,83.4375 C17.3552123,83.4375 5.53066038,77.5662812 5.53066038,72.3125 L5.53066038,63.96875 L0,63.96875 L0,72.3125 C0,81.8271562 14.2663384,89 33.1839623,89 C52.1015861,89 66.3679245,81.8271562 66.3679245,72.3125 L66.3679245,16.6875 C66.3679245,7.17284375 52.1015861,0 33.1839623,0 Z M33.1839623,27.8125 C17.3552123,27.8125 5.53066038,21.9412812 5.53066038,16.6875 C5.53066038,11.4337187 17.3552123,5.5625 33.1839623,5.5625 C49.0127123,5.5625 60.8372642,11.4337187 60.8372642,16.6875 C60.8372642,21.9412812 49.0127123,27.8125 33.1839623,27.8125 Z" id="Shape" fill="#B9B7BA" fill-rule="nonzero"></path>
+            </g>
+            <text id="PostreSQL" fill="#4A4A4A" font-family="Helvetica" font-size="15" font-weight="normal">
+                <tspan x="353" y="449">PostreSQL</tspan>
+            </text>
+            <g id="Resource" transform="translate(168.000000, 483.000000)">
+                <g id="Rectangle-9" fill-rule="nonzero">
+                    <g id="path-25-link" fill="#000000">
+                        <rect id="path-25" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                    <g id="path-25-link" fill="#F4F4F4">
+                        <rect id="path-25" x="0" y="0" width="191" height="64" rx="4"></rect>
+                    </g>
+                </g>
+                <g id="Archive" transform="translate(63.000000, 22.000000)" fill="#4A4A4A" font-family="Helvetica" font-size="15" font-weight="normal">
+                    <g id="Resource">
+                        <text>
+                            <tspan x="0" y="15.52">Resource</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="MongoDB" transform="translate(230.000000, 663.000000)" fill="#4A4A4A" font-family=".AppleSystemUIFont" font-size="15" font-weight="normal">
+                <g id="Group">
+                    <text id="MongoDB">
+                        <tspan x="0" y="15">MongoDB</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="001-cylinder-2" transform="translate(231.000000, 565.000000)">
+                <rect id="Rectangle-path" fill="#B9B7BA" fill-rule="nonzero" x="0" y="52.84375" width="5.53066038" height="5.5625"></rect>
+                <g id="Rectangle" transform="translate(2.528302, 17.800000)">
+                    <g id="path-27-link" fill="#F4F4F4" fill-rule="nonzero">
+                        <rect id="path-27" x="0.126415094" y="0" width="60.1735849" height="58.74"></rect>
+                    </g>
+                    <rect id="Rectangle-path" stroke="#979797" x="0.758490566" y="0.635714286" width="58.909434" height="57.4685714"></rect>
+                </g>
+                <ellipse id="Oval-2" fill="#F4F4F4" fill-rule="nonzero" cx="31.8566038" cy="76.985" rx="28.3169811" ry="6.675"></ellipse>
+                <ellipse id="Oval" fill="#F4F4F4" fill-rule="nonzero" cx="33.1839623" cy="15.575" rx="27.8745283" ry="12.905"></ellipse>
+                <polygon id="Rectangle-path" fill="#B9B7BA" fill-rule="nonzero" points="0 36.1186987 5.53066038 36.1186987 5.53066038 64.6472013 0 65.6743652"></polygon>
+                <path d="M33.1839623,0 C14.2663384,0 0,7.17284375 0,16.6875 L0,36.15625 L5.53066038,36.15625 L5.53066038,26.1604375 C11.3765684,30.5770625 21.373237,33.375 33.1839623,33.375 C44.9946875,33.375 54.9913561,30.5770625 60.8372642,26.1604375 L60.8372642,72.3125 C60.8372642,77.5662813 49.0127123,83.4375 33.1839623,83.4375 C17.3552123,83.4375 5.53066038,77.5662813 5.53066038,72.3125 L5.53066038,63.96875 L0,63.96875 L0,72.3125 C0,81.8271563 14.2663384,89 33.1839623,89 C52.1015861,89 66.3679245,81.8271563 66.3679245,72.3125 L66.3679245,16.6875 C66.3679245,7.17284375 52.1015861,0 33.1839623,0 Z M33.1839623,27.8125 C17.3552123,27.8125 5.53066038,21.9412813 5.53066038,16.6875 C5.53066038,11.4337188 17.3552123,5.5625 33.1839623,5.5625 C49.0127123,5.5625 60.8372642,11.4337188 60.8372642,16.6875 C60.8372642,21.9412813 49.0127123,27.8125 33.1839623,27.8125 Z" id="Shape" fill="#B9B7BA" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>
