@@ -12,7 +12,7 @@ Containerum consists of several components:
 * **permissions** manage user access to enable teamwork
 * **kube-api** is a set of API for communication between Containerum and K8s
 * **auth** handles user authorization and token management
-* **mail** is a mail client and newsletter template manager
+* **mail** is a mail server and newsletter template manager
 * **ui** is Web User Interface for Containerum
 * **chkit** is CLI for Containerum
 
