@@ -10,9 +10,9 @@ Containerum consists of several components:
 * **user-manager** is a service for managing users, groups, credentials, blacklists for Containerum
 * **resource** manages Kubernetes namespace objects: deployments, ingresses, etc.
 * **permissions** manage user access to enable teamwork
-* **kube** is a set of API for communication between Containerum and K8s
+* **kube-api** is a set of API for communication between Containerum and K8s
 * **auth** handles user authorization and token management
-* **mail** is a mail client and newsletter template manager
+* **mail** is a mail server and newsletter template manager
 * **ui** is Web User Interface for Containerum
 * **chkit** is CLI for Containerum
 
@@ -47,8 +47,9 @@ helm install containerum/containerum
 ```
 
 ## Roadmap
+To keep track of roadmap implementation, please refer to [Containerum Projects page](https://github.com/containerum/containerum/projects).
 
-1) Create scripts to setup CI/CD Pipelines for
+- Create scripts to setup CI/CD Pipelines for
 	- Jenkins
 	- TeamCity
 	- Bamboo
@@ -58,14 +59,14 @@ helm install containerum/containerum
 	- Add pipeline management to chkit
  	- Add pipeline visualization to UI
 
-2) Create installation scripts for AWS, GCE, MA, DO
+- Create installation scripts for AWS, GCE, MA, DO
 	- Create scripts for automated purchase of VMs
 	- Create script for managed Kubernetes installation
 	- Create an application for backups and recovery
 	- Create scripts for updates
 	- Add Containerum apps to installation
 
-3) Implement ‘Project’ entity
+- Implement ‘Project’ entity
 	- Add Projects
 	- Add user groups to Projects
 	- Add users to Projects
@@ -75,9 +76,9 @@ helm install containerum/containerum
 	- Add recurring checking of completed fields
 	- Create Events Server to track events in Projects
 
-4) Create Stage environments
+- Create Stage environments
 
-5) Implement revision control for stage environments
+- Implement revision control for stage environments
 	- Add revision history within a stage
 	- Add version change confirmation in production
 	- Add revision control
@@ -85,11 +86,11 @@ helm install containerum/containerum
 	- Implement rollback mechanism
 	- Implement update of changed files only
 
-6) Implement revision control for Projects
+- Implement revision control for Projects
 
-7) Add Solutions and Marketplace
+- Add Solutions and Marketplace
 
-8) Add admin control features
+- Add admin control features
 
 ## Contributing
 We welcome any help from the open source community. To submit your contributions, fork the project you want to contribute to (e.g. *permissions, auth, etc.*), commit changes and create a pull request. We will review the changes and include them to the project.
