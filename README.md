@@ -2,7 +2,8 @@
 
 ## Overview
 
-Containerum is open source package manager and UI for Kubernetes. Containerum is built to aid cluster management, teamwork and resource allocation. Containerum runs on top of any Kubernetes cluster and provides a friendly Web UI for cluster management.
+Containerum is an open source Kubernetes platform. It features tools for easy CI/CD pipelines, revision control, project and role management. Containerum runs on top of any Kubernetes cluster. Managed via CLI or intuitive Web UI.
+
 
 Containerum consists of several components:
 
