@@ -9,15 +9,15 @@ Containerum is an open source platform for complete management of Kubernetes clu
 
 Containerum consists of several components:
 
-* **api-gateway** provides routing for Containerum components
-* **user-manager** is a service for managing users, groups, credentials, blacklists for Containerum
-* **resource** manages Kubernetes namespace objects: deployments, ingresses, etc.
-* **permissions** manage user access to enable teamwork
-* **kube-api** is a set of API for communication between Containerum and K8s
-* **auth** handles user authorization and token management
-* **mail** is a mail server and newsletter template manager
-* **ui** is Web User Interface for Containerum
-* **chkit** is CLI for Containerum
+* [**api-gateway**](https://github.com/containerum/gateway) provides routing for Containerum components
+* [**user-manager**](https://github.com/containerum/user-manager) is a service for managing users, groups, credentials, blacklists for Containerum
+* [**resource**](https://github.com/containerum/resource) manages Kubernetes namespace objects: deployments, ingresses, etc.
+* [**permissions**](https://github.com/containerum/permissions) manage user access to enable teamwork
+* [**kube-api**](https://github.com/containerum/kube-api) is a set of API for communication between Containerum and K8s
+* [**auth**](https://github.com/containerum/auth) handles user authorization and token management
+* [**mail**](https://github.com/containerum/mail) is a mail server and newsletter template manager
+* [**ui**](https://github.com/containerum/ui) is Web User Interface for Containerum
+* [**chkit**](https://github.com/containerum/chkit) is CLI for Containerum
 
 and 2 databases:
 * MongoDB
