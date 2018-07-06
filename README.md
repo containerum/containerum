@@ -49,6 +49,11 @@ helm repo update
 helm install containerum/containerum
 ```
 
+## Getting started
+Containerum has an intuitive web interface and a simple but powerful CLI tool. Yet we recommend learning about the [object types](https://docs.containerum.com/getting-started/object-types/) in Containerum as well as the basics of working with [Containerum Web UI](https://docs.containerum.com/web-panel/) and [chkit CLI](https://docs.containerum.com/cli/) in our Docs.
+
+Don't forget to install [chkit CLI](https://github.com/containerum/chkit) (from source code or binaries - whatever you prefer!).
+
 ## Roadmap
 To keep track of roadmap implementation, please refer to [Containerum Projects page](https://github.com/containerum/containerum/projects).
 
@@ -94,6 +99,7 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 - Add Solutions and Marketplace
 
 - Add admin control features
+
 
 ## Contributing
 We welcome any help from the open source community. To submit your contributions, fork the project you want to contribute to (e.g. *permissions, auth, etc.*), commit changes and create a pull request. We will review the changes and include them to the project.
