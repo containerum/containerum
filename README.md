@@ -49,6 +49,17 @@ helm repo update
 helm install containerum/containerum
 ```
 
+This will install the Containerum components and create two Ingresses to expose Containerum. You can view the Ingresses with `kubectl get ingress`.
+
+To be able to reach Containerum Web UI and the API, add the machine IP address to /etc/hosts, e.g.:
+
+```
+127.0.0.1 local.containerum.io api.local.containerum.io
+```
+where ```127.0.0.1``` is the address of your machine with Containerum.
+
+Now you can access Containerum Web UI at ```local.containerum.io```. 
+
 ## Getting started
 Containerum has an intuitive web interface and a simple but powerful CLI tool. Yet we recommend learning about the [object types](https://docs.containerum.com/getting-started/object-types/) in Containerum as well as the basics of working with [Containerum Web UI](https://docs.containerum.com/web-panel/) and [chkit CLI](https://docs.containerum.com/cli/) in our Docs.
 
