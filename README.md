@@ -34,14 +34,14 @@ Before installing Containerum make sure you have the following components:
 * Docker
 * Kubernetes *1.5 or higher*
 * Helm
-* Installed [Kubernetes Ingress Controller](https://github.com/nginxinc/kubernetes-ingress/blob/master/docs/installation.md)
+* Installed [Kubernetes Ingress Controller](ingress.md)
 
 *or*
 
 * You can use [Let's Kube](https://github.com/containerum/letskube) utility to install the latest verions of Docker and Kubernetes on your VMs.
 
 ## How to install
-To launch Containerum on your Kubernetes Cluster run 
+To launch Containerum on your Kubernetes Cluster run: 
 
 ```
 helm repo add containerum https://charts.containerum.io
