@@ -1,4 +1,4 @@
-# How to install an Ingress-Controller for Kubernetes
+# How to install Ingress-Controller for Kubernetes
 
 Ingress Controller is required to access Containerum by an External IP. 
 
