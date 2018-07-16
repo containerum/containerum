@@ -1,33 +1,33 @@
 dependencies:
 - name: postgresql
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 0.12.0
+  repository: https://charts.containerum.io
+  version: 0.15.0
 - name: mongodb
-  repository: https://kubernetes-charts.storage.googleapis.com
-  version: 2.0.6
+  repository: https://charts.containerum.io
+  version: 3.0.4
 - name: api-gateway
   repository: https://charts.containerum.io
-  version: v1.0.1-rc.0
+  version: v1.0.2-rc.1
 - name: user-manager
   repository: https://charts.containerum.io
-  version: v1.0.1-rc.0
+  version: v1.0.2-rc.0
 - name: resource
   repository: https://charts.containerum.io
-  version: v1.0.1-rc.0
+  version: v1.0.2-rc.0
 - name: permissions
   repository: https://charts.containerum.io
-  version: v1.0.0
+  version: v1.0.1-rc.0
 - name: kube
   repository: https://charts.containerum.io
-  version: v1.0.1-rc.0
+  version: v1.0.2-rc.0
 - name: auth
   repository: https://charts.containerum.io
-  version: v1.0.0
+  version: v1.0.1-rc.0
 - name: mail
   repository: https://charts.containerum.io
-  version: v1.0.0
+  version: v1.0.1-rc.0
 - name: ui
   repository: https://charts.containerum.io
-  version: v1.0.1-rc.0
-digest: sha256:5704430f14a6001ca193dee0e7b6c372d474a81e3382e5bee5ec6be17d7dae2c
-generated: 2018-06-08T14:00:20.544316421+03:00
+  version: v1.0.2-rc.1
+digest: sha256:fc3d606d9d4e03a29fbb8ae79ca9caa7125a43b96d336718bdf7fee64d5eb720
+generated: 2018-07-16T15:25:35.83694432+03:00
