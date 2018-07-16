@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/containerum/containerum.svg?branch=master)](https://travis-ci.org/containerum/containerum)
+
 ![Containerum logo](logo.svg)
 
 ## Overview
