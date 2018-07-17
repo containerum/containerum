@@ -45,6 +45,9 @@ ui:
 mail:
   persistence:
     enabled: false
+  env:
+    local:
+      CH_MAIL_USER_MANAGER_URL: null
 
 auth:
   persistence:
@@ -75,6 +78,12 @@ permissions:
       DB_USER: postgres
     local:
       DB_HOST: null
+      AUTH_ADDR: null
+      USER_ADDR: null
+      KUBE_API_ADDR: null
+      RESOURCE_SERVICE_ADDR: null
+      BILLING_ADDR: null
+      SOLUTIONS_ADDR: null
 
 resource:
   tags:
@@ -85,6 +94,7 @@ resource:
       CH_RESOURCE_MONGO_LOGIN: mongo
     local:
       CH_RESOURCE_MONGO_ADDR: null
+      CH_RESOURCE_KUBE_API_ADDR: null
 
 api-gateway:
   env:
