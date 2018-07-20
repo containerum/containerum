@@ -28,21 +28,21 @@ dependencies:
       - user
       - platform
   - name: resource
-    version: "v1.0.3-rc.0"
+    version: "v1.0.3-rc.1"
     repository: https://charts.containerum.io
     tags:
       - back
       - resource
       - platform
   - name: permissions
-    version: "v1.0.2-rc.0"
+    version: "v1.0.2-rc.2"
     repository: https://charts.containerum.io
     tags:
       - back
       - permissions
       - platform
   - name: kube
-    version: "v1.0.3-rc.0"
+    version: "v1.0.3-rc.1"
     repository: https://charts.containerum.io
     tags:
       - back

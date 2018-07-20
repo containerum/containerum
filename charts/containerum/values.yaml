@@ -95,6 +95,7 @@ resource:
     local:
       CH_RESOURCE_MONGO_ADDR: null
       CH_RESOURCE_KUBE_API_ADDR: null
+      CH_RESOURCE_PERMISSIONS_ADDR: null
 
 api-gateway:
   env:
