@@ -66,6 +66,7 @@ where ```127.0.0.1``` is the address of your machine with Containerum.
 Now you can access Containerum Web UI at ```local.containerum.io```. 
 
 Default username: admin@local.containerum.io
+
 Password: verystrongpassword
 
 ## Getting started
