@@ -31,5 +31,5 @@ To submit a contribution, please follow these guidelines:
 
 5. We will review the proposed changes and if everythings is alright, we will add them to the next release.
 
-Thanks,
+Thanks,  
 Containerum Team
