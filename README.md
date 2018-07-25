@@ -122,7 +122,7 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 
 
 ## Contributing
-We welcome any help from the open source community. To submit your contributions, fork the project you want to contribute to (e.g. *permissions, auth, etc.*), commit changes and create a pull request. We will review the changes and include them to the project.
+We welcome any help from the open source community. To submit your contributions, fork the project you want to contribute to (e.g. *permissions, auth, etc.*), commit changes and create a pull request to the develop branch. We will review the changes and include them to the project. Read more about contributing [in this document.](https://github.com/containerum/containerum/blob/master/CONTRIBUTING.md)
 
 ## Issues and Support
 Please submit any comments and report Containerum project bugs or issues in this repository.
