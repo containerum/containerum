@@ -54,6 +54,11 @@ helm repo update
 helm install containerum/containerum
 ```
 
+> Note: As of 25.07.2018, the latest stable version is 1.0.18-rc.4. To install it run:
+```
+helm install containerum/containerum --version 1.0.18-rc.4
+```
+
 This will install the Containerum components and create two Ingresses to expose Containerum. You can view the Ingresses with `kubectl get ingress`.
 
 To be able to reach Containerum Web UI and the API, add the machine IP address to /etc/hosts, e.g.:
