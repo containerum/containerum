@@ -1,9 +1,9 @@
 # Contributing to Containerum project
 
 Containerum project welcomes all contributions. 
-Before submitting a contribution, please read through this document.
+Before submitting a contribution, please read this document carefully.
 
-Containerum source code is written in Go. Containerum consists of several components. To contribute, go to the component repository and sumbit all changes there:
+Containerum consists of several components written in GO. To contribute, please go to the component repository and sumbit all changes there:
 
 * [**api-gateway**](https://github.com/containerum/gateway) provides routing for Containerum components
 * [**user-manager**](https://github.com/containerum/user-manager) is a service for managing users, groups, credentials, blacklists for Containerum
@@ -15,11 +15,11 @@ Containerum source code is written in Go. Containerum consists of several compon
 * [**ui**](https://github.com/containerum/ui) is Web User Interface for Containerum
 * [**chkit**](https://github.com/containerum/chkit) is CLI for Containerum
 
-Note: [containerum/containerum](https://github.com/containerum/containerum) contains the helm charts for Containerum platform. The source code for each component is available in the project repositories above.
+Note: [containerum/containerum](https://github.com/containerum/containerum) contains the **helm charts** for Containerum platform. The **source code** for each component is available in the project repositories above.
 
 ## Contribution guidelines
 
-To make a contribution, please follow these guidelines:
+To submit a contribution, please follow these guidelines:
 
 1. Go to the repository with the component you'd like to work on.
 
@@ -29,7 +29,7 @@ To make a contribution, please follow these guidelines:
 
 4. Once done, create a pull request to merge your fork with the `develop` branch of the original repo. Don't forget to describe the changes you are about to commit.
 
-5. We will review the pull request and if everythings is alright, we will add it to the next release.
+5. We will review the proposed changes and if everythings is alright, we will add them to the next release.
 
 Thanks,
 Containerum Team
