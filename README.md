@@ -91,6 +91,8 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 	- Codeship
 	- Add pipeline management to chkit
  	- Add pipeline visualization to UI
+	
+- Add node utilisation charts to the Dashboard
 
 - Create installation scripts for AWS, GCE, MA, DO
 	- Create scripts for automated purchase of VMs
