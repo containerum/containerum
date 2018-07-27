@@ -38,6 +38,7 @@ ui:
       ## for HTTPS use: ssl
       API_PROTOCOL_TYPE: no-ssl
       API_PORT: null
+      LATEST_RELEASE: null
     global:
       API_HOST: api.local.containerum.io
       RECAPTCHA: null
