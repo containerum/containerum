@@ -54,12 +54,12 @@ helm repo update
 helm install containerum/containerum
 ```
 
-> Note: As of 25.07.2018, the latest stable version is 1.0.18-rc.4. To install it run:
+> Note: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as slave. To add the label, run:
 ```
-helm install containerum/containerum --version 1.0.18-rc.4
+kubectl label node ubuntu-01 role=slave
 ```
+where `ubuntu-01` is the name of your node.
 
-This will install the Containerum components and create two Ingresses to expose Containerum. You can view the Ingresses with `kubectl get ingress`.
 
 To be able to reach Containerum Web UI and the API, add the machine IP address to /etc/hosts, e.g.:
 
