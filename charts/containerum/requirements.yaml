@@ -63,7 +63,7 @@ dependencies:
       - mail
       - platform
   - name: ui
-    version: "v1.0.4-rc.0"
+    version: "v1.0.4-rc.1"
     repository: https://charts.containerum.io
     tags:
       - front
