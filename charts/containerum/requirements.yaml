@@ -28,7 +28,7 @@ dependencies:
       - prometheus
       - platform
   - name: api-gateway
-    version: "v1.0.3-rc.1"
+    version: "v1.0.3-rc.2"
     repository: https://charts.containerum.io
     tags:
       - back
