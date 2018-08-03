@@ -13,20 +13,6 @@ dependencies:
       - db
       - mongo
       - platform
-  - name: prometheus-operator
-    version: "0.0.28"
-    repository: https://charts.containerum.io
-    tags:
-      - monitoring
-      - prometheus
-      - platform
-  - name: kube-prometheus
-    version: "0.0.105"
-    repository: https://charts.containerum.io
-    tags:
-      - monitoring
-      - prometheus
-      - platform
   - name: api-gateway
     version: "v1.0.3-rc.3"
     repository: https://charts.containerum.io
