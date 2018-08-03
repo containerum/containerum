@@ -85,6 +85,7 @@ permissions:
       RESOURCE_SERVICE_ADDR: null
       BILLING_ADDR: null
       SOLUTIONS_ADDR: null
+      VOLUME_MANAGER_ADDR: null
 
 resource:
   tags:

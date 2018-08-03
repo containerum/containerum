@@ -28,7 +28,7 @@ dependencies:
       - prometheus
       - platform
   - name: api-gateway
-    version: "v1.0.3-rc.2"
+    version: "v1.0.3-rc.3"
     repository: https://charts.containerum.io
     tags:
       - back
@@ -49,7 +49,7 @@ dependencies:
       - resource
       - platform
   - name: permissions
-    version: "v1.0.2-rc.5"
+    version: "v1.0.2-rc.6"
     repository: https://charts.containerum.io
     tags:
       - back
@@ -77,7 +77,7 @@ dependencies:
       - mail
       - platform
   - name: ui
-    version: "v1.0.4-rc.1"
+    version: "v1.0.5-rc.0"
     repository: https://charts.containerum.io
     tags:
       - front
