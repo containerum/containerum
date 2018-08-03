@@ -13,6 +13,20 @@ dependencies:
       - db
       - mongo
       - platform
+  - name: prometheus-operator
+    version: "0.0.28"
+    repository: https://charts.containerum.io
+    tags:
+      - monitoring
+      - prometheus
+      - platform
+  - name: kube-prometheus
+    version: "0.0.105"
+    repository: https://charts.containerum.io
+    tags:
+      - monitoring
+      - prometheus
+      - platform
   - name: api-gateway
     version: "v1.0.3-rc.1"
     repository: https://charts.containerum.io
@@ -68,4 +82,18 @@ dependencies:
     tags:
       - front
       - ui
+      - platform
+  - name: nodemetrics
+    version: "1.0.0"
+    repository: https://charts.containerum.io
+    tags:
+      - monitoring
+      - nodemetrics
+      - platform
+  - name: volume
+    version: "1.0.0-rc.1"
+    repository: https://charts.containerum.io
+    tags:
+      - back
+      - volume
       - platform

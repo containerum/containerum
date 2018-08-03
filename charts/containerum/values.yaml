@@ -98,6 +98,23 @@ resource:
       CH_RESOURCE_KUBE_API_ADDR: null
       CH_RESOURCE_PERMISSIONS_ADDR: null
 
+nodemetrics:
+  env:
+    local:
+      PROMETHEUS_ADDR: null
+
+volume:
+  tags:
+    platformdb: true
+  env:
+    global:
+      DB_BASE: containerum
+      DB_USER: postgres
+    local:
+      DB_HOST: null
+      KUBE_API_ADDR: null
+      BILLING_ADDR: null
+
 api-gateway:
   env:
     local:
