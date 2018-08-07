@@ -21,7 +21,10 @@ Containerum consists of several components:
 * [**kube-api**](https://github.com/containerum/kube-api) is a set of API for communication between Containerum and K8s
 * [**auth**](https://github.com/containerum/auth) handles user authorization and token management
 * [**mail**](https://github.com/containerum/mail) is a mail server and newsletter template manager
-* [**ui**](https://github.com/containerum/ui) is Web User Interface for Containerum
+* [**ui**](https://github.com/containerum/ui) is the Web User Interface for Containerum
+* [**solutions**](https://github.com/containerum/solutions) is a service for launching pre-built application configurations
+* [**volume-manager**](https://github.com/containerum/volume-manager) is storage class manager
+* [**nodeMetrics**](https://github.com/containerum/nodeMetrics) is Prometheus-based service for monitoring the node resource utilization
 * [**chkit**](https://github.com/containerum/chkit) is CLI for Containerum
 
 and 2 databases:
@@ -54,12 +57,12 @@ helm repo update
 helm install containerum/containerum
 ```
 
-> Note: As of 25.07.2018, the latest stable version is 1.0.18-rc.4. To install it run:
+> Note: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as slave. To add the label, run:
 ```
-helm install containerum/containerum --version 1.0.18-rc.4
+kubectl label node ubuntu-01 role=slave
 ```
+where `ubuntu-01` is the name of your node.
 
-This will install the Containerum components and create two Ingresses to expose Containerum. You can view the Ingresses with `kubectl get ingress`.
 
 To be able to reach Containerum Web UI and the API, add the machine IP address to /etc/hosts, e.g.:
 
