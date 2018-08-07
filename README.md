@@ -21,7 +21,10 @@ Containerum consists of several components:
 * [**kube-api**](https://github.com/containerum/kube-api) is a set of API for communication between Containerum and K8s
 * [**auth**](https://github.com/containerum/auth) handles user authorization and token management
 * [**mail**](https://github.com/containerum/mail) is a mail server and newsletter template manager
-* [**ui**](https://github.com/containerum/ui) is Web User Interface for Containerum
+* [**ui**](https://github.com/containerum/ui) is the Web User Interface for Containerum
+* [**solutions**](https://github.com/containerum/solutions) is a service for launching pre-built application configurations
+* [**volume-manager**](https://github.com/containerum/volume-manager) is storage class manager
+* [**nodeMetrics**](https://github.com/containerum/nodeMetrics) is Prometheus-based service for monitoring the node resource utilization
 * [**chkit**](https://github.com/containerum/chkit) is CLI for Containerum
 
 and 2 databases:
