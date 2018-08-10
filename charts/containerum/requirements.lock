@@ -7,27 +7,36 @@ dependencies:
   version: 3.0.4
 - name: api-gateway
   repository: https://charts.containerum.io
-  version: v1.0.2-rc.1
+  version: v1.0.3
 - name: user-manager
   repository: https://charts.containerum.io
-  version: v1.0.2-rc.0
+  version: v1.0.3
 - name: resource
   repository: https://charts.containerum.io
-  version: v1.0.2-rc.0
+  version: v1.0.3
 - name: permissions
   repository: https://charts.containerum.io
-  version: v1.0.1-rc.0
+  version: v1.0.2
 - name: kube
   repository: https://charts.containerum.io
-  version: v1.0.2-rc.0
+  version: v1.0.5
 - name: auth
   repository: https://charts.containerum.io
-  version: v1.0.1-rc.0
+  version: v1.0.2
 - name: mail
   repository: https://charts.containerum.io
-  version: v1.0.1-rc.0
+  version: v1.0.1
 - name: ui
   repository: https://charts.containerum.io
-  version: v1.0.2-rc.1
-digest: sha256:fc3d606d9d4e03a29fbb8ae79ca9caa7125a43b96d336718bdf7fee64d5eb720
-generated: 2018-07-16T15:25:35.83694432+03:00
+  version: v1.0.5-rc.1
+- name: nodemetrics
+  repository: https://charts.containerum.io
+  version: 1.0.1
+- name: volume
+  repository: https://charts.containerum.io
+  version: 1.0.0
+- name: solutions
+  repository: https://charts.containerum.io
+  version: 1.0.0
+digest: sha256:382198e19388af7a42053c6d49dd229e5d53bce870f831c8c0c7447119f25fd7
+generated: 2018-08-10T14:06:02.744448583+03:00
