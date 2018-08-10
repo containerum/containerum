@@ -49,6 +49,11 @@ mail:
   env:
     local:
       CH_MAIL_USER_MANAGER_URL: null
+      CH_MAIL_SMTP_PASSWORD: null
+    global:
+      CH_MAIL_SMTP_ADDR: null
+      CH_MAIL_SMTP_LOGIN: null
+
 
 auth:
   persistence:
@@ -69,6 +74,20 @@ user-manager:
       CH_USER_PERMISSIONS_URL: null
       ## if CH_USER_ADMIN_PASSWORD null then admin doesn't creates
       CH_USER_ADMIN_PASSWORD: verystrongpassword
+
+solutions:
+  tags:
+    platformdb: true
+  env:
+    global:
+      CH_SOLUTIONS_PG_DBNAME: containerum
+      CH_SOLUTIONS_PG_LOGIN: postgres
+    local:
+      CH_SOLUTIONS_PG_ADDR: null
+      CH_SOLUTIONS_PG_PASSWORD: null
+      CH_SOLUTIONS_RESOURCE_URL: null
+      CH_SOLUTIONS_KUBE_API_URL: null
+      
 
 permissions:
   tags:

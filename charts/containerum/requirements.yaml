@@ -14,70 +14,77 @@ dependencies:
       - mongo
       - platform
   - name: api-gateway
-    version: "v1.0.3-rc.3"
+    version: "v1.0.3"
     repository: https://charts.containerum.io
     tags:
       - back
       - gateway
       - platform
   - name: user-manager
-    version: "v1.0.3-rc.0"
+    version: "v1.0.3"
     repository: https://charts.containerum.io
     tags:
       - back
       - user
       - platform
   - name: resource
-    version: "v1.0.3-rc.3"
+    version: "v1.0.3"
     repository: https://charts.containerum.io
     tags:
       - back
       - resource
       - platform
   - name: permissions
-    version: "v1.0.2-rc.6"
+    version: "v1.0.2"
     repository: https://charts.containerum.io
     tags:
       - back
       - permissions
       - platform
   - name: kube
-    version: "v1.0.5-rc.0"
+    version: "v1.0.5"
     repository: https://charts.containerum.io
     tags:
       - back
       - kube
       - platform
   - name: auth
-    version: "v1.0.2-rc.0"
+    version: "v1.0.2"
     repository: https://charts.containerum.io
     tags:
       - back
       - auth
       - platform
   - name: mail
-    version: "v1.0.1-rc.0"
+    version: "v1.0.1"
     repository: https://charts.containerum.io
     tags:
       - back
       - mail
       - platform
   - name: ui
-    version: "v1.0.5-rc.0"
+    version: "v1.0.5-rc.3"
     repository: https://charts.containerum.io
     tags:
       - front
       - ui
       - platform
   - name: nodemetrics
-    version: "1.0.0"
+    version: "1.0.1"
     repository: https://charts.containerum.io
     tags:
       - monitoring
       - nodemetrics
       - platform
   - name: volume
-    version: "1.0.0-rc.1"
+    version: "1.0.0-rc.3"
+    repository: https://charts.containerum.io
+    tags:
+      - back
+      - volume
+      - platform
+  - name: solutions
+    version: "1.0.0"
     repository: https://charts.containerum.io
     tags:
       - back
