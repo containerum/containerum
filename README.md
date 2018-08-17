@@ -94,7 +94,12 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 	- Add pipeline management to chkit
  	- Add pipeline visualization to UI
 	
-- Add node utilisation charts to the Dashboard
+- ~~Add node utilisation charts to the Dashboard~~
+
+
+- Add Solutions and Marketplace
+	- ~~Add Solutions~~
+	- Add Marketplace
 
 - Create installation scripts for AWS, GCE, MA, DO
 	- Create scripts for automated purchase of VMs
@@ -103,11 +108,11 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 	- Create scripts for updates
 	- Add Containerum apps to installation
 	
-- Add integration with Helm
+- ~~Add integration with Helm
 
 - Implement ‘Project’ entity
-	- Add Projects
-	- Add user groups to Projects
+	- ~~Add Projects~~
+	- ~~Add user groups to Projects~~
 	- Add users to Projects
 	- Add role management to Projects
 	- Add role management to stage environments
@@ -126,8 +131,6 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 	- Implement update of changed files only
 
 - Implement revision control for Projects
-
-- Add Solutions and Marketplace
 
 - Add admin control features
 
