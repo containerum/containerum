@@ -112,7 +112,7 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 
 - Implement ‘Project’ entity
 	- ~~Add Projects~~
-	- ~~Add user groups to Projects~~
+	- Add user groups to Projects
 	- Add users to Projects
 	- Add role management to Projects
 	- Add role management to stage environments
