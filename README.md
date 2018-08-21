@@ -53,12 +53,13 @@ To launch Containerum on your Kubernetes Cluster run:
 ```
 helm repo add containerum https://charts.containerum.io
 helm repo update
+helm install containerum/prometheus-operator
 helm install containerum/containerum
 ```
 
-> Note: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as slave. To add the label, run:
+> Note: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure Kubernetes is able to schedule pods on the master:
 ```
-kubectl label node ubuntu-01 role=slave
+kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 where `ubuntu-01` is the name of your node.
 
