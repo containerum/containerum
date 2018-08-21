@@ -108,7 +108,7 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 	- Create scripts for updates
 	- Add Containerum apps to installation
 	
-- ~~Add integration with Helm
+- ~~Add integration with Helm~~
 
 - Implement ‘Project’ entity
 	- ~~Add Projects~~
