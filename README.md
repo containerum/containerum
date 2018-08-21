@@ -48,13 +48,21 @@ Before installing Containerum make sure you have the following components:
 * You can use [Let's Kube](https://github.com/containerum/letskube) utility to install the latest verions of Docker and Kubernetes on your VMs.
 
 ## How to install
-To launch Containerum on your Kubernetes Cluster run: 
+To launch Containerum on your Kubernetes Cluster without metrics collection run: 
+
+```
+helm repo add containerum https://charts.containerum.io
+helm repo update
+helm install containerum/containerum
+```
+
+To enable collecting resource utilization metrics, install Containerum with Prometheus Operator:
 
 ```
 helm repo add containerum https://charts.containerum.io
 helm repo update
 helm install containerum/prometheus-operator
-helm install containerum/containerum
+helm install containerum/containerum —set tags.monitoring=true
 ```
 
 > Note: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as `slave`.  To add the label, run:  
