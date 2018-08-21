@@ -39,7 +39,7 @@ Basically, Containerum architecture looks like this:
 Before installing Containerum make sure you have the following components:
 
 * Docker
-* Kubernetes *1.5 or higher*
+* Kubernetes *1.9 or higher*
 * Helm
 * Installed [Kubernetes Ingress Controller](ingress.md)
 
