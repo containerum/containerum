@@ -70,7 +70,7 @@ dependencies:
       - ui
       - platform
   - name: nodemetrics
-    version: "1.0.1"
+    version: "1.0.2"
     repository: https://charts.containerum.io
     tags:
       - monitoring

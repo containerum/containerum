@@ -2,6 +2,7 @@ tags:
   db: false
   platform: true
   platformdb: true
+  monitoring: false
 
 ingress:
   ui:
