@@ -35,7 +35,7 @@ dependencies:
       - resource
       - platform
   - name: permissions
-    version: "v1.0.3"
+    version: "v1.0.4"
     repository: https://charts.containerum.io
     tags:
       - back
@@ -63,7 +63,7 @@ dependencies:
       - mail
       - platform
   - name: ui
-    version: "v1.0.6-rc.1"
+    version: "v1.0.6-rc.2"
     repository: https://charts.containerum.io
     tags:
       - front
@@ -77,16 +77,16 @@ dependencies:
       - nodemetrics
       - platform
   - name: volume
-    version: "1.0.0"
+    version: "1.0.1"
     repository: https://charts.containerum.io
     tags:
       - back
       - volume
       - platform
   - name: solutions
-    version: "1.0.0"
+    version: "1.0.1"
     repository: https://charts.containerum.io
     tags:
       - back
-      - volume
+      - solutions
       - platform
