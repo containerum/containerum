@@ -25,18 +25,18 @@ dependencies:
   version: v1.0.2
 - name: mail
   repository: https://charts.containerum.io
-  version: v1.0.3-rc.0
+  version: v1.0.2
 - name: ui
   repository: https://charts.containerum.io
   version: v1.0.6-rc.2
 - name: nodemetrics
   repository: https://charts.containerum.io
-  version: 1.0.1
+  version: 1.0.2
 - name: volume
   repository: https://charts.containerum.io
   version: 1.0.1
 - name: solutions
   repository: https://charts.containerum.io
   version: 1.0.1
-digest: sha256:b490b595605b22976c3fd16f77b860f813dd128bd15c0ac81370555b5d66fae2
-generated: 2018-08-21T11:36:40.582779251+03:00
+digest: sha256:3b8dc672ac823dbc62d018a747bb1a1b1d7d2adca7514b82ce18286f9ae2ca22
+generated: 2018-08-21T14:58:39.049841557+03:00
