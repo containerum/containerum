@@ -60,13 +60,14 @@ helm install containerum/containerum
 > Note: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure Kubernetes is able to schedule pods on the master:
 ```
 kubectl taint nodes --all node-role.kubernetes.io/master-
-```. 
+```
 
 To be able to reach Containerum Web UI and the API, add the machine IP address to /etc/hosts, e.g.:
 
 ```
 127.0.0.1 local.containerum.io api.local.containerum.io
 ```
+
 where ```127.0.0.1``` is the address of your machine with Containerum.
 
 Now you can access Containerum Web UI at ```local.containerum.io```. 
