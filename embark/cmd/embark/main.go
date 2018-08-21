@@ -1,1 +1,5 @@
-package embark
+package main
+
+func main() {
+
+}
