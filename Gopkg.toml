@@ -1,0 +1,35 @@
+
+required = [
+#     "k8s.io/api",
+#     "k8s.io/apimachinery",
+#     "k8s.io/kubernetes",
+]
+
+#[prune]
+#  go-tests = true
+#  unused-packages = true
+#  non-go = true
+
+[[constraint]]
+  name = "k8s.io/helm"
+  version = "~2.9.1"
+
+#[[override]]
+#  name = "google.golang.org/grpc"
+#  version = "1.7.2"
+
+#[[constraint]]
+#  name = "k8s.io/api"
+#  version = "kubernetes-1.9.3"
+
+#[[constraint]]
+#  name = "k8s.io/apimachinery"
+#  version = "kubernetes-1.9.3"
+
+#[[constraint]]
+#  name = "k8s.io/client-go"
+#  version = "6.0.0"
+
+#[[constraint]]
+#  name = "k8s.io/kubernetes"
+#  version = "1.9.3"
