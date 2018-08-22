@@ -1,3 +1,4 @@
 *.tgz
 .idea/
 testdata/
+.vscode/temp.sql
