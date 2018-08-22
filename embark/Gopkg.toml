@@ -5,10 +5,10 @@ required = [
 #     "k8s.io/kubernetes",
 ]
 
-#[prune]
-#  go-tests = true
+[prune]
+  go-tests = true
 #  unused-packages = true
-#  non-go = true
+  non-go = true
 
 [[constraint]]
   name = "k8s.io/helm"
