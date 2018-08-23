@@ -33,3 +33,11 @@ required = [
 #[[constraint]]
 #  name = "k8s.io/kubernetes"
 #  version = "1.9.3"
+
+[[constraint]]
+  name = "github.com/stretchr/testify"
+  version = "~1.2.2"
+
+[[constraint]]
+  name = "github.com/mholt/archiver"
+  revision = "089cf0d1f58c48b3d14c76882a37708efe549e7b"
