@@ -51,3 +51,11 @@ func (graph Graph) AddNode(name string, deps []string, action func() error) Grap
 	}
 	return graph
 }
+
+func (graph Graph) Nodes() []string {
+	var nodes = make([]string, 0, len(graph))
+	for node := range graph {
+		nodes = append(nodes, node)
+	}
+	return nodes
+}
