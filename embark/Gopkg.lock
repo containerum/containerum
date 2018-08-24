@@ -26,6 +26,14 @@
   version = "v2.15.0"
 
 [[projects]]
+  digest = "1:dde06cba636162cd41df016518e771b1f1e156edadde221e04bd0c35f0564488"
+  name = "github.com/VividCortex/ewma"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "b24eb346a94c3ba12c1da1e564dbac1b498a77ce"
+  version = "v1.1.1"
+
+[[projects]]
   digest = "1:975108e8d4f5dab096fc991326e96a5716ee8d02e5e7386bb4796171afc4ab9a"
   name = "github.com/aokoli/goutils"
   packages = ["."]
@@ -63,6 +71,14 @@
   pruneopts = "NT"
   revision = "0ca9ea5df5451ffdf184b4428c902747c2c11cd7"
   version = "v1.0.0"
+
+[[projects]]
+  digest = "1:7c95b35057a0ff2e19f707173cc1a947fa43a6eb5c4d300d196ece0334046082"
+  name = "github.com/go-yaml/yaml"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
+  version = "v2.2.1"
 
 [[projects]]
   digest = "1:fb7b2a3e97946b9886007313497664ab2842c7b6473c33460e97157a38935f5d"
@@ -163,7 +179,14 @@
   version = "v1.0"
 
 [[projects]]
-  branch = "master"
+  digest = "1:bc4f7eec3b7be8c6cb1f0af6c1e3333d5bb71072951aaaae2f05067b0803f287"
+  name = "github.com/mattn/go-isatty"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
+  version = "v0.0.3"
+
+[[projects]]
   digest = "1:3452ccf89f87a9ed96cb4cece6187cc3ee6afc6acf8df8da838380c3a2dd54fd"
   name = "github.com/mholt/archiver"
   packages = ["."]
@@ -235,6 +258,19 @@
   version = "v0.5.4"
 
 [[projects]]
+  digest = "1:9910a6145e1021d86f25be2feb517dbeff84810edc7cb5604155f97a7cdb90cc"
+  name = "github.com/vbauerster/mpb"
+  packages = [
+    ".",
+    "cwriter",
+    "decor",
+    "internal",
+  ]
+  pruneopts = "NT"
+  revision = "b89b6c9ce4c35decc74d18628a5def8299d6c41f"
+  version = "v3.3.2"
+
+[[projects]]
   branch = "master"
   digest = "1:226b5a91dbadd24c8e33749139a8af585d6273412cfddc6358eb55992603fda8"
   name = "golang.org/x/crypto"
@@ -249,6 +285,7 @@
     "openpgp/s2k",
     "pbkdf2",
     "scrypt",
+    "ssh/terminal",
   ]
   pruneopts = "NT"
   revision = "614d502a4dac94afa3a6ce146bd1736da82514c6"
@@ -271,9 +308,20 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:d5232b5c5e1425c230341244f1eef85b460b3313625db355dde0eed57626189f"
+  name = "golang.org/x/sync"
+  packages = ["errgroup"]
+  pruneopts = "NT"
+  revision = "1d60e4601c6fd243af51cc01ddf169918a5407ca"
+
+[[projects]]
+  branch = "master"
   digest = "1:5a4c5d294331ba23802f7f21e667198a6f8dfb5dda932c339a8a64c244ebeb8a"
   name = "golang.org/x/sys"
-  packages = ["unix"]
+  packages = [
+    "unix",
+    "windows",
+  ]
   pruneopts = "NT"
   revision = "4ea2f632f6e912459fe60b26b1749377f0d889d5"
 
@@ -446,9 +494,12 @@
   input-imports = [
     "github.com/Masterminds/sprig",
     "github.com/ghodss/yaml",
+    "github.com/go-yaml/yaml",
     "github.com/mholt/archiver",
     "github.com/spf13/cobra",
     "github.com/stretchr/testify/assert",
+    "github.com/vbauerster/mpb",
+    "golang.org/x/sync/errgroup",
     "k8s.io/api/extensions/v1beta1",
     "k8s.io/helm/pkg/chartutil",
     "k8s.io/helm/pkg/downloader",
