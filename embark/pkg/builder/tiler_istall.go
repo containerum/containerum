@@ -6,9 +6,11 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
+	kubeClientAPI "k8s.io/client-go/tools/clientcmd/api"
 )
 
 type Kube struct {
+	Config kubeClientAPI.Config
 	*kubernetes.Clientset
 	config *rest.Config
 }
@@ -16,30 +18,25 @@ type Kube struct {
 // goto init()
 var defaulTiler = kubeAppsV1.Deployment{}
 
-func NewKubeClient(cfgpath string) (*Kube, error) {
+func NewKubeClient(config kubeClientAPI.Config) (*Kube, error) {
 	var kube Kube
-	var config *rest.Config
-	var err error
-
-	if cfgpath == "" {
-		config, err = rest.InClusterConfig()
-	} else {
-		config, err = clientcmd.BuildConfigFromFlags("", cfgpath)
-	}
+	var restConfig, err = clientcmd.BuildConfigFromKubeconfigGetter("", func() (*kubeClientAPI.Config, error) {
+		return &config, nil
+	})
 	if err != nil {
 		return nil, err
 	}
-	kubecli, err := kubernetes.NewForConfig(config)
+	kubecli, err := kubernetes.NewForConfig(restConfig)
 	if err != nil {
 		return nil, err
 	}
 	kube.Clientset = kubecli
-	kube.config = config
+	kube.config = restConfig
 	return &kube, nil
 }
 
-func (client *Client) InstallTiller(kubeConfigFile string) error {
-	var kube, err = NewKubeClient(kubeConfigFile)
+func (client *Client) InstallTiller(config kubeClientAPI.Config) error {
+	var kube, err = NewKubeClient(config)
 	if err != nil {
 		return err
 	}
