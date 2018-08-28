@@ -8,7 +8,7 @@ func TestSGraph_Walk(test *testing.T) {
 		"B": []string{"D"},
 		"D": []string{"C"},
 	}
-	graph.Walk("A", func(node string) {
-		test.Log(node)
+	graph.Walk("A", func(node string, path []string, children []string) {
+		test.Log(node, path, "->", children)
 	})
 }
