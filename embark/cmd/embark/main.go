@@ -5,10 +5,14 @@ import (
 	"os"
 	"path"
 
+	"io/ioutil"
+
 	"github.com/containerum/containerum/embark/pkg/builder"
 	"github.com/containerum/containerum/embark/pkg/cli/flags"
 	"github.com/octago/sflags/gen/gpflag"
 	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v2"
+	kubeClientAPI "k8s.io/client-go/tools/clientcmd/api"
 )
 
 func main() {
@@ -27,12 +31,28 @@ func cmdDownloadRequirements() *cobra.Command {
 				var ok = false
 				install.KubeConfig, ok = os.LookupEnv("KUBECONFIG")
 				if !ok {
-					install.KubeConfig = path.Join(os.Getenv("HOME"), "kube", "config")
+					install.KubeConfig = path.Join(os.Getenv("HOME"), ".kube", "config")
 				}
 			}
-			if err := client.InstallTiller(install.KubeConfig); err != nil {
+			var kubeConfigData, err = ioutil.ReadFile(install.KubeConfig)
+			if err != nil {
 				fmt.Println(err)
 				os.Exit(1)
+			}
+			var config kubeClientAPI.Config
+			if err := yaml.Unmarshal(kubeConfigData, &config); err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+			if err := client.InstallTiller(config); err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+			if install.Host == "" {
+				for _, cluster := range config.Clusters {
+					install.Host = cluster.Server
+					break
+				}
 			}
 			if err := client.InstallChartWithDependencies(install.Namespace, install.Dir, install.Values); err != nil {
 				fmt.Println(err)
