@@ -1,8 +1,10 @@
 package builder
 
 import (
-	"github.com/go-yaml/yaml"
 	kubeAppsV1 "k8s.io/api/apps/v1"
+	kubeCoreV1 "k8s.io/api/core/v1"
+	kubeAPIv1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/intstr"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
@@ -16,7 +18,74 @@ type Kube struct {
 }
 
 // goto init()
-var defaulTiler = kubeAppsV1.Deployment{}
+var defaulTiler = kubeAppsV1.Deployment{
+	TypeMeta: kubeAPIv1.TypeMeta{
+		Kind:       "deployment",
+		APIVersion: "extensions/v1beta1",
+	},
+
+	ObjectMeta: kubeAPIv1.ObjectMeta{
+		Name:      "tiller-deploy",
+		Namespace: "kube-system",
+		Labels: map[string]string{
+			"app":  "helm",
+			"name": "tiller",
+		},
+	},
+	Spec: kubeAppsV1.DeploymentSpec{
+		Selector: &kubeAPIv1.LabelSelector{
+			MatchLabels: map[string]string{
+				"app": "helm",
+			},
+		},
+		Replicas: newInt32(1),
+		Template: kubeCoreV1.PodTemplateSpec{
+			ObjectMeta: kubeAPIv1.ObjectMeta{
+				Labels: map[string]string{
+					"app":  "helm",
+					"name": "tiller",
+				},
+			},
+			Spec: kubeCoreV1.PodSpec{
+				Containers: []kubeCoreV1.Container{
+					{
+						Image:           "gcr.io/kubernetes-helm/tiller:v2.9.1",
+						Name:            "tiller",
+						ImagePullPolicy: "IfNotPresent",
+						LivenessProbe: &kubeCoreV1.Probe{
+							InitialDelaySeconds: 1,
+							TimeoutSeconds:      1,
+							Handler: kubeCoreV1.Handler{
+								HTTPGet: &kubeCoreV1.HTTPGetAction{
+									Path: "/liveness",
+									Port: intstr.FromInt(44135),
+								},
+							},
+						},
+						Env: []kubeCoreV1.EnvVar{
+							{Name: "TILLER_NAMESPACE", Value: ""},
+							{Name: "TILLER_HISTORY_MAX", Value: "0"},
+						},
+						Ports: []kubeCoreV1.ContainerPort{
+							{ContainerPort: 44134, Name: "tiller"},
+							{ContainerPort: 44135, Name: "http"},
+						},
+						ReadinessProbe: &kubeCoreV1.Probe{
+							InitialDelaySeconds: 1,
+							TimeoutSeconds:      1,
+							Handler: kubeCoreV1.Handler{
+								HTTPGet: &kubeCoreV1.HTTPGetAction{
+									Path: "/readiness",
+									Port: intstr.FromInt(44135),
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	},
+}
 
 func NewKubeClient(config kubeClientAPI.Config) (*Kube, error) {
 	var kube Kube
@@ -35,15 +104,50 @@ func NewKubeClient(config kubeClientAPI.Config) (*Kube, error) {
 	return &kube, nil
 }
 
-func (client *Client) InstallTiller(config kubeClientAPI.Config) error {
+func (client *Client) InstallTiller(config kubeClientAPI.Config) (port int32, e error) {
 	var kube, err = NewKubeClient(config)
 	if err != nil {
-		return err
+		return 0, ErrUnableToInstallTiler{Prefix: "unable to init kube client", Reason: err}
 	}
-	var _, createTilerErr = kube.AppsV1().
-		Deployments(defaulTiler.Namespace).
-		Create(&defaulTiler)
-	return createTilerErr
+
+	var deployments, fetchDeploymentsListErr = kube.AppsV1().
+		Deployments(defaulTiler.Namespace).List(kubeAPIv1.ListOptions{})
+	if fetchDeploymentsListErr != nil {
+		return 0, fetchDeploymentsListErr
+	}
+	var depl, deploymentAlreadyExists = findDepl(deployments.Items, defaulTiler.Name)
+	if !deploymentAlreadyExists {
+		var d, createTilerErr = kube.AppsV1().
+			Deployments(defaulTiler.Namespace).
+			Create(&defaulTiler)
+		if createTilerErr != nil {
+			return 0, ErrUnableToInstallTiler{Prefix: "unable to create tiller deploy", Reason: createTilerErr}
+		}
+		depl = *d
+	}
+
+	var services, fetchServicesErr = kube.CoreV1().
+		Services(defaulTiler.Namespace).List(kubeAPIv1.ListOptions{})
+	if fetchServicesErr != nil {
+		return 0, fetchServicesErr
+	}
+	var serv, serviceAlreadyExists = findServ(services.Items, defaultTillerService.Name)
+	if !serviceAlreadyExists {
+		if !deploymentAlreadyExists {
+			var port, ok = getFirstPort(depl)
+			if !ok {
+				return 0, ErrUnableToInstallTiler{Prefix: "invalid tiller deployment: no container ports!"}
+			}
+			defaultTillerService.Spec.Ports[0].Port = port
+		}
+		var s, createTillerService = kube.CoreV1().
+			Services(defaulTiler.Namespace).Create(&defaultTillerService)
+		if createTillerService != nil {
+			return 0, ErrUnableToInstallTiler{Prefix: "unable to install tiller service", Reason: createTillerService}
+		}
+		serv = *s
+	}
+	return serv.Spec.Ports[0].Port, nil
 }
 
 func init() {
@@ -94,11 +198,41 @@ spec:
           initialDelaySeconds: 1
           timeoutSeconds: 1
 `
-	if err := yaml.Unmarshal([]byte(paragonTiller), &defaulTiler); err != nil {
-		panic(err)
-	}
+	_ = paragonTiller
+	//if err := yaml.Unmarshal([]byte(paragonTiller), &defaulTiler); err != nil {
+	//	panic(err)
+	//}
+
+	//	fmt.Printf("default Tiller deployment name: %+v\n", defaulTiler)
 }
 
 func newInt32(i int32) *int32 {
 	return &i
+}
+
+func findDepl(list []kubeAppsV1.Deployment, name string) (kubeAppsV1.Deployment, bool) {
+	for _, depl := range list {
+		if depl.Name == name {
+			return *depl.DeepCopy(), true
+		}
+	}
+	return kubeAppsV1.Deployment{}, false
+}
+
+func findServ(list []kubeCoreV1.Service, name string) (kubeCoreV1.Service, bool) {
+	for _, serv := range list {
+		if serv.Name == name {
+			return *serv.DeepCopy(), true
+		}
+	}
+	return kubeCoreV1.Service{}, false
+}
+
+func getFirstPort(depl kubeAppsV1.Deployment) (int32, bool) {
+	for _, container := range depl.Spec.Template.Spec.Containers {
+		for _, p := range container.Ports {
+			return p.ContainerPort, true
+		}
+	}
+	return -1, false
 }

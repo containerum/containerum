@@ -5,23 +5,21 @@ import (
 	"os"
 	"path"
 
-	"io/ioutil"
-
 	"github.com/containerum/containerum/embark/pkg/builder"
 	"github.com/containerum/containerum/embark/pkg/cli/flags"
 	"github.com/octago/sflags/gen/gpflag"
 	"github.com/spf13/cobra"
-	"gopkg.in/yaml.v2"
-	kubeClientAPI "k8s.io/client-go/tools/clientcmd/api"
+	"k8s.io/client-go/tools/clientcmd"
 )
 
 func main() {
-	if err := cmdDownloadRequirements().Execute(); err != nil {
+	if err := cmdInstall().Execute(); err != nil {
 		fmt.Println(err)
+		return
 	}
 }
 
-func cmdDownloadRequirements() *cobra.Command {
+func cmdInstall() *cobra.Command {
 	var install = flags.Install{}
 	var cmd = &cobra.Command{
 		Use: "embark",
@@ -34,20 +32,16 @@ func cmdDownloadRequirements() *cobra.Command {
 					install.KubeConfig = path.Join(os.Getenv("HOME"), ".kube", "config")
 				}
 			}
-			var kubeConfigData, err = ioutil.ReadFile(install.KubeConfig)
-			if err != nil {
+			var config, configLoadFilerErr = clientcmd.LoadFromFile(install.KubeConfig)
+			if configLoadFilerErr != nil {
+				fmt.Printf("unable to load kube config from %q: %v\n", install.KubeConfig, configLoadFilerErr)
+				os.Exit(1)
+			}
+			if _, err := client.InstallTiller(*config); err != nil {
 				fmt.Println(err)
 				os.Exit(1)
 			}
-			var config kubeClientAPI.Config
-			if err := yaml.Unmarshal(kubeConfigData, &config); err != nil {
-				fmt.Println(err)
-				os.Exit(1)
-			}
-			if err := client.InstallTiller(config); err != nil {
-				fmt.Println(err)
-				os.Exit(1)
-			}
+
 			if install.Host == "" {
 				for _, cluster := range config.Clusters {
 					install.Host = cluster.Server
