@@ -64,6 +64,13 @@ helm repo update
 helm install containerum/prometheus-operator
 helm install containerum/containerum —set tags.monitoring=true
 ```
+If you already have Prometheus in your cluster and want to use it to display node utilization in Containerum Platform, install Containerum Platform with the following parameters:
+
+```
+helm repo add containerum https://charts.containerum.io
+helm repo update
+helm install containerum/containerum —set nodemetrics.env.local.PROMETHEUS_ADDR=http://{PROMETHEUS_SVC_NAME}:{PROMETHEUS_SVC_PORT}
+```
 
 > Note: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as `slave`.  To add the label, run:  
 
