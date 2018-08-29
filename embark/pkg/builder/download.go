@@ -19,11 +19,11 @@ func (client *Client) downloadDependency(getter *http.Client, dir string, chart 
 
 		var addr, err = chart.URL()
 		if err != nil {
-			return nil, ErrUnableToFetchChart{Chart: chart.Name, Reason: err}
+			return nil, ErrUnableToDownloadDependencies{Reason: err}
 		}
 		var resp, errGet = getter.Get(addr)
 		if errGet != nil {
-			return nil, ErrUnableToFetchChart{Chart: chart.Name, Reason: errGet}
+			return nil, ErrUnableToDownloadDependencies{Reason: errGet}
 		}
 		var size = resp.ContentLength
 		if size <= 0 {
@@ -41,7 +41,7 @@ func (client *Client) downloadDependency(getter *http.Client, dir string, chart 
 	var errUnpack = archiver.TarGz.Read(resp.Body, dir)
 	// bar.Finish()
 	if errUnpack != nil {
-		return ErrUnableToFetchChart{Chart: chart.Name, Reason: errUnpack}
+		return ErrUnableToDownloadDependencies{Reason: errUnpack}
 	}
 	return nil
 }
