@@ -6,4 +6,6 @@ type Install struct {
 	Host       string `json:"host"`
 	Dir        string `json:"dir"`
 	Values     string `json:"values"`
+
+	Debug bool
 }
