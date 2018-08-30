@@ -2,6 +2,7 @@ tags:
   db: false
   platform: true
   platformdb: true
+  monitoring: false
 
 ingress:
   ui:
@@ -53,6 +54,8 @@ mail:
     global:
       CH_MAIL_SMTP_ADDR: null
       CH_MAIL_SMTP_LOGIN: null
+      CH_MAIL_SENDER_MAIL_SIMPLE: null
+      CH_MAIL_SENDER_MAIL: null
 
 
 auth:
