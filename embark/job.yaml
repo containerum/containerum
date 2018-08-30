@@ -1,13 +1,12 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
+  name: embark
   labels:
     app: containerum
     name: embark
-  name: embark-deploy
-  namespace: kube-system
 spec:
-  replicas: 1
+  selector: {}
   template:
     metadata:
       labels:
@@ -15,8 +14,16 @@ spec:
         name: embark
     spec:
       containers:
-        image: gcr.io/kubernetes-helm/tiller:v2.9.1
-        imagePullPolicy: IfNotPresent
-          initialDelaySeconds: 1
-          timeoutSeconds: 1
-        name: embark
+        - name: embark
+          image: twentydraft/embark
+       #   command: ["ls", "-l", "/etc/kube"]
+          volumeMounts:
+            - name: kube
+              mountPath: /etc/kube
+      volumes:
+        - name: kube
+          configMap:
+            defaultMode: 420
+            name: kube-config
+      restartPolicy: Never
+
