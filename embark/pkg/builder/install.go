@@ -7,26 +7,28 @@ import (
 	"io/ioutil"
 
 	"github.com/containerum/containerum/embark/pkg/cgraph"
+	"github.com/containerum/containerum/embark/pkg/emberr"
 	"k8s.io/helm/pkg/helm"
 )
 
 func (client *Client) InstallChartWithDependencies(namespace, dir string, valuesFile string) error {
 	var chartRequirements, getRequirementsErr = client.getRequirements(dir)
 	if getRequirementsErr != nil {
-		return ErrUnableToInstallChart{Prefix: "unable to load requirements", Chart: Containerum, Reason: getRequirementsErr}
+		return emberr.ErrUnableToInstallChart{Prefix: "unable to load requirements", Chart: Containerum, Reason: getRequirementsErr}
 	}
 
 	var dependencyGraph, fetchDepsErr = client.FetchAllDeps(chartRequirements, path.Join(dir, "charts"))
 	if fetchDepsErr != nil {
-		return ErrUnableToInstallChart{Prefix: "unable to fetch all deps", Chart: Containerum, Reason: fetchDepsErr}
+		return emberr.ErrUnableToInstallChart{Prefix: "unable to fetch all deps", Chart: Containerum, Reason: fetchDepsErr}
 	}
 	var installOptions = []helm.InstallOption{
+		helm.InstallTimeout(32),
 		helm.InstallWait(true), /* blocks until chart is installed */
 	}
 	if valuesFile != "" {
 		var valuesData, loadValuesErr = ioutil.ReadFile(valuesFile)
 		if loadValuesErr != nil {
-			return ErrUnableToInstallChart{Prefix: "unable to load values file", Chart: Containerum, Reason: loadValuesErr}
+			return emberr.ErrUnableToInstallChart{Prefix: "unable to load values file", Chart: Containerum, Reason: loadValuesErr}
 		}
 		installOptions = append(installOptions,
 			helm.ValueOverrides(valuesData))
@@ -52,7 +54,7 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 	})
 	var installErr = installationGraph.Execute(Containerum)
 	if installErr != nil {
-		return ErrUnableToInstallChart{Chart: Containerum, Reason: installErr}
+		return emberr.ErrUnableToInstallChart{Chart: Containerum, Reason: installErr}
 	}
 	return nil
 }
