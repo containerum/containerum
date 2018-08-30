@@ -1,0 +1,164 @@
+tags:
+  db: false
+  platform: true
+  platformdb: true
+  monitoring: false
+
+ingress:
+  ui:
+    enabled: true
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    path: /
+    hosts:
+      - local.containerum.io
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  api:
+    enabled: true
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    path: /
+    hosts:
+      - api.local.containerum.io
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+
+ui:
+  env:
+    local:
+      ## Default user country
+      COUNTRY: US
+      ## for HTTPS use: ssl
+      API_PROTOCOL_TYPE: no-ssl
+      API_PORT: null
+      LATEST_RELEASE: null
+    global:
+      API_HOST: api.local.containerum.io
+      RECAPTCHA: null
+
+mail:
+  persistence:
+    enabled: false
+  env:
+    local:
+      CH_MAIL_USER_MANAGER_URL: null
+      CH_MAIL_SMTP_PASSWORD: null
+    global:
+      CH_MAIL_SMTP_ADDR: null
+      CH_MAIL_SMTP_LOGIN: null
+      CH_MAIL_SENDER_MAIL_SIMPLE: null
+      CH_MAIL_SENDER_MAIL: null
+
+
+auth:
+  persistence:
+    enabled: false
+
+user-manager:
+  tags:
+    platformdb: true
+  env:
+    global:
+      CH_USER_PG_DBNAME: containerum
+      CH_USER_PG_LOGIN: postgres
+    local:
+      CH_USER_PG_ADDR: null
+      CH_USER_MAIL_URL: null
+      CH_USER_AUTH_GRPC_ADDR: null
+      CH_USER_AUTH_HTTP_ADDR: null
+      CH_USER_PERMISSIONS_URL: null
+      ## if CH_USER_ADMIN_PASSWORD null then admin doesn't creates
+      CH_USER_ADMIN_PASSWORD: verystrongpassword
+
+solutions:
+  tags:
+    platformdb: true
+  env:
+    global:
+      CH_SOLUTIONS_PG_DBNAME: containerum
+      CH_SOLUTIONS_PG_LOGIN: postgres
+    local:
+      CH_SOLUTIONS_PG_ADDR: null
+      CH_SOLUTIONS_PG_PASSWORD: null
+      CH_SOLUTIONS_RESOURCE_URL: null
+      CH_SOLUTIONS_KUBE_API_URL: null
+      
+
+permissions:
+  tags:
+    platformdb: true
+  env:
+    global:
+      DB_BASE: containerum
+      DB_USER: postgres
+    local:
+      DB_HOST: null
+      AUTH_ADDR: null
+      USER_ADDR: null
+      KUBE_API_ADDR: null
+      RESOURCE_SERVICE_ADDR: null
+      BILLING_ADDR: null
+      SOLUTIONS_ADDR: null
+      VOLUME_MANAGER_ADDR: null
+
+resource:
+  tags:
+    platformdb: true
+  env:
+    global:
+      CH_RESOURCE_MONGO_DB: containerum
+      CH_RESOURCE_MONGO_LOGIN: mongo
+    local:
+      CH_RESOURCE_MONGO_ADDR: null
+      CH_RESOURCE_KUBE_API_ADDR: null
+      CH_RESOURCE_PERMISSIONS_ADDR: null
+
+nodemetrics:
+  env:
+    local:
+      PROMETHEUS_ADDR: null
+
+volume:
+  tags:
+    platformdb: true
+  env:
+    global:
+      DB_BASE: containerum
+      DB_USER: postgres
+    local:
+      DB_HOST: null
+      KUBE_API_ADDR: null
+      BILLING_ADDR: null
+
+api-gateway:
+  env:
+    local:
+      SERVICE_HOST_PREFIX: release-name
+      GRPC_AUTH_ADDRESS: null
+
+auth:
+  persistence:
+    enabled: false
+
+postgresql:
+  persistence:
+    enabled: false
+  postgresDatabase: containerum
+  # postgresUser: postgres
+  # postgresPassword: password
+
+
+mongodb:
+  persistence:
+    enabled: false
+  mongodbDatabase: containerum
+  mongodbUsername: mongo
+  # mongodbPassword: password

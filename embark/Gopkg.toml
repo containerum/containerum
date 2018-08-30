@@ -38,6 +38,11 @@ required = [
   name = "k8s.io/api"
   version = "kubernetes-1.9.3"
 
+[[constraint]]
+  name = "github.com/sirupsen/logrus"
+  version = "~v1.0.6"
+
+
 #####################################
 [[override]]
   name = "k8s.io/apimachinery"
