@@ -23,15 +23,14 @@ func RenderWithValues(values map[string]interface{}) renderOptions {
 	}
 }
 
-func RenderChart(chart *chart.Chart, output io.Writer, options ...renderOptions) error {
-	var chartValues, readChartValuesErr = chartutil.ReadValues([]byte(chart.GetValues().Raw))
+func RenderChart(ch *chart.Chart, output io.Writer, options ...renderOptions) error {
+	var chartValues, readChartValuesErr = chartutil.ReadValues([]byte(ch.GetValues().Raw))
 	if readChartValuesErr != nil {
 		return readChartValuesErr
 	}
 	var renderConfig = renderOptions{
 		Values: chartValues,
 	}
-
 	for _, option := range options {
 		if option.Values != nil {
 			renderConfig.Values = option.Values
@@ -39,7 +38,7 @@ func RenderChart(chart *chart.Chart, output io.Writer, options ...renderOptions)
 	}
 
 	var renderEngine = engine.New()
-	var targets, renderErr = renderEngine.Render(chart, renderConfig.Values)
+	var targets, renderErr = renderEngine.Render(ch, renderConfig.Values)
 	if renderErr != nil {
 		return renderErr
 	}
@@ -47,9 +46,9 @@ func RenderChart(chart *chart.Chart, output io.Writer, options ...renderOptions)
 	var notes = make([]string, 0)
 	for k, v := range targets {
 		if strings.HasSuffix(k, notesFileSuffix) {
-			// Only apply the notes if it belongs to the parent chart
+			// Only apply the notes if it belongs to the parent ch
 			// Note: Do not use filePath.Join since it creates a path with \ which is not expected
-			if k == path.Join(chart.Metadata.Name, "templates", notesFileSuffix) {
+			if k == path.Join(ch.Metadata.Name, "templates", notesFileSuffix) {
 				notes = append(notes, v)
 			}
 			delete(targets, k)
