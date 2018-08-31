@@ -2,7 +2,6 @@ package tiller
 
 import (
 	"fmt"
-	"net/url"
 
 	"github.com/containerum/containerum/embark/pkg/emberr"
 	"github.com/containerum/containerum/embark/pkg/kube"
@@ -66,9 +65,5 @@ func InstallTiller(log logger.Logger, config kubeClientAPI.Config) (a string, e 
 	} else {
 		log.Info("Tiller service already exists")
 	}
-	var servAddr = &url.URL{
-		Scheme: "http",
-		Host:   serv.Name + fmt.Sprintf(":%d", serv.Spec.Ports[0].Port),
-	}
-	return servAddr.String(), nil
+	return fmt.Sprintf("%s:%d", serv.Spec.ClusterIP, serv.Spec.Ports[0].Port), nil
 }
