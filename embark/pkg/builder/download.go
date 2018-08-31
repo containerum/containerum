@@ -14,7 +14,10 @@ func (client *Client) downloadDependency(getter *http.Client, dir string, chart 
 	client.downloadMu.Lock() // Lock
 
 	var resp, err = func() (*http.Response, error) {
-		fmt.Printf("Downloading and unpacking %q...", chart.FileName())
+		fmt.Printf("Downloading and unpacking %q...", func() string {
+			var u, _ = chart.URL()
+			return u
+		}())
 
 		defer client.downloadMu.Unlock() // Unlock
 
