@@ -16,7 +16,8 @@ spec:
       containers:
         - name: embark
           image: twentydraft/embark
-       #   command: ["ls", "-l", "/etc/kube"]
+          imagePullPolicy: Always
+          # command: ["curl", "wttr.in"]
           volumeMounts:
             - name: kube
               mountPath: /etc/kube
