@@ -32,29 +32,28 @@ func cmdInstall() *cobra.Command {
 			if install.Debug {
 				log = logger.DebugLogger()
 			}
-			_ = log
-			/*
-				var config, loadKubeConfigErr = loadKubeConfig(install.KubeConfig)
-				if loadKubeConfigErr != nil {
-					fmt.Println(loadKubeConfigErr)
-					return
-				}
+			//_ = log
+			var config, loadKubeConfigErr = loadKubeConfig(install.KubeConfig)
+			if loadKubeConfigErr != nil {
+				fmt.Println(loadKubeConfigErr)
+				return
+			}
 
-				var tillerAddr, tillerInstallErr = tiller.InstallTiller(log, config)
-				if tillerInstallErr != nil {
-					fmt.Println(tillerInstallErr)
-					os.Exit(1)
-				}
+			var tillerAddr, tillerInstallErr = tiller.InstallTiller(log, config)
+			if tillerInstallErr != nil {
+				fmt.Println(tillerInstallErr)
+				os.Exit(1)
+			}
 
-				if install.Host == "" {
-					for _, cluster := range config.Clusters {
-						install.Host = cluster.Server
-						break
-					}
+			if install.Host == "" {
+				for _, cluster := range config.Clusters {
+					install.Host = cluster.Server
+					break
 				}
-			*/
-			//			var client = builder.NewCLient(tillerAddr)
-			var client = builder.NewCLient("")
+			}
+
+			var client = builder.NewCLient(tillerAddr)
+			//var client = builder.NewCLient("")
 
 			if err := client.InstallChartWithDependencies(install.Namespace, install.Dir, install.Values); err != nil {
 				fmt.Println(err)
