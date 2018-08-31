@@ -40,10 +40,19 @@ required = [
 
 [[constraint]]
   name = "github.com/sirupsen/logrus"
-  version = "~v1.0.6"
+  version = "v1.0.6"
 
 
 #####################################
 [[override]]
   name = "k8s.io/apimachinery"
   version = "kubernetes-1.9.3"
+
+#[[override]]
+#  name = "github.com/russross/blackfriday"
+#  version = "~v1.5.1"
+
+
+[[override]]
+  name = "github.com/docker/docker"
+  version = "~v2.6.0"
