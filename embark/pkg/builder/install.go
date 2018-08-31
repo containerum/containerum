@@ -22,10 +22,12 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 		return emberr.ErrUnableToInstallChart{Prefix: "unable to fetch all deps", Chart: Containerum, Reason: fetchDepsErr}
 	}
 	var installOptions = []helm.InstallOption{
-		helm.InstallTimeout(32),
+		helm.InstallTimeout(60),
 		helm.InstallWait(true), /* blocks until chart is installed */
+		helm.InstallDryRun(true),
 	}
 	if valuesFile != "" {
+		fmt.Printf("Using valuues from %q\n", valuesFile)
 		var valuesData, loadValuesErr = ioutil.ReadFile(valuesFile)
 		if loadValuesErr != nil {
 			return emberr.ErrUnableToInstallChart{Prefix: "unable to load values file", Chart: Containerum, Reason: loadValuesErr}
@@ -45,13 +47,15 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 				chartDir = path.Join(dir, "charts", node)
 			}
 			fmt.Printf("Installing %q from %q\n", node, chartDir)
-			var _, installErr = client.InstallRelease(
-				chartDir,  /*dir with chart */
-				namespace, /* kubernetes namespace */
-				installOptions...)
+			var ch, errLoadChart = client.LoadChartFromDir(chartDir)
+			if errLoadChart != nil {
+				return fmt.Errorf("unable to load chart: %v", errLoadChart)
+			}
+			var _, installErr = client.InstallReleaseFromChart(ch, namespace, installOptions...)
 			return installErr
 		})
 	})
+	fmt.Printf("Installing containerum through tiller %q\n", client.host)
 	var installErr = installationGraph.Execute(Containerum)
 	if installErr != nil {
 		return emberr.ErrUnableToInstallChart{Chart: Containerum, Reason: installErr}
