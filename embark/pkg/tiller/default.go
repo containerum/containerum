@@ -83,7 +83,7 @@ var defaultTillerService = kubeCoreV1.Service{
 		APIVersion: "v1",
 	},
 	ObjectMeta: metaV1.ObjectMeta{
-		Name:      "tiller-deploy",
+		Name:      "tiller-service",
 		Namespace: "kube-system",
 		Labels: map[string]string{
 			"app":  "helm",
