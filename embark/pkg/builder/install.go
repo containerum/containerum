@@ -12,6 +12,9 @@ import (
 )
 
 func (client *Client) InstallChartWithDependencies(namespace, dir string, valuesFile string) error {
+
+	var log = client.log
+
 	var chartRequirements, getRequirementsErr = client.getRequirements(dir)
 	if getRequirementsErr != nil {
 		return emberr.ErrUnableToInstallChart{Prefix: "unable to load requirements", Chart: Containerum, Reason: getRequirementsErr}
@@ -27,7 +30,7 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 		helm.InstallDryRun(true),
 	}
 	if valuesFile != "" {
-		fmt.Printf("Using valuues from %q\n", valuesFile)
+		log.Infof("Using values from %q\n", valuesFile)
 		var valuesData, loadValuesErr = ioutil.ReadFile(valuesFile)
 		if loadValuesErr != nil {
 			return emberr.ErrUnableToInstallChart{Prefix: "unable to load values file", Chart: Containerum, Reason: loadValuesErr}
@@ -55,10 +58,56 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 			return installErr
 		})
 	})
-	fmt.Printf("Installing containerum through tiller %q\n", client.host)
+	log.Infof("Installing containerum through tiller %q\n", client.host)
 	var installErr = installationGraph.Execute(Containerum)
 	if installErr != nil {
 		return emberr.ErrUnableToInstallChart{Chart: Containerum, Reason: installErr}
 	}
+	return nil
+}
+
+// NOTE:
+func (client *Client) Install(namespace, dir string) error {
+	var ch, loadChartErr = client.LoadChartFromDir(dir)
+	if loadChartErr != nil {
+		return loadChartErr
+	}
+	var rendered, err = RenderChart(ch)
+	if err != nil {
+		return err
+	}
+
+	for _, depl := range rendered.Deployments {
+		var _, createDeplErr = client.
+			kube.
+			AppsV1().
+			Deployments(namespace).
+			Create(&depl)
+		if createDeplErr != nil {
+			return createDeplErr
+		}
+	}
+
+	for _, serv := range rendered.Services {
+		var _, createServErr = client.
+			kube.
+			CoreV1().
+			Services(namespace).
+			Create(&serv)
+		if createServErr != nil {
+			return err
+		}
+	}
+
+	for _, ingr := range rendered.Ingresses {
+		var _, createIngr = client.
+			kube.ExtensionsV1beta1().
+			Ingresses(namespace).
+			Create(&ingr)
+		if createIngr != nil {
+			return createIngr
+		}
+	}
+
 	return nil
 }
