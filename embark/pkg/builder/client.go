@@ -6,6 +6,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/containerum/containerum/embark/pkg/kube"
+	"github.com/containerum/containerum/embark/pkg/logger"
 	"github.com/containerum/containerum/embark/pkg/models/requirements"
 	"golang.org/x/sync/errgroup"
 	"k8s.io/helm/pkg/chartutil"
@@ -25,11 +27,14 @@ type Client struct {
 	*helm.Client
 	host       string
 	downloadMu sync.Mutex
+	kube       *kube.Kube
+	log        logger.Logger
 }
 
-func NewCLient(host string) *Client {
+func NewCLient(host string, log logger.Logger) *Client {
 	return &Client{
 		host: host,
+		log:  log,
 		Client: helm.NewClient(
 			helm.Host(host),
 			helm.ConnectTimeout(60),
