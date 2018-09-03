@@ -12,7 +12,7 @@ required = [
 
 [[constraint]]
   name = "k8s.io/helm"
-  version = "~2.9.1"
+  version = "~v2.9.0"
 
 [[constraint]]
   name = "github.com/stretchr/testify"
