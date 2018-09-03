@@ -14,9 +14,9 @@ func TestRenderChart(test *testing.T) {
 	}
 
 	var buf = &bytes.Buffer{}
-	var renderChartErr = RenderChart(ch, buf)
+	var _, renderChartErr = RenderChart(ch)
 	if renderChartErr != nil {
-		test.Log(renderChartErr)
+		test.Fatal(renderChartErr)
 	}
 	test.Log(buf)
 }
