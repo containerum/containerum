@@ -148,6 +148,17 @@ auth:
   persistence:
     enabled: false
 
+kube-importer:
+  rbac:
+    serviceAccountName: release-name
+  env:
+    global:
+      CH_KUBE_IMPORTER_EXCLUDED_NS: "default,kube-system"
+    local:
+      CH_KUBE_IMPORTER_RESOURCE_URL: null
+      CH_KUBE_IMPORTER_PERMISSIONS_URL: null
+      CH_KUBE_IMPORTER_VOLUMES_URL: null
+
 postgresql:
   persistence:
     enabled: false
