@@ -93,3 +93,15 @@ func (err ErrUnableToInstallTiler) Error() string {
 func (err ErrUnableToInstallTiler) Unwrap() error {
 	return err.Reason
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type ErrUnsupportedKubeObjectType string
+
+func (err ErrUnsupportedKubeObjectType) Error() string {
+	return fmt.Sprintf("unsupported kube object %q", string(err))
+}
+
+func (err ErrUnsupportedKubeObjectType) Unwrap() error {
+	return nil
+}
