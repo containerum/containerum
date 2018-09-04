@@ -48,56 +48,49 @@ type RenderedChart struct {
 }
 
 func RenderChart(ch *chart.Chart, options ...renderOptions) (*RenderedChart, error) {
-	//var chartValues, readChartValuesErr = chartutil.ReadValues([]byte(ch.GetValues().Raw))
-	//if readChartValuesErr != nil {
-	//	return readChartValuesErr
-	//}
-
 	var renderConfig = renderOptions{}
-	var chartValuesCapsErr error
-	renderConfig.Values, chartValuesCapsErr = chartutil.ToRenderValuesCaps(ch,
-		&chart.Config{
-			Raw: ch.GetValues().Raw,
-			//	Values: chartValues,
-		},
-		chartutil.ReleaseOptions{
-			Name:      Containerum,
-			Namespace: Containerum,
-			IsInstall: true,
-		},
-		&chartutil.Capabilities{})
-	if chartValuesCapsErr != nil {
-		return nil, chartValuesCapsErr
-	}
-
-	for _, option := range options {
-		if option.Values != nil {
-			renderConfig.Values = option.Values
+	{
+		var chartValuesCapsErr error
+		renderConfig.Values, chartValuesCapsErr = chartutil.ToRenderValuesCaps(ch,
+			&chart.Config{
+				Raw: ch.GetValues().Raw,
+				//	Values: chartValues,
+			},
+			chartutil.ReleaseOptions{
+				Name:      Containerum,
+				Namespace: Containerum,
+				IsInstall: true,
+			},
+			&chartutil.Capabilities{})
+		if chartValuesCapsErr != nil {
+			return nil, chartValuesCapsErr
 		}
 	}
+	renderConfig.Merge(options...)
 
+	var notes = make([]string, 0)
+	var rendered = RenderedChart{}
 	var renderEngine = engine.New()
 	var targets, renderErr = renderEngine.Render(ch, renderConfig.Values)
 	if renderErr != nil {
 		return nil, renderErr
 	}
 
-	var notes = make([]string, 0)
-	var rendered = RenderedChart{}
-	for k, v := range targets {
-		if strings.HasSuffix(k, notesFileSuffix) {
+	for filename, serializedKubeObject := range targets {
+		if strings.HasSuffix(filename, notesFileSuffix) {
 			// Only apply the notes if it belongs to the parent ch
 			// Note: Do not use filePath.Join since it creates a path with \ which is not expected
-			if k == path.Join(ch.Metadata.Name, "templates", notesFileSuffix) {
-				notes = append(notes, v)
+			if filename == path.Join(ch.Metadata.Name, "templates", notesFileSuffix) {
+				notes = append(notes, serializedKubeObject)
 			}
-			delete(targets, k)
+			delete(targets, filename)
 		} else {
 			var meta v1.TypeMeta
-			var metaUnmarshalErr = yaml.Unmarshal([]byte(v), &meta)
+			var metaUnmarshalErr = yaml.Unmarshal([]byte(serializedKubeObject), &meta)
 			if metaUnmarshalErr != nil {
 				return nil, nil
 			}
+			// ! wow, generic programming, much clean, so idiomatic
 			switch strings.ToLower(meta.Kind) {
 			case "deployment":
 				var depl, err = parseDeployment(serializedKubeObject)
@@ -106,37 +99,37 @@ func RenderChart(ch *chart.Chart, options ...renderOptions) (*RenderedChart, err
 				}
 				rendered.Deployments = append(rendered.Deployments, depl)
 			case "service":
-				var serv, err = parseService(v)
+				var serv, err = parseService(serializedKubeObject)
 				if err != nil {
 					return nil, err
 				}
 				rendered.Services = append(rendered.Services, serv)
 			case "volume":
-				var volume, err = parseVolume(v)
+				var volume, err = parseVolume(serializedKubeObject)
 				if err != nil {
 					return nil, err
 				}
 				rendered.Volumes = append(rendered.Volumes, volume)
 			case "configmap":
-				var configmap, err = parseConfigmap(v)
+				var configmap, err = parseConfigmap(serializedKubeObject)
 				if err != nil {
 					return nil, err
 				}
 				rendered.Configs = append(rendered.Configs, configmap)
 			case "job":
-				var job, err = parseJob(v)
+				var job, err = parseJob(serializedKubeObject)
 				if err != nil {
 					return nil, err
 				}
 				rendered.Jobs = append(rendered.Jobs, job)
 			case "secret":
-				var secret, err = parseSecret(v)
+				var secret, err = parseSecret(serializedKubeObject)
 				if err != nil {
 					return nil, err
 				}
 				rendered.Secrets = append(rendered.Secrets, secret)
 			case "ingress":
-				var ingr, err = parseIngress(v)
+				var ingr, err = parseIngress(serializedKubeObject)
 				if err != nil {
 					return nil, err
 				}
@@ -148,6 +141,8 @@ func RenderChart(ch *chart.Chart, options ...renderOptions) (*RenderedChart, err
 	}
 	return &rendered, nil
 }
+
+// <------ helpers ------>
 
 func parseDeployment(data string) (kubeApsV1.Deployment, error) {
 	var obj = kubeApsV1.Deployment{}
