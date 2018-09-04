@@ -13,14 +13,13 @@ type Kube struct {
 	config *rest.Config
 }
 
-func NewKubeClient(config kubeClientAPI.Config) (*Kube, error) {
+func NewKubeClient(config Config) (*Kube, error) {
 	var kube Kube
-	var restConfig, err = clientcmd.BuildConfigFromKubeconfigGetter("", func() (*kubeClientAPI.Config, error) {
-		return &config, nil
-	})
+	var restConfig, err = clientcmd.BuildConfigFromKubeconfigGetter("", config.Getter())
 	if err != nil {
 		return nil, err
 	}
+	restConfig.Timeout = config.Timeout
 	kubecli, err := kubernetes.NewForConfig(restConfig)
 	if err != nil {
 		return nil, err
