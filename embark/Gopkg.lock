@@ -124,6 +124,33 @@
   version = "0.16.0"
 
 [[projects]]
+  digest = "1:1c109e91a99627f9c80e8794d80773c8532dfcf234b45cdb6a6388b30a5bb5e7"
+  name = "github.com/go-playground/locales"
+  packages = [
+    ".",
+    "currency",
+  ]
+  pruneopts = "NUT"
+  revision = "f63010822830b6fe52288ee52d5a1151088ce039"
+  version = "v0.12.1"
+
+[[projects]]
+  digest = "1:1683152827ebac377858b53a6ad0be90fb1711061c7e580c5dc719834a349162"
+  name = "github.com/go-playground/universal-translator"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "b32fa301c9fe55953584134cb6853a13c87ec0a1"
+  version = "v0.16.0"
+
+[[projects]]
+  digest = "1:813792cd18ed752eea76bd63abc0b5ebd3329fb9d645eacc9b37da9027b7c673"
+  name = "github.com/go-playground/validator"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "e69e9a28bb62b977fdc58d051f1bb477b7cbe486"
+  version = "v9.21.0"
+
+[[projects]]
   digest = "1:7c95b35057a0ff2e19f707173cc1a947fa43a6eb5c4d300d196ece0334046082"
   name = "github.com/go-yaml/yaml"
   packages = ["."]
@@ -737,6 +764,7 @@
   input-imports = [
     "github.com/Masterminds/sprig",
     "github.com/ghodss/yaml",
+    "github.com/go-playground/validator",
     "github.com/go-yaml/yaml",
     "github.com/mholt/archiver",
     "github.com/octago/sflags/gen/gpflag",

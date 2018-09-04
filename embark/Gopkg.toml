@@ -51,3 +51,7 @@ required = [
 [[override]]
   name = "github.com/docker/docker"
   version = "~v2.6.0"
+
+[[constraint]]
+  name = "github.com/go-playground/validator"
+  version = "9.21.0"
