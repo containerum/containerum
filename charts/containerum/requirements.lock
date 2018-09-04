@@ -7,7 +7,7 @@ dependencies:
   version: 3.0.4
 - name: api-gateway
   repository: https://charts.containerum.io
-  version: v1.0.4
+  version: v1.0.5
 - name: user-manager
   repository: https://charts.containerum.io
   version: v1.0.5
@@ -28,10 +28,10 @@ dependencies:
   version: v1.0.3
 - name: ui
   repository: https://charts.containerum.io
-  version: v1.0.7-rc.0
+  version: v1.0.7-rc.1
 - name: nodemetrics
   repository: https://charts.containerum.io
-  version: 1.0.2
+  version: v1.0.3
 - name: volume
   repository: https://charts.containerum.io
   version: v1.0.2
@@ -40,6 +40,6 @@ dependencies:
   version: v1.0.2
 - name: kube-importer
   repository: https://charts.containerum.io
-  version: 0.0.3
-digest: sha256:46215845ecc55bab4007b6acaa1afcb6b1fe8be05f634a14e6199dc4f57a8be9
-generated: 2018-09-03T12:57:11.52982158+03:00
+  version: v0.0.0
+digest: sha256:7f9948f3612a57321e494b6c931b115230d29a808d056c147a4852b17ff1528d
+generated: 2018-09-04T11:40:20.894804177+03:00

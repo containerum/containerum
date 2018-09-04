@@ -14,7 +14,7 @@ dependencies:
       - mongo
       - platform
   - name: api-gateway
-    version: "v1.0.4"
+    version: "v1.0.5"
     repository: https://charts.containerum.io
     tags:
       - back
@@ -63,7 +63,7 @@ dependencies:
       - mail
       - platform
   - name: ui
-    version: "v1.0.7-rc.0"
+    version: "v1.0.7-rc.2"
     repository: https://charts.containerum.io
     tags:
       - front
@@ -91,7 +91,7 @@ dependencies:
       - solutions
       - platform
   - name: kube-importer
-    version: "v0.0.3"
+    version: "v0.0.5"
     repository: https://charts.containerum.io
     tags:
       - back
