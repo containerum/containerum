@@ -8,7 +8,7 @@ import (
 	"github.com/containerum/containerum/embark/pkg/cgraph"
 	"github.com/containerum/containerum/embark/pkg/emberr"
 	kubeCoreV1 "k8s.io/api/core/v1"
-	"k8s.io/helm/pkg/helm"
+	"k8s.io/helm/pkg/proto/hapi/chart"
 )
 
 var (
@@ -37,19 +37,15 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 	if fetchDepsErr != nil {
 		return emberr.ErrUnableToInstallChart{Prefix: "unable to fetch all deps", Chart: Containerum, Reason: fetchDepsErr}
 	}
-	var installOptions = []helm.InstallOption{
-		helm.InstallTimeout(60),
-		helm.InstallWait(true), /* blocks until chart is installed */
-		helm.InstallDryRun(true),
-	}
+
 	if valuesFile != "" {
 		log.Infof("Using values from %q\n", valuesFile)
 		var valuesData, loadValuesErr = ioutil.ReadFile(valuesFile)
 		if loadValuesErr != nil {
 			return emberr.ErrUnableToInstallChart{Prefix: "unable to load values file", Chart: Containerum, Reason: loadValuesErr}
 		}
-		installOptions = append(installOptions,
-			helm.ValueOverrides(valuesData))
+		// TODO: add values to config
+		_ = valuesData
 	}
 
 	var installationGraph = make(cgraph.Graph)
@@ -62,16 +58,21 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 			default:
 				chartDir = path.Join(dir, "charts", node)
 			}
-			fmt.Printf("Installing %q from %q\n", node, chartDir)
+			log.Infof("Installing %q from %q\n", node, chartDir)
 			var ch, errLoadChart = client.LoadChartFromDir(chartDir)
 			if errLoadChart != nil {
 				return fmt.Errorf("unable to load chart: %v", errLoadChart)
 			}
-			var _, installErr = client.InstallReleaseFromChart(ch, namespace, installOptions...)
-			return installErr
+			for _, dep := range ch.GetDependencies() {
+				var installChartDepErr = client.install(namespace, dep)
+				if installChartDepErr != nil {
+					return installChartDepErr
+				}
+			}
+			return client.install(namespace, ch)
 		})
 	})
-	log.Infof("Installing containerum through tiller %q\n", client.host)
+	log.Infof("Installing containerum\n")
 	var installErr = installationGraph.Execute(Containerum)
 	if installErr != nil {
 		return emberr.ErrUnableToInstallChart{Chart: Containerum, Reason: installErr}
@@ -79,11 +80,7 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 	return nil
 }
 
-func (client *Client) Install(namespace, dir string) error {
-	var ch, loadChartErr = client.LoadChartFromDir(dir)
-	if loadChartErr != nil {
-		return loadChartErr
-	}
+func (client *Client) install(namespace string, ch *chart.Chart) error {
 	var rendered, err = RenderChart(ch)
 	if err != nil {
 		return err

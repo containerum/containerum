@@ -24,35 +24,42 @@ const (
 )
 
 type Client struct {
-	*helm.Client
-	host       string
 	downloadMu sync.Mutex
 	kube       *kube.Kube
 	log        logger.Logger
+	timeout    time.Duration
 }
 
-func NewCLient(host string, log logger.Logger) *Client {
-	return &Client{
-		host: host,
-		log:  log,
-		Client: helm.NewClient(
-			helm.Host(host),
-			helm.ConnectTimeout(60),
-		),
+func NewCLient(options ...clientOptions) (*Client, error) {
+	var clientConfig = DefaultClientOptionsPtr().Merge(options...)
+
+	var kubeConfig, getKubeConfigErr = clientConfig.kubeConfig()
+	if getKubeConfigErr != nil {
+		return nil, getKubeConfigErr
 	}
+
+	var kubeClient, newKubeClientErr = kube.NewKubeClient(kubeConfig)
+	if newKubeClientErr != nil {
+		return nil, newKubeClientErr
+	}
+
+	return &Client{
+		kube:    kubeClient,
+		log:     clientConfig.log,
+		timeout: clientConfig.timeout,
+	}, nil
 }
 
 // Downloads requirements to target dir.
 // Doesn't resolve recursive dependencies
 func (client *Client) DownloadRequirements(dir string, reqs requirements.Requirements) error {
-	const timeout = 60 * time.Second
 	var getter = &http.Client{
-		Timeout: timeout,
+		Timeout: client.timeout,
 	}
 	if err := MkDirIfNotExists(dir); err != nil {
 		return err
 	}
-	var groupTimeout = time.Duration(len(reqs.Dependencies)) * timeout
+	var groupTimeout = time.Duration(len(reqs.Dependencies)) * client.timeout
 	var ctx, done = context.WithTimeout(context.Background(), groupTimeout)
 	defer done()
 	var group, _ = errgroup.WithContext(ctx)
