@@ -2,7 +2,16 @@ package emberr
 
 import "fmt"
 
+type Error interface {
+	error
+	Unwrap() error
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
+
+var (
+	_ Error = ErrUnableToFetchChart{}
+)
 
 type ErrUnableToFetchChart struct {
 	Chart  string
@@ -18,6 +27,10 @@ func (err ErrUnableToFetchChart) Unwrap() error {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+
+var (
+	_ Error = ErrUnableToDownloadDependencies{}
+)
 
 type ErrUnableToDownloadDependencies struct {
 	Reason error
@@ -35,6 +48,10 @@ func (err ErrUnableToDownloadDependencies) Unwrap() error {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+
+var (
+	_ Error = ErrUnableToInstallChart{}
+)
 
 type ErrUnableToInstallChart struct {
 	Prefix string
@@ -62,6 +79,10 @@ func (err ErrUnableToInstallChart) Unwrap() error {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var (
+	_ Error = ErrUnableToLoadChart{}
+)
+
 type ErrUnableToLoadChart struct {
 	Chart  string
 	Reason error
@@ -76,6 +97,10 @@ func (err ErrUnableToLoadChart) Unwrap() error {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+
+var (
+	_ Error = ErrUnableToInstallTiler{}
+)
 
 type ErrUnableToInstallTiler struct {
 	Prefix string
@@ -95,6 +120,10 @@ func (err ErrUnableToInstallTiler) Unwrap() error {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+
+var (
+	_ Error = ErrUnsupportedKubeObjectType("")
+)
 
 type ErrUnsupportedKubeObjectType string
 
