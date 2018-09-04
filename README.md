@@ -48,7 +48,7 @@ Before installing Containerum make sure you have the following components:
 * You can use [Let's Kube](https://github.com/containerum/letskube) utility to install the latest verions of Docker and Kubernetes on your VMs.
 
 ## How to install
-To launch Containerum on your Kubernetes Cluster without metrics collection run: 
+To launch Containerum on your Kubernetes Cluster without metrics collection run:
 
 ```
 helm repo add containerum https://charts.containerum.io
@@ -56,15 +56,15 @@ helm repo update
 helm install containerum/containerum
 ```
 
-To enable collecting resource utilization metrics, install Containerum with Prometheus Operator:
+To enable collecting resource utilization metrics, install Containerum with Prometheus:
 
 ```
 helm repo add containerum https://charts.containerum.io
 helm repo update
-helm install containerum/prometheus-operator
 helm install containerum/containerum —set tags.monitoring=true
 ```
-If you already have Prometheus in your cluster and want to use it to display node utilization in Containerum Platform, install Containerum Platform with the following parameters:
+
+If you already have Prometheus in your cluster and want to use it to display node utilization in Containerum Platform, install Containerum Platform with the parameters below. Containerum Platform is compatible with Prometheus `6.7.4` from the official Helm repository.
 
 ```
 helm repo add containerum https://charts.containerum.io
@@ -72,7 +72,15 @@ helm repo update
 helm install containerum/containerum —set nodemetrics.env.local.PROMETHEUS_ADDR=http://{PROMETHEUS_SVC_NAME}:{PROMETHEUS_SVC_PORT}
 ```
 
-> Note: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as `slave`.  To add the label, run:  
+ This will install the Containerum Platform and create two Ingresses to expose Containerum Platform. You can view the Ingresses with `kubectl get ingress`.
+
+> Note 1: Containerum Platform allows importing existing resources (deployments, services, etc.). To specify, which namespaces SHOULD NOT be imported, set the following tag during installation and list the namespaces after `CH_KUBE_IMPORTER_EXCLUDED_NS=`.
+ ```
+--set kube-importer.env.global.CH_KUBE_IMPORTER_EXCLUDED_NS="default,kube-system"
+```
+
+
+> Note 2: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as `slave`.  To add the label, run:  
 
 ```
 kubectl label node ubuntu-01 role=slave
