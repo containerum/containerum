@@ -13,6 +13,7 @@ install:
   - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
   - helm init --client-only
   - helm plugin install https://github.com/chartmuseum/helm-push
+  - go get github.com/mikefarah/yq
 
 script:
   - helm repo add containerum ${MUSEUM}
@@ -21,6 +22,7 @@ script:
 
 before_deploy:
   - mkdir -p /tmp/charts
+  - yq write --inplace charts/$NAME/values.yaml ui.env.local.LATEST_RELEASE "${TRAVIS_TAG}"
   - helm package charts/$NAME --version="${TRAVIS_TAG}" --dependency-update --destination /tmp/charts
 
 deploy:
