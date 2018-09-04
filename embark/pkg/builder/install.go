@@ -94,7 +94,7 @@ func (client *Client) Install(namespace, dir string) error {
 	for _, resourceType := range installationOrder {
 		switch resourceType {
 		case Volume:
-			// TODO: add
+			// FIXME: fix volume creation
 			/*
 				for _, vol := range rendered.Volumes {
 					_ = vol
