@@ -22,6 +22,15 @@ type renderOptions struct {
 	Values map[string]interface{}
 }
 
+func (options renderOptions) Merge(another ...renderOptions) renderOptions {
+	for _, anotherOption := range another {
+		if anotherOption.Values != nil {
+			options.Values = anotherOption.Values
+		}
+	}
+	return options
+}
+
 func RenderWithValues(values map[string]interface{}) renderOptions {
 	return renderOptions{
 		Values: values,
@@ -91,7 +100,7 @@ func RenderChart(ch *chart.Chart, options ...renderOptions) (*RenderedChart, err
 			}
 			switch strings.ToLower(meta.Kind) {
 			case "deployment":
-				var depl, err = parseDeployment(v)
+				var depl, err = parseDeployment(serializedKubeObject)
 				if err != nil {
 					return nil, err
 				}
