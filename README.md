@@ -8,6 +8,7 @@ Containerum is an open source platform for the complete management of Kubernetes
 
 - Runs on top of any Kubernetes cluster
 - Managed via CLI or intuitive Web UI
+- Imports the resources already existing in Kubernetes
 
 ![web-ui](/web-ui.png)
 
