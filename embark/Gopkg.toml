@@ -1,10 +1,4 @@
 
-required = [
-#     "k8s.io/api",
-#     "k8s.io/apimachinery",
-#     "k8s.io/kubernetes",
-]
-
 [prune]
   go-tests = true
   unused-packages = true
@@ -34,24 +28,33 @@ required = [
   name = "k8s.io/client-go"
   version = "~6.0.0"
 
-[[constraint]]
-  name = "k8s.io/api"
-  version = "kubernetes-1.9.3"
+#[[constraint]]
+#  name = "k8s.io/api"
+#  version = "kubernetes-1.9.3"
 
 [[constraint]]
   name = "github.com/sirupsen/logrus"
-  version = "v1.0.6"
-
-
-#####################################
-[[override]]
-  name = "k8s.io/apimachinery"
-  version = "kubernetes-1.9.3"
-
-[[override]]
-  name = "github.com/docker/docker"
-  version = "~v2.6.0"
+  version = "~v1.0.6"
 
 [[constraint]]
   name = "github.com/go-playground/validator"
-  version = "9.21.0"
+  version = "~9.21.0"
+
+#####################################
+
+
+#[[override]]
+#  name = "k8s.io/kubernetes
+#  version = "~1.9.3"
+
+#[[override]]
+#  name = "k8s.io/apimachinery"
+#  version = "kubernetes-1.9.3"
+
+#[[override]]
+#  name = "github.com/docker/docker"
+#  revision = "4f3616fb1c112e206b88cb7a9922bf49067a7756"
+
+#[[override]]
+#  name = "github.com/russross/blackfriday"
+#  version = "~v1.4-2-g300106c"
