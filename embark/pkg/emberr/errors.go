@@ -1,6 +1,9 @@
 package emberr
 
-import "fmt"
+import (
+	"bytes"
+	"fmt"
+)
 
 type Error interface {
 	error
@@ -99,10 +102,11 @@ func (err ErrUnableToLoadChart) Unwrap() error {
 // ---------------------------------------------------------------------------------------------------------------------
 
 var (
-	_ Error = ErrUnableToInstallTiler{}
+	_ Fatal = ErrUnableToInstallTiler{}
 )
 
 type ErrUnableToInstallTiler struct {
+	defaultExitCoder
 	Prefix string
 	Reason error
 }
@@ -122,7 +126,7 @@ func (err ErrUnableToInstallTiler) Unwrap() error {
 // ---------------------------------------------------------------------------------------------------------------------
 
 var (
-	_ Error = ErrUnsupportedKubeObjectType("")
+	_ Fatal = ErrUnsupportedKubeObjectType("")
 )
 
 type ErrUnsupportedKubeObjectType string
@@ -131,6 +135,95 @@ func (err ErrUnsupportedKubeObjectType) Error() string {
 	return fmt.Sprintf("unsupported kube object %q", string(err))
 }
 
-func (err ErrUnsupportedKubeObjectType) Unwrap() error {
+func (ErrUnsupportedKubeObjectType) Unwrap() error {
 	return nil
+}
+
+func (ErrUnsupportedKubeObjectType) ExitCode() int {
+	return 1
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+var (
+	_ Fatal = ErrUnableToCreateKubeCLient{}
+)
+
+type ErrUnableToCreateKubeCLient struct {
+	defaultExitCoder
+	Comment string
+	Reason  error
+}
+
+func (err ErrUnableToCreateKubeCLient) Error() string {
+	var prefix = "unable to create kube client"
+	if err.Comment != "" {
+		prefix += " " + err.Comment
+	}
+	return fmt.Sprintf("%s: %v", prefix, err.Reason)
+}
+
+func (err ErrUnableToCreateKubeCLient) Unwrap() error {
+	return err.Reason
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type Chain struct {
+	head error
+	tail []error
+}
+
+func NewChain(head error, tail ...error) Chain {
+	return Chain{
+		head: head,
+		tail: tail,
+	}
+}
+
+func (err Chain) Head() error {
+	return err.head
+}
+
+func (err Chain) Error() string {
+	var buf = bytes.NewBufferString(err.head.Error() + ":\n")
+	for _, e := range err.tail {
+		fmt.Fprintf(buf, "\t%s\n", e)
+	}
+	return buf.String()
+}
+
+func (err Chain) Unwrap() error {
+	switch len(err.tail) {
+	case 0:
+		return err.head
+	case 1:
+		return Chain{
+			head: err.tail[0],
+		}
+	default:
+		return Chain{
+			head: err.tail[0],
+			tail: append([]error{}, err.tail[1:]...),
+		}
+	}
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type ErrUnmarshalYAML struct {
+	Filename string
+	Reason   error
+}
+
+func (err ErrUnmarshalYAML) Error() string {
+	var prefix = "unable to unmarshal YAML"
+	if err.Filename != "" {
+		prefix += fmt.Sprintf(" file %q", err.Filename)
+	}
+	return fmt.Sprintf("%s: %v", prefix, err.Reason)
+}
+
+func (err ErrUnmarshalYAML) Unwrap() error {
+	return err.Reason
 }
