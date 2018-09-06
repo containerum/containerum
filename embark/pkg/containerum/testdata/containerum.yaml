@@ -1,0 +1,20 @@
+version : "v1.0.5"
+
+objects:
+  - "service.yaml"
+
+values:
+  KUBERNETES_CONFIG: "~/.kube/config"
+
+components:
+  - name: postrgesql
+    version : 1.2.2
+    objects:
+      - "deployment.yaml"
+  - name: mail
+    version: 0.9.6
+    objects:
+      - deployment.yaml
+      - service
+      - ingress
+      - svc
