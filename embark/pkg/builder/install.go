@@ -8,6 +8,7 @@ import (
 	"github.com/containerum/containerum/embark/pkg/cgraph"
 	"github.com/containerum/containerum/embark/pkg/emberr"
 	kubeCoreV1 "k8s.io/api/core/v1"
+	"k8s.io/helm/pkg/chartutil"
 	"k8s.io/helm/pkg/proto/hapi/chart"
 )
 
@@ -64,12 +65,12 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 				return fmt.Errorf("unable to load chart: %v", errLoadChart)
 			}
 			for _, dep := range ch.GetDependencies() {
-				var installChartDepErr = client.install(namespace, dep)
+				var installChartDepErr = client.install(namespace, dep, nil)
 				if installChartDepErr != nil {
 					return installChartDepErr
 				}
 			}
-			return client.install(namespace, ch)
+			return client.install(namespace, ch, nil)
 		})
 	})
 	log.Infof("Installing containerum\n")
@@ -80,8 +81,10 @@ func (client *Client) InstallChartWithDependencies(namespace, dir string, values
 	return nil
 }
 
-func (client *Client) install(namespace string, ch *chart.Chart) error {
-	var rendered, err = RenderChart(ch)
+func (client *Client) install(namespace string, ch *chart.Chart, values chartutil.Values) error {
+	var rendered, err = RenderChart(ch, renderOptions{
+		Values: values,
+	})
 	if err != nil {
 		return err
 	}

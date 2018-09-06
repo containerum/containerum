@@ -45,6 +45,7 @@ type RenderedChart struct {
 	Configs     []kubeCoreV1.ConfigMap
 	Volumes     []kubeCoreV1.Volume
 	Jobs        []kubeBatchAPIv1.Job
+	Notes       []string
 }
 
 func RenderChart(ch *chart.Chart, options ...renderOptions) (*RenderedChart, error) {
@@ -68,6 +69,19 @@ func RenderChart(ch *chart.Chart, options ...renderOptions) (*RenderedChart, err
 	}
 	renderConfig.Merge(options...)
 
+	var coalesceErr error
+
+	if false {
+		renderConfig.Values, coalesceErr = chartutil.CoalesceValues(ch, &chart.Config{
+			Raw: func() string {
+				var data, _ = yaml.Marshal(renderConfig.Values)
+				return string(data)
+			}(),
+		})
+		if coalesceErr != nil {
+			return nil, coalesceErr
+		}
+	}
 	var notes = make([]string, 0)
 	var rendered = RenderedChart{}
 	var renderEngine = engine.New()
@@ -77,68 +91,82 @@ func RenderChart(ch *chart.Chart, options ...renderOptions) (*RenderedChart, err
 	}
 
 	for filename, serializedKubeObject := range targets {
-		if strings.HasSuffix(filename, notesFileSuffix) {
+		switch {
+		case strings.HasSuffix(filename, notesFileSuffix):
 			// Only apply the notes if it belongs to the parent ch
 			// Note: Do not use filePath.Join since it creates a path with \ which is not expected
 			if filename == path.Join(ch.Metadata.Name, "templates", notesFileSuffix) {
 				notes = append(notes, serializedKubeObject)
 			}
 			delete(targets, filename)
-		} else {
+		case path.Ext(filename) == ".tpl":
+		case path.Ext(filename) == ".yaml":
 			var meta v1.TypeMeta
 			var metaUnmarshalErr = yaml.Unmarshal([]byte(serializedKubeObject), &meta)
 			if metaUnmarshalErr != nil {
-				return nil, nil
+				return nil, emberr.ErrUnmarshalYAML{Filename: filename, Reason: metaUnmarshalErr}
 			}
 			// ! wow, generic programming, much clean, so idiomatic
+			var err error
 			switch strings.ToLower(meta.Kind) {
 			case "deployment":
-				var depl, err = parseDeployment(serializedKubeObject)
+				var depl kubeApsV1.Deployment
+				depl, err = parseDeployment(serializedKubeObject)
 				if err != nil {
-					return nil, err
+					break
 				}
 				rendered.Deployments = append(rendered.Deployments, depl)
-			case "service":
-				var serv, err = parseService(serializedKubeObject)
+			case "service", "svc":
+				var serv kubeCoreV1.Service
+				serv, err = parseService(serializedKubeObject)
 				if err != nil {
-					return nil, err
+					break
 				}
 				rendered.Services = append(rendered.Services, serv)
 			case "volume":
-				var volume, err = parseVolume(serializedKubeObject)
+				var volume kubeCoreV1.Volume
+				volume, err = parseVolume(serializedKubeObject)
 				if err != nil {
-					return nil, err
+					break
 				}
 				rendered.Volumes = append(rendered.Volumes, volume)
 			case "configmap":
-				var configmap, err = parseConfigmap(serializedKubeObject)
+				var configmap kubeCoreV1.ConfigMap
+				configmap, err = parseConfigmap(serializedKubeObject)
 				if err != nil {
-					return nil, err
+					break
 				}
 				rendered.Configs = append(rendered.Configs, configmap)
 			case "job":
-				var job, err = parseJob(serializedKubeObject)
+				var job kubeBatchAPIv1.Job
+				job, err = parseJob(serializedKubeObject)
 				if err != nil {
-					return nil, err
+					break
 				}
 				rendered.Jobs = append(rendered.Jobs, job)
-			case "secret":
-				var secret, err = parseSecret(serializedKubeObject)
+			case "secret", "secrets":
+				var secret kubeCoreV1.Secret
+				secret, err = parseSecret(serializedKubeObject)
 				if err != nil {
 					return nil, err
 				}
 				rendered.Secrets = append(rendered.Secrets, secret)
 			case "ingress":
-				var ingr, err = parseIngress(serializedKubeObject)
+				var ingr kubeExtensionsV1beta1.Ingress
+				ingr, err = parseIngress(serializedKubeObject)
 				if err != nil {
-					return nil, err
+					break
 				}
 				rendered.Ingresses = append(rendered.Ingresses, ingr)
 			default:
 				return nil, emberr.ErrUnsupportedKubeObjectType(meta.Kind)
 			}
+			if err != nil {
+				return nil, emberr.ErrUnmarshalYAML{Filename: filename, Reason: err}
+			}
 		}
 	}
+	rendered.Notes = notes
 	return &rendered, nil
 }
 
