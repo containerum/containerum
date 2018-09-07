@@ -16,4 +16,5 @@ func TestContainerum(test *testing.T) {
 	if err := yaml.Unmarshal(data, &containerum); err != nil {
 		test.Fatal(err)
 	}
+	test.Log("\n", containerum.Copy())
 }
