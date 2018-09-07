@@ -227,3 +227,22 @@ func (err ErrUnmarshalYAML) Error() string {
 func (err ErrUnmarshalYAML) Unwrap() error {
 	return err.Reason
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type ErrInvalidTemplateDir struct {
+	defaultExitCoder
+	Comment string
+	Reason  error
+}
+
+func (err ErrInvalidTemplateDir) Error() string {
+	var msg = "invalid template dir"
+	if err.Comment != "" {
+		msg = fmt.Sprintf("%s %s", msg, err.Comment)
+	}
+	if err.Reason != nil {
+		msg = fmt.Sprintf("%s: %v", msg, err.Reason)
+	}
+	return msg
+}
