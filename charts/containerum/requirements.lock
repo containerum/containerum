@@ -28,7 +28,7 @@ dependencies:
   version: v1.0.3
 - name: ui
   repository: https://charts.containerum.io
-  version: v1.0.7-rc.2
+  version: v1.0.7-rc.4
 - name: nodemetrics
   repository: https://charts.containerum.io
   version: v1.0.3
@@ -47,5 +47,5 @@ dependencies:
 - name: events-api
   repository: https://charts.containerum.io
   version: v0.0.3
-digest: sha256:3e528bc8b85eae02a4d97b8bb1ae4b38c6422a059c82e851b02175f8db4e58c9
-generated: 2018-09-07T16:34:25.926908187+03:00
+digest: sha256:b6b27b6e57a33b25fda1cabbe45238d945a90292dd4c3e6cc9df52cd23dba109
+generated: 2018-09-07T17:16:18.28207313+03:00
