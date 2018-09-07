@@ -159,6 +159,29 @@ kube-importer:
       CH_KUBE_IMPORTER_PERMISSIONS_URL: null
       CH_KUBE_IMPORTER_VOLUMES_URL: null
 
+kube-events:
+  tags:
+    platformdb: true
+  rbac:
+    serviceAccountName: release-name
+  env:
+    local:
+      MONGO_ADDRS: null
+    global:
+      MONGO_USER: mongo
+      MONGO_DATABASE: containerum
+
+events-api:
+  tags:
+    platformdb: true
+  env:
+    global:
+      CH_EVENTS_API_MONGO_DB: containerum
+      CH_EVENTS_API_MONGO_LOGIN: mongo
+    local:
+      CH_EVENTS_API_MONGO_ADDR: null
+
+
 postgresql:
   persistence:
     enabled: false

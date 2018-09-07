@@ -97,3 +97,17 @@ dependencies:
       - back
       - kube-importer
       - platform
+  - name: kube-events
+    version: "v1.0.1-rc.6"
+    repository: https://charts.containerum.io
+    tags:
+      - back
+      - kube-events
+      - platform
+  - name: events-api
+    version: "v0.0.3"
+    repository: https://charts.containerum.io
+    tags:
+      - back
+      - events-api
+      - platform
