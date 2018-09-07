@@ -1,0 +1,839 @@
+[
+  {
+    "type": "string",
+    "format": "*v.value",
+    "import": [
+      "fmt",
+      "reflect"
+    ],
+    "tests": [
+      {
+        "in": "string",
+        "out": "string"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "val1,val2",
+          "val3,val4"
+        ],
+        "out": "[val1,val2,val3,val4]"
+      }
+    ]
+  },
+  {
+    "type": "bool",
+    "parser": "strconv.ParseBool(s)",
+    "import": [
+      "strconv"
+    ],
+    "tests": [
+      {
+        "in": "true",
+        "out": "true"
+      },
+      {
+        "in": "false",
+        "out": "false"
+      },
+      {
+        "in": "1",
+        "out": "true"
+      },
+      {
+        "in": "0",
+        "out": "false"
+      },
+      {
+        "in": "unexpected",
+        "out": "false",
+        "err": "strconv.ParseBool: parsing \\\"unexpected\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "true,false",
+          "true"
+        ],
+        "out": "[true,false,true]"
+      },
+      {
+        "in": [
+          "true,unexpected"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseBool: parsing \\\"unexpected\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "uint",
+    "parser": "strconv.ParseUint(s, 0, 64)",
+    "convert": true,
+    "tests": [
+      {
+        "in": "18446744073709551615",
+        "out": "18446744073709551615"
+      },
+      {
+        "in": "18446744073709551616",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"18446744073709551616\\\": value out of range"
+      },
+      {
+        "in": "-1",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "0"
+        ],
+        "out": "[10,20,0]"
+      },
+      {
+        "in": [
+          "-1,0"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "uint8",
+    "parser": "strconv.ParseUint(s, 0, 8)",
+    "convert": true,
+    "tests": [
+      {
+        "in": "255",
+        "out": "255"
+      },
+      {
+        "in": "256",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"256\\\": value out of range"
+      },
+      {
+        "in": "-1",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "0"
+        ],
+        "out": "[10,20,0]"
+      },
+      {
+        "in": [
+          "-1,0"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "uint16",
+    "parser": "strconv.ParseUint(s, 0, 16)",
+    "convert": true,
+    "tests": [
+      {
+        "in": "65535",
+        "out": "65535"
+      },
+      {
+        "in": "65536",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"65536\\\": value out of range"
+      },
+      {
+        "in": "-1",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "0"
+        ],
+        "out": "[10,20,0]"
+      },
+      {
+        "in": [
+          "-1,0"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "uint32",
+    "parser": "strconv.ParseUint(s, 0, 32)",
+    "convert": true,
+    "tests": [
+      {
+        "in": "4294967295",
+        "out": "4294967295"
+      },
+      {
+        "in": "4294967296",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"4294967296\\\": value out of range"
+      },
+      {
+        "in": "-1",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "0"
+        ],
+        "out": "[10,20,0]"
+      },
+      {
+        "in": [
+          "-1,0"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "uint64",
+    "parser": "strconv.ParseUint(s, 0, 64)",
+    "tests": [
+      {
+        "in": "18446744073709551615",
+        "out": "18446744073709551615"
+      },
+      {
+        "in": "18446744073709551616",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"18446744073709551616\\\": value out of range"
+      },
+      {
+        "in": "-1",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseUint: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "0"
+        ],
+        "out": "[10,20,0]"
+      },
+      {
+        "in": [
+          "-1,0"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseUint: parsing \\\"-1\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "int",
+    "parser": "strconv.ParseInt(s, 0, 64)",
+    "convert": true,
+    "tests": [
+      {
+        "in": "9223372036854775807",
+        "out": "9223372036854775807"
+      },
+      {
+        "in": "-9223372036854775808",
+        "out": "-9223372036854775808"
+      },
+      {
+        "in": "0x10",
+        "out": "16"
+      },
+      {
+        "in": "0210",
+        "out": "136"
+      },
+      {
+        "in": "0710",
+        "out": "456"
+      },
+      {
+        "in": "-9223372036854775809",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"-9223372036854775809\\\": value out of range"
+      },
+      {
+        "in": "9223372036854775808",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"9223372036854775808\\\": value out of range"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "-1"
+        ],
+        "out": "[10,20,-1]"
+      },
+      {
+        "in": [
+          "1,a"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "int8",
+    "parser": "strconv.ParseInt(s, 0, 8)",
+    "convert": true,
+    "tests": [
+      {
+        "in": "127",
+        "out": "127"
+      },
+      {
+        "in": "-128",
+        "out": "-128"
+      },
+      {
+        "in": "-129",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"-129\\\": value out of range"
+      },
+      {
+        "in": "128",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"128\\\": value out of range"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "-1"
+        ],
+        "out": "[10,20,-1]"
+      },
+      {
+        "in": [
+          "1,a"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "int16",
+    "parser": "strconv.ParseInt(s, 0, 16)",
+    "convert": true,
+    "tests": [
+      {
+        "in": "32767",
+        "out": "32767"
+      },
+      {
+        "in": "-32768",
+        "out": "-32768"
+      },
+      {
+        "in": "-32769",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"-32769\\\": value out of range"
+      },
+      {
+        "in": "32768",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"32768\\\": value out of range"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "-1"
+        ],
+        "out": "[10,20,-1]"
+      },
+      {
+        "in": [
+          "1,a"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "int32",
+    "parser": "strconv.ParseInt(s, 0, 32)",
+    "convert": true,
+    "tests": [
+      {
+        "in": "2147483647",
+        "out": "2147483647"
+      },
+      {
+        "in": "-2147483648",
+        "out": "-2147483648"
+      },
+      {
+        "in": "-2147483649",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"-2147483649\\\": value out of range"
+      },
+      {
+        "in": "2147483648",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"2147483648\\\": value out of range"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "-1"
+        ],
+        "out": "[10,20,-1]"
+      },
+      {
+        "in": [
+          "1,a"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "int64",
+    "parser": "strconv.ParseInt(s, 0, 64)",
+    "tests": [
+      {
+        "in": "3",
+        "out": "3"
+      },
+      {
+        "in": "-3",
+        "out": "-3"
+      },
+      {
+        "in": "-9223372036854775809",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"-9223372036854775809\\\": value out of range"
+      },
+      {
+        "in": "9223372036854775808",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"9223372036854775808\\\": value out of range"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10,20",
+          "-1"
+        ],
+        "out": "[10,20,-1]"
+      },
+      {
+        "in": [
+          "1,a"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseInt: parsing \\\"a\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "float64",
+    "parser": "strconv.ParseFloat(s, 64)",
+    "tests": [
+      {
+        "in": "11.11",
+        "out": "11.11"
+      },
+      {
+        "in": "11.11.11",
+        "out": "0",
+        "err": "strconv.ParseFloat: parsing \\\"11.11.11\\\": invalid syntax"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseFloat: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10.2,20.99",
+          "3.4"
+        ],
+        "out": "[10.2,20.99,3.4]"
+      },
+      {
+        "in": [
+          "1,a"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseFloat: parsing \\\"a\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "type": "float32",
+    "parser": "strconv.ParseFloat(s, 32)",
+    "convert": true,
+    "tests": [
+      {
+        "in": "11.11",
+        "out": "11.11"
+      },
+      {
+        "in": "11.11.11",
+        "out": "0",
+        "err": "strconv.ParseFloat: parsing \\\"11.11.11\\\": invalid syntax"
+      },
+      {
+        "in": "a",
+        "out": "0",
+        "err": "strconv.ParseFloat: parsing \\\"a\\\": invalid syntax"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10.2,20.99",
+          "3.4"
+        ],
+        "out": "[10.2,20.99,3.4]"
+      },
+      {
+        "in": [
+          "1,a"
+        ],
+        "out": "[]",
+        "err": "strconv.ParseFloat: parsing \\\"a\\\": invalid syntax"
+      }
+    ]
+  },
+  {
+    "name": "duration",
+    "type": "time.Duration",
+    "parser": "time.ParseDuration(s)",
+    "format": "(*v.value).String()",
+    "import": [
+      "time"
+    ],
+    "tests": [
+      {
+        "in": "3s",
+        "out": "3s"
+      },
+      {
+        "in": "3l",
+        "out": "0s",
+        "err": "time: unknown unit l in duration 3l"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "10s,30m",
+          "1ms"
+        ],
+        "out": "[10s,30m0s,1ms]"
+      },
+      {
+        "in": [
+          "1s,3l"
+        ],
+        "out": "[]",
+        "err": "time: unknown unit l in duration 3l"
+      }
+    ]
+  },
+  {
+    "name": "IP",
+    "type": "net.IP",
+    "parser": "parseIP(s)",
+    "format": "v.value.String()",
+    "import": [
+      "net"
+    ],
+    "tests": [
+      {
+        "in": "127.0.0.1",
+        "out": "127.0.0.1"
+      },
+      {
+        "in": "127.0.0.1.3",
+        "out": "<nil>",
+        "err": "failed to parse IP: \\\"127.0.0.1.3\\\""
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "127.0.0.1,127.0.0.2",
+          "127.0.0.3"
+        ],
+        "out": "[127.0.0.1,127.0.0.2,127.0.0.3]"
+      },
+      {
+        "in": [
+          "127.0.0.3,127.0.0.1.3"
+        ],
+        "out": "[]",
+        "err": "failed to parse IP: \\\"127.0.0.1.3\\\""
+      }
+    ]
+  },
+  {
+    "type": "HexBytes",
+    "parser": "hex.DecodeString(s)",
+    "format": "fmt.Sprintf(\"%x\", *v.value)",
+    "help": "Bytes as a hex string.",
+    "tests": [
+      {
+        "in": "ffffff",
+        "out": "ffffff"
+      },
+      {
+        "in": "FFFFFF",
+        "out": "ffffff"
+      },
+      {
+        "in": "g",
+        "out": "",
+        "err": "encoding/hex: odd length hex string"
+      },
+      {
+        "in": "gg",
+        "out": "",
+        "err": "encoding/hex: invalid byte: U+0067 'g'"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "ff,aa,bb",
+          "cc"
+        ],
+        "out": "[ff,aa,bb,cc]"
+      },
+      {
+        "in": [
+          "ff,gg"
+        ],
+        "out": "[]",
+        "err": "encoding/hex: invalid byte: U+0067 'g'"
+      }
+    ]
+  },
+  {
+    "name": "regexp",
+    "Type": "*regexp.Regexp",
+    "parser": "regexp.Compile(s)",
+    "format": "(**v.value).String()",
+    "import": [
+      "regexp"
+    ],
+    "tests": [
+      {
+        "in": "abcdef.*",
+        "out": "abcdef.*"
+      },
+      {
+        "in": "[abc",
+        "out": "",
+        "err": "error parsing regexp: missing closing ]: `[abc`"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "abc.*,def.*",
+          "xyz.*"
+        ],
+        "out": "[abc.*,def.*,xyz.*]"
+      },
+      {
+        "in": [
+          "[abc,def"
+        ],
+        "out": "[]",
+        "err": "error parsing regexp: missing closing ]: `[abc`"
+      }
+    ]
+  },
+  {
+    "name": "TCPAddr",
+    "type": "net.TCPAddr",
+    "parser": "parseTCPAddr(s)",
+    "format": "v.value.String()",
+    "import": [
+      "strings"
+    ],
+    "tests": [
+      {
+        "in": "127.0.0.1:8000",
+        "out": "127.0.0.1:8000"
+      },
+      {
+        "in": "localhost:80",
+        "out": "127.0.0.1:80"
+      },
+      {
+        "in": "127.0.0.1",
+        "out": ":0",
+        "err": "failed to parse TCPAddr: \\\"127.0.0.1\\\""
+      },
+      {
+        "in": "127.0.0.1.3:8000",
+        "out": ":0",
+        "err": "failed to parse TCPAddr: \\\"127.0.0.1.3:8000\\\""
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "127.0.0.1:80,127.0.0.2:80",
+          "127.0.0.3:8800"
+        ],
+        "out": "[127.0.0.1:80,127.0.0.2:80,127.0.0.3:8800]"
+      },
+      {
+        "in": [
+          "127.0.0.3:8000,127.0.0.1.3:8000"
+        ],
+        "out": "[]",
+        "err": "failed to parse TCPAddr: \\\"127.0.0.1.3:8000\\\""
+      }
+    ]
+  },
+  {
+    "name": "IPNet",
+    "type": "net.IPNet",
+    "parser": "parseIPNet(s)",
+    "format": "v.value.String()",
+    "tests": [
+      {
+        "in": "0.0.0.0/0",
+        "out": "0.0.0.0/0"
+      },
+      {
+        "in": "1.2.3.4/8",
+        "out": "1.0.0.0/8"
+      },
+      {
+        "in": "255.255.255.255/19",
+        "out": "255.255.224.0/19"
+      },
+      {
+        "in": "255.255.255.255/32",
+        "out": "255.255.255.255/32"
+      },
+      {
+        "in": "",
+        "out": "<nil>",
+        "err": "invalid CIDR address: "
+      },
+      {
+        "in": "0.0.0.256/16",
+        "out": "<nil>",
+        "err": "invalid CIDR address: 0.0.0.256/16"
+      }
+    ],
+    "slice_tests": [
+      {
+        "in": [
+          "0.0.0.0/0,1.2.3.4/8",
+          "255.255.255.255/19"
+        ],
+        "out": "[0.0.0.0/0,1.0.0.0/8,255.255.224.0/19]"
+      },
+      {
+        "in": [
+          "0.0.0.0/0,0.0.0.256/16"
+        ],
+        "out": "[]",
+        "err": "invalid CIDR address: 0.0.0.256/16"
+      }
+    ]
+  }
+]
