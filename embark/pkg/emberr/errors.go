@@ -3,6 +3,8 @@ package emberr
 import (
 	"bytes"
 	"fmt"
+
+	"github.com/agnivade/levenshtein"
 )
 
 type Error interface {
@@ -245,4 +247,61 @@ func (err ErrInvalidTemplateDir) Error() string {
 		msg = fmt.Sprintf("%s: %v", msg, err.Reason)
 	}
 	return msg
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type ErrObjectNotFound struct {
+	Name              string
+	ObjectsWhichExist []string
+}
+
+func (err ErrObjectNotFound) findNearest() string {
+	var minDist = -1
+	var nearest = err.Name
+	for _, exists := range err.ObjectsWhichExist {
+		var dist = levenshtein.ComputeDistance(err.Name, exists)
+		if dist < minDist || minDist < 0 {
+			minDist = dist
+			nearest = exists
+		}
+	}
+	return nearest
+}
+
+func (err ErrObjectNotFound) Error() string {
+	return fmt.Sprintf("object %q not found, maybe you mean %q", err.Name, err.findNearest())
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type ErrUnableToOpenObjectFile struct {
+	File   string
+	Reason error
+}
+
+func (err ErrUnableToOpenObjectFile) Error() string {
+	return fmt.Sprintf("unable to open object file %q: %v", err.File, err.Reason)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type ErrUnableToReadObjectFile struct {
+	File   string
+	Reason error
+}
+
+func (err ErrUnableToReadObjectFile) Error() string {
+	return fmt.Sprintf("unable to read object file %q: %v", err.File, err.Reason)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type ErrReadDir struct {
+	Dir    string
+	Reason error
+}
+
+func (err ErrReadDir) Error() string {
+	return fmt.Sprintf("error while reading dir %q: %v", err.Dir, err.Reason)
 }
