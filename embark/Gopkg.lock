@@ -65,14 +65,6 @@
   revision = "cc9eb1d7ad760af14e8f918698f745e80377af4f"
 
 [[projects]]
-  digest = "1:bd429363552718ab3baed13fda5a39a0b9eac6c6af24dacdf028df3e0198cb31"
-  name = "github.com/evanphx/json-patch"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "d58c2bf43c5e43d100914099cf892f3123d1f355"
-  version = "v4.0.0"
-
-[[projects]]
   digest = "1:81466b4218bf6adddac2572a30ac733a9255919bc2f470b4827a317bd4ee1756"
   name = "github.com/ghodss/yaml"
   packages = ["."]
@@ -670,14 +662,6 @@
   revision = "20adb27c7c5868466912eebdf6664e7390ebe710"
   version = "v2.9.1"
 
-[[projects]]
-  digest = "1:991c5c1651c48eeac2ea64f278c23ba608a1a144740624b4d8c7461dc59a27ea"
-  name = "k8s.io/kubernetes"
-  packages = ["pkg/kubectl/genericclioptions"]
-  pruneopts = "NUT"
-  revision = "ed9b25c90241b2b8a1fa10b96381c57f99ca952a"
-  version = "v1.11.0-alpha.2"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
@@ -716,7 +700,6 @@
     "k8s.io/helm/pkg/proto/hapi/services",
     "k8s.io/helm/pkg/repo",
     "k8s.io/helm/pkg/strvals",
-    "k8s.io/kubernetes/pkg/kubectl/genericclioptions",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
