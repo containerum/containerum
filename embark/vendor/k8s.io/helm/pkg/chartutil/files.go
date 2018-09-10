@@ -1,5 +1,5 @@
 /*
-Copyright The Helm Authors.
+Copyright 2016 The Kubernetes Authors All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -211,8 +211,7 @@ func ToToml(v interface{}) string {
 // always return a string, even on marshal error (empty string).
 //
 // This is designed to be called from a template.
-// TODO: change the function signature in Helm 3
-func ToJson(v interface{}) string { // nolint
+func ToJson(v interface{}) string {
 	data, err := json.Marshal(v)
 	if err != nil {
 		// Swallow errors inside of a template.
@@ -227,8 +226,7 @@ func ToJson(v interface{}) string { // nolint
 // JSON documents. Additionally, because its intended use is within templates
 // it tolerates errors. It will insert the returned error message string into
 // m["Error"] in the returned map.
-// TODO: change the function signature in Helm 3
-func FromJson(str string) map[string]interface{} { // nolint
+func FromJson(str string) map[string]interface{} {
 	m := map[string]interface{}{}
 
 	if err := json.Unmarshal([]byte(str), &m); err != nil {

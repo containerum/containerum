@@ -1,5 +1,5 @@
 /*
-Copyright The Helm Authors.
+Copyright 2016 The Kubernetes Authors All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/ghodss/yaml"
 
@@ -206,10 +205,9 @@ func writeTarContents(out *tar.Writer, c *chart.Chart, prefix string) error {
 func writeToTar(out *tar.Writer, name string, body []byte) error {
 	// TODO: Do we need to create dummy parent directory names if none exist?
 	h := &tar.Header{
-		Name:    filepath.ToSlash(name),
-		Mode:    0755,
-		Size:    int64(len(body)),
-		ModTime: time.Now(),
+		Name: name,
+		Mode: 0755,
+		Size: int64(len(body)),
 	}
 	if err := out.WriteHeader(h); err != nil {
 		return err

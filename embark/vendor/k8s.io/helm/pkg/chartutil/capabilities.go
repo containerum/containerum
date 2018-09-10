@@ -1,5 +1,5 @@
 /*
-Copyright The Helm Authors.
+Copyright 2017 The Kubernetes Authors All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -42,7 +42,7 @@ var (
 type Capabilities struct {
 	// List of all supported API versions
 	APIVersions VersionSet
-	// KubeVersion is the Kubernetes version
+	// KubeVerison is the Kubernetes version
 	KubeVersion *version.Info
 	// TillerVersion is the Tiller version
 	//
