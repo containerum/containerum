@@ -5,9 +5,8 @@ import (
 	"net/http"
 	"path"
 	"strings"
-	"time"
-
 	"sync"
+	"time"
 
 	"github.com/containerum/containerum/embark/pkg/cgraph"
 	"github.com/containerum/containerum/embark/pkg/models/requirements"

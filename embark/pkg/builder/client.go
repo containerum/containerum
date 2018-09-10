@@ -11,12 +11,7 @@ import (
 	"github.com/containerum/containerum/embark/pkg/models/requirements"
 	"golang.org/x/sync/errgroup"
 	"k8s.io/helm/pkg/chartutil"
-	"k8s.io/helm/pkg/helm"
 	"k8s.io/helm/pkg/proto/hapi/chart"
-)
-
-var (
-	_ = helm.Client{}
 )
 
 const (
