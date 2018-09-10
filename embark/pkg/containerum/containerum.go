@@ -1,6 +1,7 @@
 package containerum
 
 import (
+	"net/url"
 	"path"
 	"strings"
 
@@ -49,8 +50,16 @@ func (component ComponentWithName) Copy() ComponentWithName {
 	}
 }
 
+func (component ComponentWithName) URL() string {
+	var repo = strings.TrimPrefix(component.Repo, "http://")
+	repo = strings.TrimPrefix(repo, "https://")
+	var componentPath = component.Name + "-" + component.Version + ".tgz"
+	return "http://" + repo + "/charts/" + url.PathEscape(componentPath)
+}
+
 type Component struct {
 	Version   string                 `json:"version"`
+	Repo      string                 `json:"repo"`
 	Objects   []string               `json:"objects"`
 	DependsOn []string               `json:"depends_on"`
 	Values    map[string]interface{} `json:"values"`
