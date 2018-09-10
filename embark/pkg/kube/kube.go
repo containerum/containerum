@@ -1,7 +1,6 @@
 package kube
 
 import (
-	"io"
 	"time"
 
 	"github.com/containerum/containerum/embark/pkg/emberr"
@@ -9,16 +8,13 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	kubeClientAPI "k8s.io/client-go/tools/clientcmd/api"
-	cmdutil "k8s.io/kubernetes/pkg/kubectl/cmd/util"
-	"k8s.io/kubernetes/pkg/kubectl/genericclioptions"
-	"k8s.io/kubernetes/pkg/kubectl/genericclioptions/resource"
 )
 
 type Kube struct {
 	Config kubeClientAPI.Config
 	*kubernetes.Clientset
-	config  *rest.Config
-	factory cmdutil.Factory
+	config *rest.Config
+	// factory cmdutil.Factory
 }
 
 func NewKubeClient(config Config) (*Kube, error) {
@@ -35,16 +31,18 @@ func NewKubeClient(config Config) (*Kube, error) {
 	if newClientsetErr != nil {
 		return nil, emberr.ErrUnableToCreateKubeCLient{Reason: newClientsetErr, Comment: "while creating clientset from REST config"}
 	}
-	kube.factory = cmdutil.NewFactory(configFlags())
+	//	kube.factory = cmdutil.NewFactory(configFlags())
 	kube.Clientset = kubecli
 	kube.config = restConfig
 	return &kube, nil
 }
 
+/*
 func configFlags() *genericclioptions.ConfigFlags {
 	var config = genericclioptions.NewConfigFlags()
 	return config
 }
+
 
 func (kube *Kube) builder(namespace string, reader io.Reader) *resource.Result {
 	return kube.factory.NewBuilder().
@@ -78,3 +76,5 @@ func (kube *Kube) InstallFromReader(namespace string, re io.Reader) error {
 	}
 	return nil
 }
+
+*/
