@@ -1,6 +1,9 @@
 package containerum
 
 import (
+	"path"
+	"strings"
+
 	"gopkg.in/yaml.v2"
 )
 
@@ -59,6 +62,17 @@ func (component Component) Copy() Component {
 	cp.DependsOn = append([]string{}, cp.DependsOn...)
 	component.Values = copyTree(component.Values)
 	return component
+}
+
+func (component Component) ObjectNames() []string {
+	var names = make([]string, 0, len(component.Objects))
+	for _, object := range component.Objects {
+		var nameWithExt = path.Base(object)
+		var ext = path.Ext(nameWithExt)
+		var name = strings.TrimSuffix(nameWithExt, ext)
+		names = append(names, name)
+	}
+	return names
 }
 
 func copyTree(tree map[string]interface{}) map[string]interface{} {
