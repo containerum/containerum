@@ -5,3 +5,4 @@
 /embark/pkg/builder/data/
 /embark/embark
 /charts/containerum/charts/
+/embark/pkg/builder/testdata/buildGraph/
