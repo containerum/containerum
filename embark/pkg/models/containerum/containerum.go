@@ -53,8 +53,7 @@ func (component ComponentWithName) Copy() ComponentWithName {
 func (component ComponentWithName) URL() string {
 	var repo = strings.TrimPrefix(component.Repo, "http://")
 	repo = strings.TrimPrefix(repo, "https://")
-	var componentPath = component.Name + "-" + component.Version + ".tgz"
-	return "http://" + repo + "/charts/" + url.PathEscape(componentPath)
+	return "http://" + repo + "/charts/" + url.PathEscape(component.Name+"-"+component.Version+".tgz")
 }
 
 type Component struct {
@@ -63,6 +62,16 @@ type Component struct {
 	Objects   []string               `json:"objects"`
 	DependsOn []string               `json:"depends_on"`
 	Values    map[string]interface{} `json:"values"`
+}
+
+func (component Component) WithValues(mixins ...map[string]interface{}) map[string]interface{} {
+	var values = copyTree(component.Values)
+	for _, mixin := range mixins {
+		for k, v := range mixin {
+			values[k] = v
+		}
+	}
+	return values
 }
 
 func (component Component) Copy() Component {
