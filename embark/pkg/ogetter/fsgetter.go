@@ -78,7 +78,7 @@ func (getter FSObjectGetter) Object(name string, output io.Writer) error {
 			ObjectsWhichExist: objects.Names(),
 		}
 	}
-	var objectFile, objectFileOpenErr = os.Open(path.Join(getter.dir, objectPath))
+	var objectFile, objectFileOpenErr = os.Open(path.Join(objectPath))
 	if objectFileOpenErr != nil {
 		return emberr.ErrUnableToOpenObjectFile{
 			File:   objectPath,
