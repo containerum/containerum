@@ -42,7 +42,7 @@ type ErrUnableToDownloadDependencies struct {
 }
 
 func (err ErrUnableToDownloadDependencies) Error() string {
-	if err.Reason == nil {
+	if err.Reason != nil {
 		return fmt.Sprintf("unable to download dependencies: %v", err.Reason)
 	}
 	return "unable to download dependencies"
@@ -304,4 +304,26 @@ type ErrReadDir struct {
 
 func (err ErrReadDir) Error() string {
 	return fmt.Sprintf("error while reading dir %q: %v", err.Dir, err.Reason)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type ErrUnableToParseObject struct {
+	Name   string
+	Reason error
+}
+
+func (err ErrUnableToParseObject) Error() string {
+	return fmt.Sprintf("unable to parse object %q as template: %v", err.Name, err.Reason)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+type ErrUnableToRenderObject struct {
+	Name   string
+	Reason error
+}
+
+func (err ErrUnableToRenderObject) Error() string {
+	return fmt.Sprintf("unable to render object %q: %v", err.Name, err.Reason)
 }
