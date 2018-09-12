@@ -40,6 +40,14 @@
   name = "github.com/go-playground/validator"
   version = "~9.21.0"
 
+[[constraint]]
+  name = "github.com/ericchiang/k8s"
+  version = "~v1.2.0"
+
+[[constraint]]
+  name = "github.com/thoas/go-funk"
+  version = "=0.3"
+
 #####################################
 
 
@@ -58,3 +66,6 @@
 #[[override]]
 #  name = "github.com/russross/blackfriday"
 #  version = "~v1.4-2-g300106c"
+[[constraint]]
+  name = "github.com/mitchellh/mapstructure"
+  version = "1.0.0"

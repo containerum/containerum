@@ -65,6 +65,21 @@
   revision = "cc9eb1d7ad760af14e8f918698f745e80377af4f"
 
 [[projects]]
+  digest = "1:3d62eccc90d44f5c6cb59236ee55885f1d3ce73d682d9b9a90076b78b94760b2"
+  name = "github.com/ericchiang/k8s"
+  packages = [
+    ".",
+    "apis/meta/v1",
+    "runtime",
+    "runtime/schema",
+    "util/intstr",
+    "watch/versioned",
+  ]
+  pruneopts = "NUT"
+  revision = "d1bbc0cffaf9849ddcae7b9efffae33e2dd52e9a"
+  version = "v1.2.0"
+
+[[projects]]
   digest = "1:81466b4218bf6adddac2572a30ac733a9255919bc2f470b4827a317bd4ee1756"
   name = "github.com/ghodss/yaml"
   packages = ["."]
@@ -221,6 +236,14 @@
   revision = "089cf0d1f58c48b3d14c76882a37708efe549e7b"
 
 [[projects]]
+  digest = "1:5fe20cfe4ef484c237cec9f947b2a6fa90bad4b8610fd014f0e4211e13d82d5d"
+  name = "github.com/mitchellh/mapstructure"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "fa473d140ef3c6adf42d6b391fe76707f1f243c8"
+  version = "v1.0.0"
+
+[[projects]]
   branch = "master"
   digest = "1:2aad42cee2de3346961cb38e77eada96150d266b9a5e289f5f8c05696b22f875"
   name = "github.com/nwaples/rardecode"
@@ -289,6 +312,14 @@
   pruneopts = "NUT"
   revision = "f35b8ab0b5a2cef36673838d662e249dd9c94686"
   version = "v1.2.2"
+
+[[projects]]
+  digest = "1:2197b46548399b580e63b3a29ca2f7328d6de69ddca8037cdcbd10e8f8bf163f"
+  name = "github.com/thoas/go-funk"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "e2f8da694c9c4fa123eea42cb0d6d47e08f11ff6"
+  version = "0.3"
 
 [[projects]]
   digest = "1:07e8742c479bab0066149ad02a710024154e76874fd0a2dba002d87702725825"
@@ -530,15 +561,19 @@
   input-imports = [
     "github.com/Masterminds/sprig",
     "github.com/agnivade/levenshtein",
+    "github.com/ericchiang/k8s",
+    "github.com/ericchiang/k8s/apis/meta/v1",
     "github.com/ghodss/yaml",
     "github.com/go-playground/validator",
     "github.com/go-yaml/yaml",
     "github.com/magiconair/properties/assert",
     "github.com/mholt/archiver",
+    "github.com/mitchellh/mapstructure",
     "github.com/octago/sflags/gen/gpflag",
     "github.com/sirupsen/logrus",
     "github.com/spf13/cobra",
     "github.com/stretchr/testify/assert",
+    "github.com/thoas/go-funk",
     "golang.org/x/sync/errgroup",
     "gopkg.in/yaml.v2",
     "k8s.io/api/apps/v1",
