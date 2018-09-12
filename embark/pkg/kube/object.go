@@ -1,23 +1,23 @@
 package kube
 
 import (
+	"bytes"
 	"encoding/json"
 	"io"
 
 	"github.com/ericchiang/k8s"
 	metav1 "github.com/ericchiang/k8s/apis/meta/v1"
+	"github.com/ghodss/yaml"
 	"github.com/mitchellh/mapstructure"
 	"github.com/thoas/go-funk"
-	"gopkg.in/yaml.v2"
 )
 
 var (
 	_ json.Marshaler   = Object{}
 	_ json.Unmarshaler = new(Object)
 
-	_ yaml.Marshaler   = Object{}
-	_ yaml.Unmarshaler = new(Object)
-
+	//	_ yaml.Marshaler   = Object{}
+	//	_ yaml.Unmarshaler = new(Object)
 	_ k8s.Resource = Object{}
 )
 
@@ -57,7 +57,14 @@ func ObjectFromYAML(re io.Reader) (Object, error) {
 	var object = Object{
 		body: make(map[string]interface{}),
 	}
-	return object, yaml.NewDecoder(re).Decode(object.body)
+	var buf = &bytes.Buffer{}
+	if _, err := buf.ReadFrom(re); err != nil {
+		return Object{}, err
+	}
+	if err := yaml.Unmarshal(buf.Bytes(), object.body); err != nil {
+		return Object{}, err
+	}
+	return object, nil
 }
 
 func (object *Object) PatchMeta(patchers ...func(meta *metav1.ObjectMeta)) {
