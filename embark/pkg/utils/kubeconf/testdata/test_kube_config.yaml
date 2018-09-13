@@ -1,0 +1,19 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: QaJJ/hRg1cRUP6NeVSBiks4bQiUp20O2BJom7efwwwF1BcIQre/UwsO8pZR2ygcNqBWRnjTj5hlflglY5VTkxZAk6/+V7hKqPxYDuvKVapUCe0t3AYkk7WCEtuy28hHEe3mpEm9f1vgznzbJ137KT2M0dxqmDtg27d78r3fwljTYZ1SVnlQFJwLVyEW1I+L2twertMBk1fk/axBvUSn2bdpKTa388Lw5wXUmhRwt6jn4ueyJGiz6A15FAqapwXvb53oHhB3jfnDJkfAuFNdQJCYn5D18FTndQnEKsN/BKxFiT31vIsPdSaq08uagW9hoOywULLrt6p11+LVG9lDEDA==
+    server: https://example.com
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+current-context: kubernetes-admin@kubernetes
+kind: Config
+preferences: {}
+users:
+- name: kubernetes-admin
+  user:
+    client-certificate-data: v1vTvuc0GAGMXSFsMKo2ZAbPqk4QomF25wJj6Q+9Z9YM8PJ8D68QNk0m2QpRmSzr5wVpkwyMGI0ZLznV6FM9H4NztnVy6GX+OfyAA0DNU0w4ZUYN3dWqH4wnHL1axDEh1JWySxUmr2T7XXwEnXyimjbEtyizvbLEboiZ+USgdNl1XLjWEQsOUAa4RJ1lOO9YnAQaIHFAaN9gWc+9WIk0v87IKx2w3RV4pZH2CQ8tDGufYnl2WfJly61CcZL/e//bzC0zLQUIZHfUDvQClnYcrLwyS8i9rePAZ5+SIVBPFlpsncugMrmt5ZDSrHwK5kzJcVXUwL9OUeMfdpgSRlB7kg==
+    client-key-data: rJTVC0LAJjSz8EEkp3cdsOIM4bQZqdAphhBhZh/cbh+y4117Tb2cOIvpc3znnL30pF4PFM+Rh58Qw7w4BbOyEgtIVIQ04YtmqNSkCgLcPzVZpTWPwyC/ar3iYVo0fSEwo3tjrbKUjmdXDEYAIB+aK1iQHQBeUzLaa5ujsfxhcPBZhw25BCyI6hWDSjNlSkuD6e08ABPCnf3u3sLAUBTBURuLC/4srqrBE3PpDp1UOvLV1ZRRRUUGSlbB2V+Mvfv9eFHD2JjSdZT2OM2KSwJkPw6egTaFTYZg3JglxthDt1DWNrRndmaLzRDrgu6XZOk3CsVcIWmW9JcQcfdQlduhhA==
