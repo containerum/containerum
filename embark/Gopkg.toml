@@ -24,9 +24,9 @@
   name = "github.com/octago/sflags"
   version = "~0.2.0"
 
-[[constraint]]
-  name = "k8s.io/client-go"
-  version = "kubernetes-1.10.0"
+#[[constraint]]
+#  name = "k8s.io/client-go"
+#  version = "kubernetes-1.10.0"
 
 #[[constraint]]
 #  name = "k8s.io/api"
