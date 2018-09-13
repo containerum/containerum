@@ -1,6 +1,7 @@
 package kube
 
 import (
+	"context"
 	"time"
 
 	weirdKubeClient "github.com/ericchiang/k8s"
@@ -30,4 +31,11 @@ func NewKube(options ..._Config) (Kube, error) {
 		Client:  weirdClient,
 	}
 	return kubeClinent, nil
+}
+
+func (kube Kube) Create(obj Object) error {
+	RegisterObject()
+	var ctx, done = context.WithTimeout(context.Background(), kube.timeout)
+	defer done()
+	return kube.Client.Create(ctx, &obj)
 }
