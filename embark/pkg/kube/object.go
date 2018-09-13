@@ -3,7 +3,9 @@ package kube
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
+	"sync"
 
 	"github.com/ericchiang/k8s"
 	metav1 "github.com/ericchiang/k8s/apis/meta/v1"
@@ -20,10 +22,6 @@ var (
 	//	_ yaml.Unmarshaler = new(Object)
 	_ k8s.Resource = Object{}
 )
-
-func init() {
-	k8s.Register("embark", "v1", "embark-generic-object", true, new(Object))
-}
 
 type Object struct {
 	meta *metav1.ObjectMeta
@@ -61,7 +59,7 @@ func ObjectFromYAML(re io.Reader) (Object, error) {
 	if _, err := buf.ReadFrom(re); err != nil {
 		return Object{}, err
 	}
-	if err := yaml.Unmarshal(buf.Bytes(), object.body); err != nil {
+	if err := yaml.Unmarshal(buf.Bytes(), &object.body); err != nil {
 		return Object{}, err
 	}
 	return object, nil
@@ -111,3 +109,17 @@ func (object Object) MarshalYAML() (interface{}, error) {
 func (object *Object) UnmarshalYAML(unmarshaler func(interface{}) error) error {
 	return unmarshaler(&object.body)
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+func RegisterObject() {
+	registerExactlyOnce.Do(func() {
+		k8s.Register("embark", "v1", fmt.Sprintf("%T", Object{}), true, new(Object))
+	})
+}
+
+func init() {
+	RegisterObject()
+}
+
+var registerExactlyOnce sync.Once
