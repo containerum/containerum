@@ -8,13 +8,12 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/containerum/containerum/embark/pkg/models/release"
-
-	"github.com/containerum/containerum/embark/pkg/models/chart"
-
 	"github.com/containerum/containerum/embark/pkg/cgraph"
+	"github.com/containerum/containerum/embark/pkg/models/chart"
 	"github.com/containerum/containerum/embark/pkg/models/containerum"
+	"github.com/containerum/containerum/embark/pkg/models/release"
 	"github.com/containerum/containerum/embark/pkg/ogetter"
+
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/yaml.v2"
 )
