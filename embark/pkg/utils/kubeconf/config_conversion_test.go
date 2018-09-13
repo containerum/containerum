@@ -17,6 +17,10 @@ func TestConfigConversion(test *testing.T) {
 	if err := yaml.Unmarshal(testConfigData, &config); err != nil {
 		test.Fatal(err)
 	}
+	assertConfig(test, config)
+}
+
+func assertConfig(test *testing.T, config Config) {
 	var k8sConfig, configConversionErr = config.ToK8S()
 	if configConversionErr != nil {
 		test.Fatal(configConversionErr)
