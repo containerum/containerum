@@ -1,7 +1,9 @@
 package kube
 
 import (
+	"github.com/containerum/containerum/embark/pkg/utils/kubeconf"
 	weirdKubeClient "github.com/ericchiang/k8s"
+	goyaml "github.com/go-yaml/yaml"
 )
 
 type KubectlConfigProvider func() (KubectlConfig, error)
@@ -42,4 +44,21 @@ func (config KubectlConfig) AsProviderWithErr(err error) KubectlConfigProvider {
 		}
 	}
 	return config.Provider
+}
+
+var (
+	_ goyaml.Unmarshaler = new(KubectlConfig)
+)
+
+func (config *KubectlConfig) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var adapter kubeconf.Config
+	if err := unmarshal(&adapter); err != nil {
+		return err
+	}
+	var convertedConfig, err = adapter.ToK8S()
+	if err != nil {
+		return err
+	}
+	*config = KubectlConfig(convertedConfig)
+	return nil
 }
