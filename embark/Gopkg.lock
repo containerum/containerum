@@ -26,6 +26,24 @@
   version = "v2.15.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:c44152dd7a64666c617c0cf825a59b9a00cb3790e7531c0c6063a060e51452e4"
+  name = "github.com/UnnoTed/fileb0x"
+  packages = [
+    ".",
+    "compression",
+    "config",
+    "custom",
+    "dir",
+    "file",
+    "template",
+    "updater",
+    "utils",
+  ]
+  pruneopts = "NUT"
+  revision = "279e1dc62738d19a9106f401539c0e9b4d4ff477"
+
+[[projects]]
   digest = "1:65eb148e2f1c0261f00b310bec802a75d0fcc300a49f28b99a77de6679b463dc"
   name = "github.com/agnivade/levenshtein"
   packages = ["."]
@@ -34,12 +52,28 @@
   version = "v1.0.0"
 
 [[projects]]
+  digest = "1:720343e97bc52ced7b15c2bdcdf63f0240e11107226d4f549b58fd1df3a3796e"
+  name = "github.com/airking05/termui"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "24acd523c756fd9728824cdfac66aad9d8982fb7"
+  version = "v2.2.0"
+
+[[projects]]
   digest = "1:975108e8d4f5dab096fc991326e96a5716ee8d02e5e7386bb4796171afc4ab9a"
   name = "github.com/aokoli/goutils"
   packages = ["."]
   pruneopts = "NUT"
   revision = "3391d3790d23d03408670993e957e8f408993c34"
   version = "v1.0.1"
+
+[[projects]]
+  digest = "1:7294028ae4f4ebe9f92dccabdc69f63eba37b71fbfcdcb35ed1c32eb823fc6d4"
+  name = "github.com/bmatcuk/doublestar"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "85a78806aa1b4707d1dbace9be592cf1ece91ab3"
+  version = "v1.1.1"
 
 [[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
@@ -194,12 +228,71 @@
   version = "v1.0"
 
 [[projects]]
+  digest = "1:f396528c1d6a75da6d0df8cd8425c8bec903ce55ebcb1a0e71643a4e93f45736"
+  name = "github.com/karrick/godirwalk"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "e404d5af9b9b543c7100f4bf3757c1c3b5399fa9"
+  version = "v1.7.3"
+
+[[projects]]
+  digest = "1:5d43934ea33f5df5251b4d69faec23ddcf570a6d0d90c6a9eaa70530ee40ed4a"
+  name = "github.com/labstack/echo"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "1abaa3049251d17932e4313c2d6165073fd07fd8"
+  version = "v3.3.6"
+
+[[projects]]
+  digest = "1:8c6f5c3445fe2402075ce8e5d958f9cb93fd36eab8d2fa26ccb8df6a37226f69"
+  name = "github.com/labstack/gommon"
+  packages = [
+    "color",
+    "log",
+  ]
+  pruneopts = "NUT"
+  revision = "2a618302b929cc20862dda3aa6f02f64dbe740dd"
+  version = "v0.2.7"
+
+[[projects]]
   digest = "1:41b00533ad3d8b3f54b6a02fc093b211feeffb068a3148a7e7084cd7aeef18ec"
   name = "github.com/magiconair/properties"
   packages = ["assert"]
   pruneopts = "NUT"
   revision = "c2353362d570a7bfa228149c62842019201cfb71"
   version = "v1.8.0"
+
+[[projects]]
+  digest = "1:f614e627d47e1276989de725dc5e433504a8b5498850711c9d3fcec3bfa7c943"
+  name = "github.com/maruel/panicparse"
+  packages = ["stack"]
+  pruneopts = "NUT"
+  revision = "785840568bdc7faa0dfb1cd6c643207f03271f64"
+  version = "v1.1.1"
+
+[[projects]]
+  digest = "1:08c231ec84231a7e23d67e4b58f975e1423695a32467a362ee55a803f9de8061"
+  name = "github.com/mattn/go-colorable"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "167de6bfdfba052fa6b2d3664c8f5272e23c9072"
+  version = "v0.0.9"
+
+[[projects]]
+  digest = "1:bffa444ca07c69c599ae5876bc18b25bfd5fa85b297ca10a25594d284a7e9c5d"
+  name = "github.com/mattn/go-isatty"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c"
+  version = "v0.0.4"
+
+[[projects]]
+  digest = "1:bff482b22ebed387378546ba6a7850fdef87fd47f8ee58a7c62124a8e889a56b"
+  name = "github.com/mattn/go-runewidth"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "ce7b0b5c7b45a81508558cd1dba6bb1e4ddb51bb"
+  version = "v0.0.3"
 
 [[projects]]
   digest = "1:7ee52911d208d5e2509cda3208566c8f45d0b62378ea292c3a67c36da8977447"
@@ -209,12 +302,28 @@
   revision = "089cf0d1f58c48b3d14c76882a37708efe549e7b"
 
 [[projects]]
+  digest = "1:9f63926f52745d1f9d6053f8fbbb3bd3983c2c97c0565957e682b8d2f7aad3af"
+  name = "github.com/mitchellh/go-wordwrap"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "9e67c67572bc5dd02aef930e2b0ae3c02a4b5a5c"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:5fe20cfe4ef484c237cec9f947b2a6fa90bad4b8610fd014f0e4211e13d82d5d"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   pruneopts = "NUT"
   revision = "fa473d140ef3c6adf42d6b391fe76707f1f243c8"
   version = "v1.0.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:34d9354c2c5d916c05864327553047df59fc10e86ff1f408e4136eba0a25a5ec"
+  name = "github.com/nsf/termbox-go"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "b66b20ab708e289ff1eb3e218478302e6aec28ce"
 
 [[projects]]
   branch = "master"
@@ -245,6 +354,14 @@
   pruneopts = "NUT"
   revision = "bb6bfd13c6a262f1943c0446eb25b7f54c1fb9a2"
   version = "v2.0.6"
+
+[[projects]]
+  digest = "1:5cf3f025cbee5951a4ee961de067c8a89fc95a5adabead774f82822efabab121"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
 
 [[projects]]
   digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
@@ -307,10 +424,28 @@
   version = "v0.5.4"
 
 [[projects]]
+  digest = "1:af354641f23332b1a8d5d361d11b5a9171589e412a67d499633706c611acc064"
+  name = "github.com/valyala/bytebufferpool"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7"
+  version = "v1.0.0"
+
+[[projects]]
   branch = "master"
-  digest = "1:7174bd34f06f890e554d730d037e85dd07a75cb521792f8857acc6e4aeda9484"
+  digest = "1:f17377eef01c91aee2d0f93095d672bd27697c62e5546bde97f9c8412c141356"
+  name = "github.com/valyala/fasttemplate"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "dcecefd839c4193db0d35b88ec65b4c12d360ab0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:d00cb1696bcbe32cfcfc1c35cd32fd53aa94f741ce5c20e570eb3916ada5ec20"
   name = "golang.org/x/crypto"
   packages = [
+    "acme",
+    "acme/autocert",
     "cast5",
     "openpgp",
     "openpgp/armor",
@@ -328,7 +463,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a2707daa031e6db5fcaae8a9b30eaa503a0d7d8aa72cd50b27fa394ef6c3f7fe"
+  digest = "1:32a23a58c75803ed4a937ee08f743fa319954dca5fb01c7c5e59f259262f077a"
   name = "golang.org/x/net"
   packages = [
     "context",
@@ -338,6 +473,8 @@
     "idna",
     "internal/timeseries",
     "trace",
+    "webdav",
+    "webdav/internal/xml",
   ]
   pruneopts = "NUT"
   revision = "161cd47e91fd58ac17490ef4d742dc98bb4cf60e"
@@ -487,6 +624,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/Masterminds/sprig",
+    "github.com/UnnoTed/fileb0x",
     "github.com/agnivade/levenshtein",
     "github.com/ericchiang/k8s",
     "github.com/ericchiang/k8s/apis/meta/v1",
@@ -501,6 +639,7 @@
     "github.com/spf13/cobra",
     "github.com/stretchr/testify/assert",
     "github.com/thoas/go-funk",
+    "golang.org/x/net/webdav",
     "golang.org/x/sync/errgroup",
     "gopkg.in/yaml.v2",
     "k8s.io/helm/pkg/chartutil",

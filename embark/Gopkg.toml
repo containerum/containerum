@@ -1,4 +1,6 @@
 
+required = ["github.com/UnnoTed/fileb0x"]
+
 [prune]
   go-tests = true
   unused-packages = true
