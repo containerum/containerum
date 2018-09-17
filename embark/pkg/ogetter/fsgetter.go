@@ -34,6 +34,15 @@ func NewFSObjectGetter(dir string) FSObjectGetter {
 	}
 }
 
+func (getter FSObjectGetter) ObjectNames() []string {
+	var o, readDirErr = getter.readDir()
+	if readDirErr != nil {
+		panic(readDirErr)
+	}
+	getter.cached = o
+	return o.Names()
+}
+
 func (getter FSObjectGetter) templatesDir() string {
 	return getter.dir
 }
@@ -50,6 +59,9 @@ func (getter FSObjectGetter) readDir() (nameToPath, error) {
 				return nil
 			}
 			if info.IsDir() {
+				return nil
+			}
+			if IsIgnored(info.Name()) {
 				return nil
 			}
 			var name = strings.TrimSuffix(info.Name(), path.Ext(info.Name()))
