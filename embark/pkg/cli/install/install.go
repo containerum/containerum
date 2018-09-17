@@ -1,11 +1,15 @@
 package install
 
 import (
+	"io/ioutil"
+
 	"github.com/containerum/containerum/embark/pkg/builder"
 	"github.com/containerum/containerum/embark/pkg/cli/flags"
+	"github.com/containerum/containerum/embark/pkg/models/containerum"
 	"github.com/containerum/containerum/embark/pkg/utils/fer"
 	"github.com/octago/sflags/gen/gpflag"
 	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v2"
 )
 
 func Install(defaultInstallConfig *flags.Install) *cobra.Command {
@@ -17,24 +21,28 @@ func Install(defaultInstallConfig *flags.Install) *cobra.Command {
 		Use:     "install",
 		Aliases: []string{"!"}, // embark !
 		Run: func(cmd *cobra.Command, args []string) {
-			var clientOptions = builder.DefaultClientOptionsPtr()
-			if installConfig.Debug {
-				clientOptions.Merge(builder.Debug())
+			var contData, loadContDataErr = ioutil.ReadFile(installConfig.Containerum)
+			if loadContDataErr != nil {
+				fer.Fatal("unable to load containerum file: %v", loadContDataErr)
 			}
-			if installConfig.KubeConfig != "" {
-				clientOptions.Merge(builder.KubeConfigPath(installConfig.KubeConfig))
+			var cont containerum.Containerum
+			if err := yaml.Unmarshal(contData, &cont); err != nil {
+				fer.Fatal("unable to load containerum data: %v", err)
 			}
-
-			var client, newBuilderClientErr = builder.NewCLient(*clientOptions)
-			if newBuilderClientErr != nil {
-				fer.Fatal("unable to init client:\n%v\n", newBuilderClientErr)
+			if err := builder.DowloadComponents(installConfig.Dir, cont); err != nil {
+				fer.Fatal("unable to download containerum components: %v", err)
 			}
-			var installChartErr = client.InstallChartWithDependencies(
-				installConfig.Namespace,
-				installConfig.Dir,
-				installConfig.Values)
-			if installChartErr != nil {
-				fer.Fatal("unable to install chart:\n%v\n", installChartErr)
+			var components, renderErr = builder.RenderComponents(installConfig.Dir, cont)
+			if renderErr != nil {
+				fer.Fatal("unable to render containerum components: %v", renderErr)
+			}
+			var installationGraph, buildGraphErr = builder.BuildGraph(installConfig.Dir, components)
+			if buildGraphErr != nil {
+				fer.Fatal("unable to build installation graph: %v", installationGraph)
+			}
+			const rootComponent = "containerum"
+			if err := installationGraph.Execute(rootComponent); err != nil {
+				fer.Fatal("unable to install %s: %v", rootComponent, err)
 			}
 		},
 	}
