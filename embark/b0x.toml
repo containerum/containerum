@@ -48,7 +48,7 @@ fmt = true
 # you should use this when using the spread function
 # type: bool
 # default: false
-clean = false
+clean = true
 
 # default: ab0x.go
 output = "charts.go"
@@ -74,7 +74,7 @@ unexporTed = false
 #
 # type: bool
 # default: false
-spread = false
+spread = true
 
 # [lcf] log changed files when spread is active
 lcf = true
@@ -89,11 +89,11 @@ debug = false
 [[custom]]
 
   # type: array of strings
-  files = ["./charts/*"]
+  files = ["../charts/*"]
 
   # base is the path that will be removed from all files' path
   # type: string
-  base = "./charts/containerum"
+  base = "../charts/containerum/"
 
   # prefix is the path that will be added to all files' path
   # type: string
