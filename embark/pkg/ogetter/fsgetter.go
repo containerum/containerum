@@ -5,7 +5,6 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"strings"
 
 	"github.com/containerum/containerum/embark/pkg/emberr"
 )
@@ -64,7 +63,10 @@ func (getter FSObjectGetter) readDir() (nameToPath, error) {
 			if IsIgnored(info.Name()) {
 				return nil
 			}
-			var name = strings.TrimSuffix(info.Name(), path.Ext(info.Name()))
+			var name = extractObjectNameFromFilename(info.Name())
+			if name == "" || IsIgnored(info.Name()) {
+				return nil
+			}
 			objects[name] = objectPath
 			return nil
 		})

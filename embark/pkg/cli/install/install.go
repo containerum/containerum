@@ -2,6 +2,8 @@ package install
 
 import (
 	"io/ioutil"
+	"os"
+	"path"
 
 	"github.com/containerum/containerum/embark/pkg/builder"
 	"github.com/containerum/containerum/embark/pkg/cli/flags"
@@ -21,7 +23,16 @@ func Install(defaultInstallConfig *flags.Install) *cobra.Command {
 		Use:     "install",
 		Aliases: []string{"!"}, // embark !
 		Run: func(cmd *cobra.Command, args []string) {
-			var contData, loadContDataErr = ioutil.ReadFile(installConfig.Containerum)
+			if installConfig.Dir == "" {
+				installConfig.Dir = path.Join(os.TempDir(), "embark")
+				if err := os.MkdirAll(installConfig.Dir, os.ModePerm|os.ModeDir); !os.IsExist(err) {
+					fer.Fatal("unable to create temp dir %q:\n%v\n", installConfig.Dir, err)
+				}
+			}
+			var contData []byte
+			var loadContDataErr error
+
+			contData, loadContDataErr = ioutil.ReadFile(installConfig.Containerum)
 			if loadContDataErr != nil {
 				fer.Fatal("unable to load containerum file: %v", loadContDataErr)
 			}
