@@ -25,13 +25,16 @@ type EmbeddedFSObjectGetter struct {
 	fnames map[string]string
 }
 
+// Panics if dir doesn't exist in static filesystem
+// Ignored file defined in utils.go##Ignored()
+// If
 func NewEmbeddedFSObjectGetter(dir string) EmbeddedFSObjectGetter {
 	var fnames, getAllFiles = static.WalkDirs(dir, false)
 	if getAllFiles != nil {
 		panic(fmt.Sprintf("[containerum/embark/pkg/ogetter.NewEmbeddedFSObjectGetter] unable to get static filenames: %v", getAllFiles))
 	}
 	var getter = EmbeddedFSObjectGetter{
-		fnames: make(map[string]string, len(fnames)/3+1),
+		fnames: make(map[string]string, len(fnames)/3+2),
 	}
 	for _, fname := range fnames {
 		{
@@ -51,6 +54,7 @@ func NewEmbeddedFSObjectGetter(dir string) EmbeddedFSObjectGetter {
 	return getter
 }
 
+// Returns object names
 func (getter EmbeddedFSObjectGetter) ObjectNames() []string {
 	var names = make([]string, 0, len(getter.fnames))
 	for name := range getter.fnames {

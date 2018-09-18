@@ -1,3 +1,5 @@
+// Package kubeconf provides adapter types for parsing kubectl config files
+// and parsing functions
 package kubeconf
 
 import (

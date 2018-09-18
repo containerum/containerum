@@ -11,9 +11,13 @@ var (
 	b64 = base64.StdEncoding
 )
 
-// Where possible, json tags match the cli argument names.
+// diffs:
+//		- AuthInfo.ClientCertificateData is a base64 string
+//		- AuthInfo.ClientKeyData is a base64 string
+//		- CLuster.CertificateAuthorityData is a base64 string
 // Top level config objects and all values required for proper functioning are not "omitempty".  Any truly optional piece of config is allowed to be omitted.
 
+// Config is adapter for kubect config, convertable to github.com/ericchiang/k8s.Config
 // Config holds the information needed to build connect to remote kubernetes clusters as a given user
 type Config struct {
 	// Legacy field from pkg/api/types.go TypeMeta.

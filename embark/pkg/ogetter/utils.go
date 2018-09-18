@@ -6,14 +6,14 @@ import (
 	"strings"
 )
 
-func Ingnored() []string {
+func Ignored() []string {
 	return []string{
 		`\.helmignore`,
 		`.+\.lock`,
 	}
 }
 
-var ignoreRegex = regexp.MustCompile(strings.Join(Ingnored(), "|"))
+var ignoreRegex = regexp.MustCompile(strings.Join(Ignored(), "|"))
 
 func IgnoreRegex() *regexp.Regexp {
 	return ignoreRegex.Copy()

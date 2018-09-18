@@ -1,3 +1,4 @@
+// Package fer provides formatting print functions to stderr
 package fer
 
 import (
