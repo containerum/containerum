@@ -1,16 +1,16 @@
 package ogetter
 
 import (
+	"path"
 	"regexp"
 	"strings"
 )
 
 func Ingnored() []string {
-	var patterns = []string{
-		"\\.helmignore",
+	return []string{
+		`\.helmignore`,
 		`.+\.lock`,
 	}
-	return patterns
 }
 
 var ignoreRegex = regexp.MustCompile(strings.Join(Ingnored(), "|"))
@@ -21,4 +21,11 @@ func IgnoreRegex() *regexp.Regexp {
 
 func IsIgnored(fname string) bool {
 	return ignoreRegex.MatchString(fname)
+}
+
+func extractObjectNameFromFilename(fname string) string {
+	var ext = path.Ext(fname)
+	var _, objectName = path.Split(fname)
+	objectName = strings.TrimSuffix(objectName, ext)
+	return objectName
 }
