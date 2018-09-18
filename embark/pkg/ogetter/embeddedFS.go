@@ -12,31 +12,37 @@ import (
 
 const StaticRootDir = ""
 
-var StaticTemplates = NewEmbeddedFSObjectGetter(path.Join(StaticRootDir, "templates"))
-var StaticMeta = NewEmbeddedFSObjectGetter(StaticRootDir)
+var (
+	StaticTemplates = NewEmbeddedFSObjectGetter(path.Join(StaticRootDir, "templates"))
+	StaticMeta      = NewEmbeddedFSObjectGetter(StaticRootDir)
 
+	_ ObjectGetter = EmbeddedFSObjectGetter{}
+)
+
+// KV object store over static embedded filesystem
+// Ignores files from subdirs
 type EmbeddedFSObjectGetter struct {
 	fnames map[string]string
 }
 
 func NewEmbeddedFSObjectGetter(dir string) EmbeddedFSObjectGetter {
-	var getter = EmbeddedFSObjectGetter{
-		fnames: make(map[string]string),
-	}
 	var fnames, getAllFiles = static.WalkDirs(dir, false)
 	if getAllFiles != nil {
 		panic(fmt.Sprintf("[containerum/embark/pkg/ogetter.NewEmbeddedFSObjectGetter] unable to get static filenames: %v", getAllFiles))
 	}
+	var getter = EmbeddedFSObjectGetter{
+		fnames: make(map[string]string, len(fnames)/3+1),
+	}
 	for _, fname := range fnames {
-		var objectName string
-		if fdir, _ := path.Split(fname); fdir != dir {
-			continue
-		}
 		{
-			var ext = path.Ext(fname)
-			objectName = strings.TrimPrefix(fname, dir+"/")
-			objectName = strings.TrimSuffix(objectName, ext)
+			var fdir, _ = path.Split(fname)
+			var fileInSubDir = dir == "" && fdir != ""
+			var fileInAnotherSubDir = dir != "" && !strings.HasPrefix(fdir, dir)
+			if fileInSubDir || fileInAnotherSubDir {
+				continue
+			}
 		}
+		var objectName = extractObjectNameFromFilename(fname)
 		if objectName == "" || IsIgnored(fname) {
 			continue
 		}
