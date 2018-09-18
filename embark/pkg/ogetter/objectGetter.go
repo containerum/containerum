@@ -6,4 +6,5 @@ import (
 
 type ObjectGetter interface {
 	Object(name string, output io.Writer) error
+	ObjectNames() []string
 }
