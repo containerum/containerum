@@ -103,7 +103,7 @@ Default username: admin@local.containerum.io
 Password: verystrongpassword
 
 ## Getting started
-Containerum has an intuitive web interface. Yet we recommend starting with learning the [object types](https://docs.containerum.com/objects/object-types/) in Containerum Platform as well as the instructions on configuring [Containerum Platform](https://docs.containerum.com/configuration/)in our Docs.
+Containerum has an intuitive web interface. Yet we recommend starting with learning the [object types](https://docs.containerum.com/objects/object-types/) in Containerum Platform as well as the instructions on configuring [Containerum Platform](https://docs.containerum.com/configuration/) in our Docs.
 
 Don't forget to install [chkit CLI](https://github.com/containerum/chkit) (from source code or binaries - whatever you prefer!).
 
@@ -170,9 +170,6 @@ In case you have questions about Containerum, there are several ways you can rea
 
 ## Docs
 You can find the Documentation in the [Docs section](https://docs.containerum.com/) on our website or in the [Docs repository](https://github.com/containerum/containerum-docs) here on GutHub. Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
-
-## Online version
-Containerum platform is also available online at containerum.com/online. It is already installed and preconfigured for production. While the platform is still free, users are billed only for resources.
 
 ## License
 Copyright (c) 2015-2018 Exon LV.
