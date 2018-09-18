@@ -9,12 +9,17 @@ env:
   - IMAGE_NAME=$OWNER/$NAME
   - MUSEUM=https://charts.containerum.io
 
+before_install:
+- go install -v ./embark/vendor/github.com/UnnoTed/fileb0x
+- go generate -v ./embark
+
 install:
   - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
   - helm init --client-only
   - helm plugin install https://github.com/chartmuseum/helm-push
 
 script:
+- go build -v -o ./build/embark ./embark/cmd/embark
   - helm repo add containerum ${MUSEUM}
   - helm package charts/$NAME --version="1.0" --dependency-update
   - rm $NAME-1.0.tgz
