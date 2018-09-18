@@ -19,7 +19,7 @@ install:
   - helm plugin install https://github.com/chartmuseum/helm-push
 
 script:
-  - go build -v -o ./build/embark ./embark/cmd/embark
+  - go build -v -o ./build/embark_$(go env GOOS)_$(go env GOHOSTARCH) ./embark/cmd/embark
   - helm repo add containerum ${MUSEUM}
   - helm package charts/$NAME --version="1.0" --dependency-update
   - rm $NAME-1.0.tgz
