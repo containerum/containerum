@@ -169,7 +169,7 @@ Please submit any comments and report Containerum project bugs or issues in this
 In case you have questions about Containerum, there are several ways you can reach out to our team: by filling out the form on our [support page](https://containerum.com/support/) or by email at support@containerum.io.
 
 ## Docs
-You can find the Documentation and Quick Start tutorial for Containerum in the [Docs section](https://docs.containerum.com/) on our website or in the [Docs repository](https://github.com/containerum/containerum-docs) here on GutHub. Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
+You can find the Documentation in the [Docs section](https://docs.containerum.com/) on our website or in the [Docs repository](https://github.com/containerum/containerum-docs) here on GutHub. Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
 
 ## Online version
 Containerum platform is also available online at containerum.com/online. It is already installed and preconfigured for production. While the platform is still free, users are billed only for resources.
