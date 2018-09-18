@@ -103,7 +103,7 @@ Default username: admin@local.containerum.io
 Password: verystrongpassword
 
 ## Getting started
-Containerum has an intuitive web interface and a simple but powerful CLI tool. Yet we recommend learning about the [object types](https://docs.containerum.com/getting-started/object-types/) in Containerum as well as the basics of working with [Containerum Web UI](https://docs.containerum.com/web-panel/) and [chkit CLI](https://docs.containerum.com/cli/) in our Docs.
+Containerum has an intuitive web interface. Yet we recommend starting with learning the [object types](https://docs.containerum.com/objects/object-types/) in Containerum Platform as well as the instructions on configuring [Containerum Platform](https://docs.containerum.com/configuration/)in our Docs.
 
 Don't forget to install [chkit CLI](https://github.com/containerum/chkit) (from source code or binaries - whatever you prefer!).
 
