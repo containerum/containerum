@@ -1,5 +1,0 @@
-apiVersion: v1
-appVersion: "v1.0.0"
-description: A Helm chart for Containerum
-name: containerum
-version: "v1.0.0"
