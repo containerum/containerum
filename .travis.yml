@@ -10,7 +10,6 @@ env:
   - MUSEUM=https://charts.containerum.io
 
 before_install:
-- go install -v ./embark/vendor/github.com/UnnoTed/fileb0x
 - go generate -v ./embark
 
 install:
