@@ -55,7 +55,6 @@ type renderConfig struct {
 }
 
 func RenderComponents(baseDir string, cont containerum.Containerum, configs ...renderConfig) ([]RenderedComponent, error) {
-
 	var config = renderConfig{
 		release: &release.Release{},
 	}

@@ -8,7 +8,9 @@ import (
 	"github.com/containerum/containerum/embark/pkg/builder"
 	"github.com/containerum/containerum/embark/pkg/cli/flags"
 	"github.com/containerum/containerum/embark/pkg/models/containerum"
+	"github.com/containerum/containerum/embark/pkg/static"
 	"github.com/containerum/containerum/embark/pkg/utils/fer"
+
 	"github.com/octago/sflags/gen/gpflag"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
@@ -32,10 +34,15 @@ func Install(defaultInstallConfig *flags.Install) *cobra.Command {
 			var contData []byte
 			var loadContDataErr error
 
-			contData, loadContDataErr = ioutil.ReadFile(installConfig.Containerum)
-			if loadContDataErr != nil {
-				fer.Fatal("unable to load containerum file: %v", loadContDataErr)
+			if installConfig.KubeConfig != "" {
+				contData, loadContDataErr = ioutil.ReadFile(installConfig.Containerum)
+				if loadContDataErr != nil {
+					fer.Fatal("unable to load containerum file: %v", loadContDataErr)
+				}
+			} else {
+				contData, loadContDataErr = static.ReadFile("containerum.yaml")
 			}
+
 			var cont containerum.Containerum
 			if err := yaml.Unmarshal(contData, &cont); err != nil {
 				fer.Fatal("unable to load containerum data: %v", err)
