@@ -1,4 +1,4 @@
-package objects
+package bobjects
 
 import (
 	"bytes"
@@ -50,7 +50,10 @@ func (objects Objects) Render(bootstrap *template.Template, output map[string]*b
 			for k, v := range values {
 				vals[k] = v
 			}
-			vals["Template"] = map[string]interface{}{"Name": name, "BasePath": name}
+			vals["Template"] = map[string]interface{}{
+				"Name":     name,
+				"BasePath": name, // not bug
+			}
 			var objectTmpl, _ = tmpl.Clone()
 			objectTmpl, parseObjectTmplErr := objectTmpl.Parse(object.String())
 			if parseObjectTmplErr != nil {

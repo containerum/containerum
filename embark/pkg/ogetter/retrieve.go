@@ -3,9 +3,8 @@ package ogetter
 import (
 	"bytes"
 
+	"github.com/containerum/containerum/embark/pkg/bobjects"
 	"github.com/containerum/containerum/embark/pkg/emberr"
-
-	"github.com/containerum/containerum/embark/pkg/objects"
 )
 
 func extras() []string {
@@ -17,7 +16,7 @@ func extras() []string {
 var isExtras = make(map[string]bool)
 
 // Loads content of selected objects to map[string]*bytes.Buffer
-func RetrieveObjects(getter ObjectGetter, objectNames ...string) (objects.Objects, error) {
+func RetrieveObjects(getter ObjectGetter, objectNames ...string) (bobjects.Objects, error) {
 	objectNames = append(objectNames, extras()...)
 	var objects = make(map[string]*bytes.Buffer, len(objectNames))
 	for _, objectName := range objectNames {
