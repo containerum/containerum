@@ -1,0 +1,7 @@
+containerum:
+  version: 1.2.0
+  repo: charts.containerum.io
+  objects:
+  - ingress
+  values:
+    CONTAINERUM_VERSION: 1.6.1
