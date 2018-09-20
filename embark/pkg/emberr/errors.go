@@ -171,6 +171,10 @@ func (err ErrUnableToCreateKubeCLient) Unwrap() error {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var (
+	_ Error = Chain{}
+)
+
 type Chain struct {
 	head error
 	tail []error
@@ -213,6 +217,10 @@ func (err Chain) Unwrap() error {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var (
+	_ Error = ErrUnmarshalYAML{}
+)
+
 type ErrUnmarshalYAML struct {
 	Filename string
 	Reason   error
@@ -232,11 +240,17 @@ func (err ErrUnmarshalYAML) Unwrap() error {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var (
+	_ Error = ErrInvalidTemplateDir{}
+)
+
 type ErrInvalidTemplateDir struct {
 	defaultExitCoder
 	Comment string
 	Reason  error
 }
+
+func (err ErrInvalidTemplateDir) Unwrap() error { return err.Reason }
 
 func (err ErrInvalidTemplateDir) Error() string {
 	var msg = "invalid template dir"
@@ -251,10 +265,16 @@ func (err ErrInvalidTemplateDir) Error() string {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var (
+	_ Error = ErrObjectNotFound{}
+)
+
 type ErrObjectNotFound struct {
 	Name              string
 	ObjectsWhichExist []string
 }
+
+func (err ErrObjectNotFound) Unwrap() error { return nil }
 
 func (err ErrObjectNotFound) findNearest() string {
 	var minDist = -1
@@ -275,10 +295,16 @@ func (err ErrObjectNotFound) Error() string {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var (
+	_ Error = ErrUnableToOpenObjectFile{}
+)
+
 type ErrUnableToOpenObjectFile struct {
 	File   string
 	Reason error
 }
+
+func (err ErrUnableToOpenObjectFile) Unwrap() error { return err.Reason }
 
 func (err ErrUnableToOpenObjectFile) Error() string {
 	return fmt.Sprintf("unable to open object file %q: %v", err.File, err.Reason)
@@ -286,10 +312,16 @@ func (err ErrUnableToOpenObjectFile) Error() string {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var (
+	_ Error = ErrUnableToReadObjectFile{}
+)
+
 type ErrUnableToReadObjectFile struct {
 	File   string
 	Reason error
 }
+
+func (err ErrUnableToReadObjectFile) Unwrap() error { return err.Reason }
 
 func (err ErrUnableToReadObjectFile) Error() string {
 	return fmt.Sprintf("unable to read object file %q: %v", err.File, err.Reason)
@@ -297,10 +329,16 @@ func (err ErrUnableToReadObjectFile) Error() string {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var (
+	_ Error = ErrReadDir{}
+)
+
 type ErrReadDir struct {
 	Dir    string
 	Reason error
 }
+
+func (err ErrReadDir) Unwrap() error { return err.Reason }
 
 func (err ErrReadDir) Error() string {
 	return fmt.Sprintf("error while reading dir %q: %v", err.Dir, err.Reason)
@@ -308,10 +346,16 @@ func (err ErrReadDir) Error() string {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+var (
+	_ Error = ErrUnableToParseObject{}
+)
+
 type ErrUnableToParseObject struct {
 	Name   string
 	Reason error
 }
+
+func (err ErrUnableToParseObject) Unwrap() error { return err.Reason }
 
 func (err ErrUnableToParseObject) Error() string {
 	return fmt.Sprintf("unable to parse object %q as template: %v", err.Name, err.Reason)
@@ -326,4 +370,22 @@ type ErrUnableToRenderObject struct {
 
 func (err ErrUnableToRenderObject) Error() string {
 	return fmt.Sprintf("unable to render object %q: %v", err.Name, err.Reason)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+var (
+	_ Fatal = ErrUnableToCreateTempDir{}
+)
+
+type ErrUnableToCreateTempDir struct {
+	defaultExitCoder
+	Path   string
+	Reason error
+}
+
+func (err ErrUnableToCreateTempDir) Unwrap() error { return err.Reason }
+
+func (err ErrUnableToCreateTempDir) Error() string {
+	return fmt.Sprintf("unable to create temp dir %q: %v", err.Path, err.Reason)
 }
