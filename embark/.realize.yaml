@@ -1,0 +1,15 @@
+schema:
+- name: embark
+  commands:
+    build:
+      status: true
+      method: go build -v -o embark ./cmd/embark/
+    generate:
+      status: true
+    test:
+      status: true
+  watcher:
+    paths:
+    - /
+    ignored_paths:
+    - vendor
