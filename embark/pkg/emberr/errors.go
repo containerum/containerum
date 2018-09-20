@@ -1,7 +1,6 @@
 package emberr
 
 import (
-	"bytes"
 	"fmt"
 
 	"github.com/agnivade/levenshtein"
@@ -168,54 +167,6 @@ func (err ErrUnableToCreateKubeCLient) Error() string {
 func (err ErrUnableToCreateKubeCLient) Unwrap() error {
 	return err.Reason
 }
-
-// ---------------------------------------------------------------------------------------------------------------------
-
-var (
-	_ Error = Chain{}
-)
-
-type Chain struct {
-	head error
-	tail []error
-}
-
-func NewChain(head error, tail ...error) Chain {
-	return Chain{
-		head: head,
-		tail: tail,
-	}
-}
-
-func (err Chain) Head() error {
-	return err.head
-}
-
-func (err Chain) Error() string {
-	var buf = bytes.NewBufferString(err.head.Error() + ":\n")
-	for _, e := range err.tail {
-		fmt.Fprintf(buf, "\t%s\n", e)
-	}
-	return buf.String()
-}
-
-func (err Chain) Unwrap() error {
-	switch len(err.tail) {
-	case 0:
-		return err.head
-	case 1:
-		return Chain{
-			head: err.tail[0],
-		}
-	default:
-		return Chain{
-			head: err.tail[0],
-			tail: append([]error{}, err.tail[1:]...),
-		}
-	}
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
 
 var (
 	_ Error = ErrUnmarshalYAML{}
@@ -388,4 +339,24 @@ func (err ErrUnableToCreateTempDir) Unwrap() error { return err.Reason }
 
 func (err ErrUnableToCreateTempDir) Error() string {
 	return fmt.Sprintf("unable to create temp dir %q: %v", err.Path, err.Reason)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+var (
+	_ Fatal = ErrUnableToLoadKubectlConfig{}
+)
+
+type ErrUnableToLoadKubectlConfig struct {
+	defaultExitCoder
+	Path   string
+	Reason error
+}
+
+func (err ErrUnableToLoadKubectlConfig) Error() string {
+	return fmt.Sprintf("unable to load kubectl config %q: %v", err.Path, err.Reason)
+}
+
+func (err ErrUnableToLoadKubectlConfig) Unwrap() error {
+	return err.Reason
 }
