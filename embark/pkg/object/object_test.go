@@ -18,7 +18,6 @@ func TestObjectEncodeDecode(test *testing.T) {
 	if err != nil {
 		test.Fatal(err)
 	}
-
 	assert.Equal(test, testDepl(test, testDeplData), objFromYAML.body)
 }
 
