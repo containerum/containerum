@@ -1,10 +1,15 @@
 package emberr
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/magiconair/properties/assert"
+)
 
 func TestLevenstein(test *testing.T) {
-	test.Log(ErrObjectNotFound{
+	var nearest = ErrObjectNotFound{
 		Name:              "deployment",
 		ObjectsWhichExist: []string{"svc", "deploy", "net"},
-	}.Error())
+	}.findNearest()
+	assert.Equal(test, nearest, "deploy")
 }
