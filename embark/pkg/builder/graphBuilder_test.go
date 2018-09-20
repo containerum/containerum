@@ -27,14 +27,7 @@ func TestBuildGraph(test *testing.T) {
 		test.Fatal(downloadErr)
 	}
 
-	var rendered, renderErr = RenderComponents(testdir, cont, renderConfig{
-		mixinValues: m{
-			"Values": m{
-				"fullnameOverride": "mongodb",
-				"configmap":        "1649",
-			},
-		},
-	})
+	var rendered, renderErr = RenderComponents(testdir, cont)
 	if renderErr != nil {
 		test.Fatal(renderErr)
 	}

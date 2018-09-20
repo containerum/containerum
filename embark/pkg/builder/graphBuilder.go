@@ -3,16 +3,21 @@ package builder
 import (
 	"bytes"
 	"context"
+	"fmt"
+	"math"
 	"net/http"
 	"path"
+	"sync"
 	"text/template"
 	"time"
 
 	"github.com/containerum/containerum/embark/pkg/cgraph"
+	"github.com/containerum/containerum/embark/pkg/emberr"
 	"github.com/containerum/containerum/embark/pkg/models/chart"
 	"github.com/containerum/containerum/embark/pkg/models/containerum"
 	"github.com/containerum/containerum/embark/pkg/models/release"
 	"github.com/containerum/containerum/embark/pkg/ogetter"
+	"github.com/containerum/containerum/embark/pkg/utils/spin"
 
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/yaml.v2"
@@ -26,10 +31,49 @@ func DowloadComponents(baseDir string, cont containerum.Containerum) error {
 	var client = &http.Client{
 		Timeout: timeout,
 	}
-	for _, component := range cont.Components() {
-		downloader.Go(downloadDependency(client, baseDir, component.URL()))
+	var components = cont.Components()
+	var errors = make([]error, 0, len(components))
+	var mu sync.Mutex
+	var downloadNotify = make(chan struct{}, len(components))
+	var spinStop = make(chan struct{})
+	go func() {
+		var spinner = spin.Loop{
+			Frames: []string{".", "o", "0", "@", "*"},
+			Prefix: fmt.Sprintf("downloading %d components ", len(components)),
+		}
+		fmt.Print(spinner.Next())
+		var downloaded float64 = 0
+		var total = float64(len(components))
+		for range downloadNotify {
+			downloaded++
+			spinner.Prefix = fmt.Sprintf("downloaded %2d ", int(math.Round(100*downloaded/total)))
+			fmt.Print(spinner.Next())
+		}
+		spinner.Erase()
+		fmt.Println("")
+		close(spinStop)
+	}()
+	for _, component := range components {
+		component := component.Copy()
+		downloader.Go(func() error {
+			var err = downloadDependency(client, baseDir, component.URL())()
+			if err != nil {
+				mu.Lock()
+				errors = append(errors, err)
+				mu.Unlock()
+			}
+			downloadNotify <- struct{}{}
+			return nil
+		})
 	}
-	return downloader.Wait()
+	downloader.Wait()
+	close(downloadNotify)
+	<-spinStop
+
+	if len(errors) != 0 {
+		return emberr.NewChain(fmt.Errorf("unable to download components"), errors...)
+	}
+	return nil
 }
 
 type RenderedComponent struct {
@@ -54,19 +98,21 @@ type renderConfig struct {
 	release     *release.Release
 }
 
-func RenderComponents(baseDir string, cont containerum.Containerum, configs ...renderConfig) ([]RenderedComponent, error) {
-	var config = renderConfig{
+type RenderOption func(config *renderConfig)
+
+func RenderWithValues(values map[string]interface{}) RenderOption {
+	return func(config *renderConfig) {
+		config.mixinValues = values
+	}
+}
+
+func RenderComponents(baseDir string, cont containerum.Containerum, options ...RenderOption) ([]RenderedComponent, error) {
+	var config = &renderConfig{
 		release: &release.Release{},
 	}
-	for _, layer := range configs {
-		if layer.release != nil {
-			config.release = layer.release
-		}
-		if layer.mixinValues != nil {
-			config.mixinValues = layer.mixinValues
-		}
+	for _, option := range options {
+		option(config)
 	}
-
 	var components = make([]RenderedComponent, 0, len(cont))
 	for _, component := range cont.Components() {
 		var componentPath = path.Join(baseDir, component.Name)
