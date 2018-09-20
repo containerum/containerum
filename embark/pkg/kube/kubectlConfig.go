@@ -1,7 +1,7 @@
 package kube
 
 import (
-	"github.com/containerum/containerum/embark/pkg/utils/kubeconf"
+	"github.com/containerum/containerum/embark/pkg/kubeconf"
 	weirdKubeClient "github.com/ericchiang/k8s"
 	goyaml "github.com/go-yaml/yaml"
 )

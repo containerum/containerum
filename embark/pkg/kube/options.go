@@ -14,6 +14,12 @@ func WithKubectlConfig(kubectlConfig KubectlConfig) _Config {
 	}
 }
 
+func WithKubectlConfigFromPath(configpath string) _Config {
+	return _Config{
+		kubectlConfigProvider: LoadKubectlConfigFromPath(configpath),
+	}
+}
+
 func WithKubectlConfigProvider(provider KubectlConfigProvider) _Config {
 	return _Config{
 		kubectlConfigProvider: provider,

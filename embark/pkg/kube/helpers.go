@@ -4,7 +4,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/containerum/containerum/embark/pkg/utils/kubeconf"
+	"github.com/containerum/containerum/embark/pkg/emberr"
+	"github.com/containerum/containerum/embark/pkg/kubeconf"
 )
 
 var (
@@ -20,9 +21,12 @@ func LoadKubectlConfigFromPath(configPath string) KubectlConfigProvider {
 	return func() (KubectlConfig, error) {
 		var config, err = kubeconf.LoadFromFile(configPath)
 		if err != nil {
-			return KubectlConfig{}, err
+			return KubectlConfig{}, emberr.ErrUnableToLoadKubectlConfig{
+				Path:   configPath,
+				Reason: err,
+			}
 		}
-		return KubectlConfig(config), err
+		return KubectlConfig(config), nil
 	}
 }
 

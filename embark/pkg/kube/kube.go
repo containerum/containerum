@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/containerum/containerum/embark/pkg/object"
 	weirdKubeClient "github.com/ericchiang/k8s"
 )
 
@@ -33,8 +34,7 @@ func NewKube(options ..._Config) (Kube, error) {
 	return kubeClinent, nil
 }
 
-func (kube Kube) Create(obj Object) error {
-	RegisterObject()
+func (kube Kube) Create(obj object.Object) error {
 	var ctx, done = context.WithTimeout(context.Background(), kube.timeout)
 	defer done()
 	return kube.Client.Create(ctx, &obj)
