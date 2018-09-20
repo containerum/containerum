@@ -7,3 +7,4 @@
 /charts/containerum/charts/
 /embark/pkg/builder/testdata/buildGraph/
 /embark/bin/*
+/embark/testdata/*
