@@ -22,7 +22,7 @@ func TestBuildGraph(test *testing.T) {
 			},
 		},
 	}
-	var downloadErr = DowloadComponents(testdir, cont)
+	var downloadErr = DownloadComponents(testdir, cont)
 	if downloadErr != nil {
 		test.Fatal(downloadErr)
 	}

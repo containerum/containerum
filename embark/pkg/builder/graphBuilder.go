@@ -56,7 +56,7 @@ func DowloadComponents(baseDir string, cont components.Components) error {
 	for _, component := range components {
 		component := component.Copy()
 		downloader.Go(func() error {
-			var err = downloadDependency(client, baseDir, component.URL())()
+			var err = DownloadComponent(client, baseDir, component.URL())
 			if err != nil {
 				mu.Lock()
 				errors = append(errors, err)
