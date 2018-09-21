@@ -5,13 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
-	"strings"
 
 	"github.com/containerum/containerum/embark/pkg/builder"
-	"github.com/containerum/containerum/embark/pkg/models/containerum"
-	"github.com/containerum/containerum/embark/pkg/static"
-	"gopkg.in/yaml.v2"
-
 	"github.com/containerum/containerum/embark/pkg/emberr"
 	"github.com/containerum/containerum/embark/pkg/kube"
 )
@@ -62,23 +57,4 @@ func (installer Installer) Install() error {
 	}
 	_ = kubeClient
 	return nil
-}
-
-func loadContainerumConfig(configpath string) (containerum.Containerum, error) {
-	var containerumConfig containerum.Containerum
-	var data []byte
-	var loadContDataErr error
-	switch strings.TrimSpace(configpath) {
-	case "", "static":
-		data, loadContDataErr = static.ReadFile("containerum.yaml")
-	default:
-		data, loadContDataErr = static.ReadFile(path.Clean(configpath))
-	}
-	if loadContDataErr != nil {
-		return containerumConfig, loadContDataErr
-	}
-	if err := yaml.Unmarshal(data, &containerumConfig); err != nil {
-		return containerumConfig, err
-	}
-	return containerumConfig, nil
 }
