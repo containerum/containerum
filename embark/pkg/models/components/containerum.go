@@ -6,21 +6,21 @@ import (
 
 type Components map[string]Component
 
-func (containerum Components) Len() int {
-	return len(containerum)
+func (comps Components) Len() int {
+	return len(comps)
 }
 
-func (containerum Components) Copy() Components {
-	var cp = make(Components, containerum.Len())
-	for name, component := range containerum {
+func (comps Components) Copy() Components {
+	var cp = make(Components, comps.Len())
+	for name, component := range comps {
 		cp[name] = component.Copy()
 	}
 	return cp
 }
 
-func (containerum Components) Slice() []ComponentWithName {
-	var components = make([]ComponentWithName, 0, len(containerum))
-	for name, component := range containerum {
+func (comps Components) Slice() []ComponentWithName {
+	var components = make([]ComponentWithName, 0, len(comps))
+	for name, component := range comps {
 		components = append(components, ComponentWithName{
 			Name:      name,
 			Component: component.Copy(),
@@ -29,18 +29,18 @@ func (containerum Components) Slice() []ComponentWithName {
 	return components
 }
 
-func (containerum Components) String() string {
-	var data, _ = yaml.Marshal(containerum)
+func (comps Components) String() string {
+	var data, _ = yaml.Marshal(comps)
 	return string(data)
 }
 
-func (containerum Components) New() Components {
-	return make(Components, containerum.Len())
+func (comps Components) New() Components {
+	return make(Components, comps.Len())
 }
 
-func (containerum Components) Filter(pred func(component ComponentWithName) bool) Components {
-	var filtered = containerum.New()
-	for name, component := range containerum {
+func (comps Components) Filter(pred func(component ComponentWithName) bool) Components {
+	var filtered = comps.New()
+	for name, component := range comps {
 		if pred(ComponentWithName{
 			Name:      name,
 			Component: component.Copy(),
@@ -49,4 +49,39 @@ func (containerum Components) Filter(pred func(component ComponentWithName) bool
 		}
 	}
 	return filtered
+}
+
+func (comps Components) Contains(name string) bool {
+	var _, contains = comps[name]
+	return contains
+}
+
+func (comps Components) Get(name string) (ComponentWithName, bool) {
+	var component, ok = comps[name]
+	if !ok {
+		return ComponentWithName{}, false
+	}
+	return ComponentWithName{
+		Name:      name,
+		Component: component.Copy(),
+	}, true
+}
+
+func (comps Components) MustGet(name string) ComponentWithName {
+	var component, ok = comps[name]
+	if !ok {
+		return ComponentWithName{}
+	}
+	return ComponentWithName{
+		Name:      name,
+		Component: component.Copy(),
+	}
+}
+
+func (comps Components) Names() []string {
+	var names = make([]string, 0, comps.Len())
+	for name := range comps {
+		names = append(names, name)
+	}
+	return names
 }
