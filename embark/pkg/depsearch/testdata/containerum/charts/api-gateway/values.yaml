@@ -1,0 +1,48 @@
+replicaCount: 1
+image:
+  repository: containerum/gateway
+  tag: v1.0.3
+  pullPolicy: IfNotPresent
+  secret: null
+service:
+  port: 8082
+  targetPort: 8082
+  externalIP: null
+routes:
+- name: routes.toml
+  path: env/routes/routes.toml
+- name: auth.toml
+  path: env/routes/auth.toml
+- name: kube.toml
+  path: env/routes/kube.toml
+- name: resource.toml
+  path: env/routes/resource.toml
+- name: user.toml
+  path: env/routes/user.toml
+- name: bill.toml
+  path: env/routes/bill.toml
+- name: permissions.toml
+  path: env/routes/permissions.toml
+- name: volume.toml
+  path: env/routes/volume.toml
+- name: solutions.toml
+  path: env/routes/solutions.toml
+- name: mail.toml
+  path: env/routes/mail.toml
+- name: nodemetrics.toml
+  path: env/routes/nodemetrics.toml
+config: env/config.toml
+tls:
+  enable: false
+  cert: QkFTRTY0X1RMU19DRVJUCg==
+  key: QkFTRTY0X1RMU19LRVkK
+env:
+  global:
+    GATEWAY_DEBUG: true
+    ROUTES_FILE: /routes/routes.toml
+    CONFIG_FILE: /config.toml
+    TLS_CERT: /cert/tls.crt
+    TLS_KEY: /cert/tls.key
+  local:
+    GRPC_AUTH_ADDRESS: auth:1112
+    SERVICE_HOST_PREFIX: null

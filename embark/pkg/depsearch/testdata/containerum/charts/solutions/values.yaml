@@ -1,0 +1,30 @@
+tags:
+  db: true
+  platformdb: false
+replicaCount: 1
+image:
+  repository: containerum/solutions
+  tag: 1.0.1
+  pullPolicy: IfNotPresent
+  secret: null
+service:
+  port: 6767
+  targetPort: 6767
+  externalIP: null
+env:
+  global:
+    CH_SOLUTIONS_DEBUG: "false"
+    CH_SOLUTIONS_TEXTLOG: "false"
+    CH_SOLUTIONS_DB: postgres
+    CH_SOLUTIONS_PG_LOGIN: solutions
+    CH_SOLUTIONS_PG_DBNAME: solutions
+    CH_SOLUTIONS_PG_NOSSL: "true"
+  local:
+    CH_SOLUTIONS_PG_ADDR: postgres-master.postgres.svc.cluster.local:5432
+    CH_SOLUTIONS_KUBE_API_URL: http://kube-api:1214
+    CH_SOLUTIONS_RESOURCE_URL: http://resource-service:1213
+    CH_SOLUTIONS_PG_PASSWORD: null
+postgresql:
+  persistence:
+    enabled: false
+  postgresDatabase: permissions

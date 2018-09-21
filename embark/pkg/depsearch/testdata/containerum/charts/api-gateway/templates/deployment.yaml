@@ -1,0 +1,74 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ template "chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          {{- range $key, $val := .Values.env.global }}
+              - name: {{ $key  }}
+                value: {{ $val | quote }}
+              {{- end }}
+
+                {{- if .Values.env.local.GRPC_AUTH_ADDRESS }}
+                    - name: GRPC_AUTH_ADDRESS
+                      value: "{{ .Values.env.local.GRPC_AUTH_ADDRESS }}"
+                    {{- else }}
+                        - name: GRPC_AUTH_ADDRESS
+                          value: "{{ .Release.Name }}-auth:1112"
+                        {{- end }}
+                          {{ if .Values.env.local.SERVICE_HOST_PREFIX }}
+                          {{- if eq .Values.env.local.SERVICE_HOST_PREFIX "release-name" }}
+                              - name: SERVICE_HOST_PREFIX
+                                value: {{ .Release.Name }}
+                                {{- else }}
+                                    - name: SERVICE_HOST_PREFIX
+                                      value: "{{ .Values.env.local.SERVICE_HOST_PREFIX }}"
+                                      {{- end }}
+                                        {{ end }}
+                                            volumeMounts:
+                                            - mountPath: /routes/
+                                            name: routes
+                                            - mountPath: /config.toml
+                                            name: config
+                                            subPath: config.toml
+                                        {{ if .Values.tls.enable }}
+                                            - mountPath: /cert/
+                                              name: cert
+                                              readOnly: true
+                                        {{ end }}
+                                        {{- with .Values.image.secret }}
+                                            imagePullSecrets:
+                                            - name: {{ . }}
+                                            {{- end }}
+                                                volumes:
+                                                - name: routes
+                                                configMap:
+                                                name: {{ template "fullname" . }}-routes
+                                                - name: config
+                                                  configMap:
+                                                  name: {{ template "fullname" . }}-config
+                                                {{ if .Values.tls.enable }}
+                                                - name: cert
+                                                  secret:
+                                                  secretName: {{ template "fullname" . }}
+                                                {{ end }}

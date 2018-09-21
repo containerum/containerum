@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}-routes
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ template "chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  {{ range $k, $v := .Values.routes }}
+    {{ $v.name }}: |-
+  {{ $.Files.Get $v.path | indent 4 }}
+  {{ end }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}-config
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ template "chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": pre-install
+data:
+  config.toml: |-
+    port = 8082
+
+    [tls]
+    {{ if .Values.tls.enable }}enable = true
+    {{ else }}enable = false{{ end }}
+
+    [auth]
+    enable = true
+
+    [prometheus]
+    enable = true
+    port = 8282
+
+    [rate]
+    enable = true
+    limit = 10
+    type = "local"

@@ -1,0 +1,219 @@
+[routes.ingress_create]
+active = true
+name = "Create Ingress"
+method = "POST"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/ingresses"
+strip = false
+group = "resource-service"
+
+[routes.ingress_delete]
+active = true
+name = "Delete Ingress"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/ingresses/:ingress"
+strip = false
+group = "resource-service"
+
+[routes.ingress_update]
+active = true
+name = "Update Ingress"
+method = "PUT"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/ingresses/:ingress"
+strip = false
+group = "resource-service"
+
+[routes.resources_count_get]
+active = true
+name = "Get Resources Count"
+method = "GET"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/resources"
+strip = false
+group = "resource-service"
+
+[routes.deployment_create]
+active = true
+name = "Create Deployment"
+method = "POST"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments"
+strip = false
+group = "resource-service"
+
+[routes.deployment_replace]
+active = true
+name = "Replace Deployment"
+method = "PUT"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment"
+strip = false
+group = "resource-service"
+
+[routes.deployment_set_image]
+active = true
+name = "Set Image Deployment"
+method = "PUT"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment/image"
+strip = false
+group = "resource-service"
+
+[routes.deployment_set_replicas]
+active = true
+name = "Set Replicas Deployment"
+method = "PUT"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment/replicas"
+strip = false
+group = "resource-service"
+
+[routes.deployment_delete]
+active = true
+name = "Delete Deployment"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment"
+strip = false
+group = "resource-service"
+
+[routes.deployment_specific_version_get]
+active = true
+name = "Get Specific Deployment Version"
+method = "GET"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment/versions/:version"
+strip = false
+group = "resource-service"
+
+[routes.deployment_versions_get]
+active = true
+name = "Get Deployment Versions"
+method = "GET"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment/versions"
+strip = false
+group = "resource-service"
+
+[routes.deployment_prev_version_diff_get]
+active = true
+name = "Get Diff With Prev Deployment Version"
+method = "GET"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment/versions/:version/diff"
+strip = false
+group = "resource-service"
+
+[routes.deployment_rand_version_diff_get]
+active = true
+name = "Get Diff With Rand Deployment Version"
+method = "GET"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment/versions/:version/diff/:version2"
+strip = false
+group = "resource-service"
+
+[routes.deployment_specific_version_run]
+active = true
+name = "Run Specific Deployment Version"
+method = "POST"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment/versions/:version"
+strip = false
+group = "resource-service"
+
+[routes.deployment_version_rename]
+active = true
+name = "Rename Deployment Version"
+method = "PUT"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment/versions/:version"
+strip = false
+group = "resource-service"
+
+[routes.deployment_version_delete]
+active = true
+name = "Delete Deployment Version"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/deployments/:deployment/versions/:version"
+strip = false
+group = "resource-service"
+
+[routes.service_create]
+active = true
+name = "Create Service"
+method = "POST"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/services"
+strip = false
+group = "resource-service"
+
+[routes.service_replace]
+active = true
+name = "Replace Service"
+method = "PUT"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/services/:service"
+strip = false
+group = "resource-service"
+
+[routes.service_delete]
+active = true
+name = "Delete Service"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/namespaces/:namespace/services/:service"
+strip = false
+group = "resource-service"
+
+[routes.domain_create]
+active = true
+name = "Create Domain"
+method = "POST"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/domains"
+strip = false
+group = "resource-service"
+
+[routes.domain_list_get]
+active = true
+name = "Get Domain list"
+method = "GET"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/domains"
+strip = false
+group = "resource-service"
+
+[routes.domain_delete]
+active = true
+name = "Delete Domain"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://resource:1213"
+listen = "/domains/:domain"
+strip = false
+group = "resource-service"

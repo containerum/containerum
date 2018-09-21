@@ -1,0 +1,230 @@
+[routes.configmap_create]
+active = true
+name = "Create configmap"
+method = "POST"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/configmaps"
+strip = false
+group = "kube-api"
+
+[routes.configmap_list_get]
+active = true
+name = "Get configmap list"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/configmaps"
+strip = false
+group = "kube-api"
+
+[routes.configmap_all_namespaces_get]
+active = true
+name = "Get all namespaces configmap list"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/configmaps"
+strip = false
+group = "kube-api"
+
+[routes.configmap_get]
+active = true
+name = "Get configmap"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/configmaps/:configmap"
+strip = false
+group = "kube-api"
+
+[routes.configmap_replace]
+active = true
+name = "Replace configmap"
+method = "PUT"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/configmaps/:configmap"
+strip = false
+group = "kube-api"
+
+[routes.configmap_delete]
+active = true
+name = "Delete configmap"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/configmaps/:configmap"
+strip = false
+group = "kube-api"
+
+[routes.namespacelist_get_usage]
+active = true
+name = "Get Namespace List"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214/namespaces"
+listen = "/usage/namespaces"
+strip = true
+group = "kube-api"
+
+[routes.deployments_get]
+active = true
+name = "Get Deployments"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/deployments"
+strip = false
+group = "kube-api"
+
+[routes.deployment_get]
+active = true
+name = "Get Deployment"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/deployments/:deployment"
+strip = false
+group = "kube-api"
+
+[routes.services_get]
+active = true
+name = "Get Services"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/services"
+strip = false
+group = "kube-api"
+
+[routes.service_get]
+active = true
+name = "Get Service"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/services/:service"
+strip = false
+group = "kube-api"
+
+[routes.logs_get]
+active = true
+name = "Get Logs"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/pods/:pod/log"
+strip = false
+group = "kube-api"
+ws = true
+
+[routes.ingresses_get]
+active = true
+name = "Get Ingresses"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/ingresses"
+strip = false
+group = "kube-api"
+
+[routes.ingress_get]
+active = true
+name = "Get Ingress"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/ingresses/:ingress"
+strip = false
+group = "kube-api"
+
+[routes.ingresses_list_get]
+active = true
+name = "Get All User Ingresses List"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/ingresses"
+strip = false
+group = "kube-api"
+
+[routes.pod_delete]
+active = true
+name = "Delete Pod"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/pods/:pod"
+strip = false
+group = "kube-api"
+
+[routes.pod_get]
+active = true
+name = "Get pod"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/pods/:pod"
+strip = false
+group = "kube-api"
+
+[routes.podlist_get]
+active = true
+name = "Get pod list"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/pods"
+strip = false
+group = "kube-api"
+
+[routes.deploypodlist_get]
+active = true
+name = "Get deployment pod list"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/deployments/:deployment/pods"
+strip = false
+group = "kube-api"
+
+[routes.secret_list]
+active = true
+name = "Get secret list"
+method = "GET"
+roles = ["*"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/secrets"
+strip = false
+group = "kube-api"
+
+[routes.secret_get]
+active = true
+name = "Get secret"
+method = "GET"
+roles = ["admin"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/secrets/:secret"
+strip = false
+group = "kube-api"
+
+[routes.secret_create]
+active = true
+name = "Create secret"
+method = "POST"
+roles = ["admin"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/secrets/docker"
+strip = false
+group = "kube-api"
+
+[routes.secret_delete]
+active = true
+name = "Delete secret"
+method = "DELETE"
+roles = ["admin"]
+upstream = "http://kube:1214"
+listen = "/namespaces/:namespace/secrets/:secret"
+strip = false
+group = "kube-api"

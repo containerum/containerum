@@ -1,0 +1,10 @@
+apiVersion: v1
+description: Prometheus instance created by the CoreOS Prometheus Operator
+engine: gotpl
+maintainers:
+- email: gianrubio@gmail.com
+  name: Giancarlo Rubio
+name: prometheus
+sources:
+- https://github.com/coreos/prometheus-operator
+version: 1.0.0

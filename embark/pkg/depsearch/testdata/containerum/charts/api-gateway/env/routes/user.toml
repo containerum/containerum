@@ -1,0 +1,253 @@
+[routes.login_basic]
+active = true
+name = "Login Basic"
+method = "POST"
+upstream = "http://user-manager:8111"
+listen = "/login/basic"
+strip = false
+group = "user"
+
+[routes.login_double]
+active = true
+name = "Login Double"
+method = "POST"
+upstream = "http://user-manager:8111"
+listen = "/login"
+strip = false
+group = "user"
+
+[routes.sign_up]
+active = true
+name = "Sign Up"
+method = "POST"
+upstream = "http://user-manager:8111"
+listen = "/user/sign_up"
+strip = false
+group = "user"
+
+[routes.admin_sign_up]
+active = true
+name = "Admin Sign Up"
+method = "POST"
+roles = ["admin"]
+upstream = "http://user-manager:8111"
+listen = "/admin/user/sign_up"
+strip = false
+group = "user"
+
+[routes.admin_user_activation]
+active = true
+name = "Admin User Activation"
+method = "POST"
+roles = ["admin"]
+upstream = "http://user-manager:8111"
+listen = "/admin/user/activation"
+strip = false
+group = "user"
+
+[routes.admin_user_deactivation]
+active = true
+name = "Admin User Deactivation"
+method = "POST"
+roles = ["admin"]
+upstream = "http://user-manager:8111"
+listen = "/admin/user/deactivation"
+strip = false
+group = "user"
+
+[routes.admin_password_reset]
+active = true
+name = "Admin Reset Password"
+method = "POST"
+roles = ["admin"]
+upstream = "http://user-manager:8111"
+listen = "/admin/user/password/reset"
+strip = false
+group = "user"
+
+[routes.admin_set]
+active = true
+name = "Admin Set admin"
+method = "POST"
+roles = ["admin"]
+upstream = "http://user-manager:8111"
+listen = "/admin/user"
+strip = false
+group = "user"
+
+[routes.admin_unset]
+active = true
+name = "Admin Unset admin"
+method = "DELETE"
+roles = ["admin"]
+upstream = "http://user-manager:8111"
+listen = "/admin/user"
+strip = false
+group = "user"
+
+[routes.activate]
+active = true
+name = "Activate"
+method = "POST"
+upstream = "http://user-manager:8111"
+listen = "/user/activation"
+strip = false
+group = "user"
+
+[routes.reset_password]
+active = true
+name = "Reset password"
+method = "POST"
+upstream = "http://user-manager:8111"
+listen = "/password/reset"
+strip = false
+group = "user"
+
+[routes.restore_password]
+active = true
+name = "Restore password"
+method = "POST"
+upstream = "http://user-manager:8111"
+listen = "/password/restore"
+strip = false
+group = "user"
+
+[routes.profile_change]
+active = true
+name = "Change profile"
+method = "PUT"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/user/info"
+strip = false
+group = "user"
+
+[routes.profile_get]
+active = true
+name = "Get Profile"
+method = "GET"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/user/info"
+strip = false
+group = "user"
+
+[routes.profile_get_by_login]
+active = true
+name = "Get Profile by login"
+method = "GET"
+roles = ["admin"]
+upstream = "http://user-manager:8111"
+listen = "/user/info/login/:login"
+strip = false
+group = "user"
+
+[routes.password_change]
+active = true
+name = "Password Change"
+method = "PUT"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/password/change"
+strip = false
+group = "user"
+
+[routes.user_delete]
+active = true
+name = "Delete user"
+method = "POST"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/user/delete/partial"
+strip = false
+group = "user"
+
+[routes.user_delete_admin]
+active = true
+name = "Admin delete user"
+method = "POST"
+roles = ["admin"]
+upstream = "http://user-manager:8111"
+listen = "/user/delete/complete"
+strip = false
+group = "user"
+
+[routes.user_list_get]
+active = true
+name = "Get user list"
+method = "GET"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/user/list"
+strip = false
+group = "user"
+
+[routes.group_create]
+active = true
+name = "Create group"
+method = "POST"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/groups"
+strip = false
+group = "user"
+
+[routes.group_list_get]
+active = true
+name = "Get group list"
+method = "GET"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/groups"
+strip = false
+group = "user"
+
+[routes.group_get]
+active = true
+name = "Get group"
+method = "GET"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/groups/:group"
+strip = false
+group = "user"
+
+[routes.group_members_add]
+active = true
+name = "Add group members"
+method = "POST"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/groups/:group/members"
+strip = false
+group = "user"
+
+[routes.group_member_access_change]
+active = true
+name = "Change access group member"
+method = "PUT"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/groups/:group/members/:member"
+strip = false
+group = "user"
+
+[routes.group_member_delete]
+active = true
+name = "Delete group member"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/groups/:group/members/:member"
+strip = false
+group = "user"
+
+[routes.group_delete]
+active = true
+name = "Delete group"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://user-manager:8111"
+listen = "/groups/:group"
+strip = false
+group = "user"

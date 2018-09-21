@@ -1,0 +1,5 @@
+apiVersion: v1
+appVersion: "1"
+description: Containerum User Manager service
+name: user-manager
+version: v1.0.4

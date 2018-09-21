@@ -1,0 +1,6 @@
+dependencies:
+- name: kube-prometheus
+  repository: https://charts.containerum.io
+  version: 1.0.1
+digest: sha256:e81b4d6876277c5ea4ca98e2488b5921d4224f65d9645308f0178db55dbb0af2
+generated: 2018-08-21T14:50:26.002237491+03:00

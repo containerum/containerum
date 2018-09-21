@@ -1,0 +1,52 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ template "chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      {{- with .Values.image.secret }}
+          imagePullSecrets:
+              - name: {{ . }}
+          {{- end }}
+              containers:
+                  - name: {{ .Chart.Name }}
+                    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+                    imagePullPolicy: {{ .Values.image.pullPolicy }}
+                    env:
+                      {{- range $key, $val := .Values.env.global }}
+                          - name: {{ $key  }}
+                            value: {{ $val | quote }}
+                          {{- end }}
+                              - name: API_PORT
+                                value: {{ .Values.env.local.API_PORT | quote }}
+                              {{- if .Values.env.local.LATEST_RELEASE }}
+                                  - name: LATEST_RELEASE
+                                    value: "{{ .Values.env.local.LATEST_RELEASE }}"
+                                  {{- else }}
+                                      - name: LATEST_RELEASE
+                                        value: {{ .Chart.Version | quote }}
+                                      {{- end }}
+                                          - name: RECAPTCHA
+                                            valueFrom:
+                                            secretKeyRef:
+                                            name: {{ template "fullname" . }}
+                                            key: recaptcha
+                                          {{ if .Values.env.local.API_HOST }}
+                                          - name: API_HOST
+                                            value: {{ .Values.env.local.API_HOST }}
+                                          {{ end }}

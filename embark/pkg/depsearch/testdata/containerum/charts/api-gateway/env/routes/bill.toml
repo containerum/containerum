@@ -1,0 +1,109 @@
+[routes.month_usage]
+active = true
+name = "Get Month Usage"
+method = "GET"
+roles = ["*"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/isp/user/tariffs"
+strip = false
+group = "billing-manager"
+
+[routes.payment_processing]
+active = true
+name = "Get Braintree Processing"
+method = "POST"
+roles = ["*"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/checkouts"
+strip = false
+group = "billing-manager"
+
+[routes.payment_page]
+active = true
+name = "Get Braintree Page"
+method = "GET"
+roles = ["*"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/checkouts/new"
+strip = false
+group = "billing-manager"
+
+[routes.billing_history_get]
+active = true
+name = "Get Billing History"
+method = "GET"
+roles = ["*"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/isp/user/report"
+strip = false
+group = "billing-manager"
+
+[routes.namespace_tariffs_get]
+active = true
+name = "Get Namespace Tariffs"
+method = "GET"
+roles = ["*"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/tariffs/namespace"
+strip = false
+group = "billing-manager"
+
+[routes.volume_tariffs_get]
+active = true
+name = "Get Volume Tariffs"
+method = "GET"
+roles = ["*"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/tariffs/volume"
+strip = false
+group = "billing-manager"
+
+[routes.balance_get]
+active = true
+name = "Get Balance"
+method = "GET"
+roles = ["*"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/isp/user/balance"
+strip = false
+group = "billing-manager"
+
+[routes.coupons_get]
+active = true
+name = "Get Coupons"
+method = "GET"
+roles = ["admin"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/coupons"
+strip = false
+group = "billing-manager"
+
+[routes.coupon_create]
+active = true
+name = "Create coupon"
+method = "POST"
+roles = ["admin"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/isp/coupon/create"
+strip = false
+group = "billing-manager"
+
+[routes.coupon_apply]
+active = true
+name = "Apply coupon"
+method = "POST"
+roles = ["*"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/isp/coupon/apply"
+strip = false
+group = "billing-manager"
+
+[routes.paypal_payment]
+active = true
+name = "Paypal payment"
+method = "POST"
+roles = ["*"]
+upstream = "http://billing-manager.web.svc:5005"
+listen = "/isp/paypal"
+strip = false
+group = "billing-manager"

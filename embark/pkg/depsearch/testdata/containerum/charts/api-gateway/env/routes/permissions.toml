@@ -1,0 +1,149 @@
+[routes.namespace_access_get]
+active = true
+name = "Get Namespace Access"
+method = "GET"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace/accesses"
+strip = false
+group = "permissions"
+
+[routes.namespace_access_change]
+active = true
+name = "Change Namespace Access"
+method = "PUT"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace/accesses"
+strip = false
+group = "permissions"
+
+[routes.namespace_access_delete]
+active = true
+name = "Delete Namespace Access"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace/accesses"
+strip = false
+group = "permissions"
+
+[routes.namespace_create]
+active = true
+name = "Create Namespace"
+method = "POST"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/namespaces"
+strip = false
+group = "permissions"
+
+[routes.namespacelist_get]
+active = true
+name = "Get Namespace List"
+method = "GET"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/namespaces"
+strip = false
+group = "permissions"
+
+[routes.namespace_get]
+active = true
+name = "Get Namespace"
+method = "GET"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace"
+strip = false
+group = "permissions"
+
+[routes.namespace_rename]
+active = true
+name = "Rename Namespace"
+method = "PUT"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace/rename"
+strip = false
+group = "permissions"
+
+[routes.namespace_create_admin]
+active = true
+name = "Admin Create Namespace"
+method = "POST"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/admin/namespaces"
+strip = false
+group = "permissions"
+
+[routes.namespace_list_get_admin]
+active = true
+name = "Admin Get Namespace List"
+method = "GET"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/admin/namespaces"
+strip = false
+group = "permissions"
+
+[routes.namespace_resize]
+active = true
+name = "Resize Namespace"
+method = "PUT"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace"
+strip = false
+group = "permissions"
+
+[routes.namespace_resize_admin]
+active = true
+name = "Admin Resize Namespace"
+method = "PUT"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/admin/namespaces/:namespace"
+strip = false
+group = "permissions"
+
+[routes.namespace_delete]
+active = true
+name = "Delete Namespace"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace"
+strip = false
+group = "permissions"
+
+[routes.project_group_add]
+active = true
+name = "Add group to namespace"
+method = "POST"
+roles = ["admin"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace/groups"
+strip = false
+group = "permissions"
+
+[routes.project_groups_get]
+active = true
+name = "Get project groups"
+method = "GET"
+roles = ["admin"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace/groups"
+strip = false
+group = "permissions"
+
+[routes.project_group_delete]
+active = true
+name = "Delete group from project"
+method = "GET"
+roles = ["admin"]
+upstream = "http://permissions:4242"
+listen = "/namespaces/:namespace/groups/:group"
+strip = false
+group = "permissions"

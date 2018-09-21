@@ -1,0 +1,79 @@
+{{- $fullName := .Release.Name -}}
+  {{- $ingressUIPath := .Values.ingress.ui.path -}}
+    {{- $ingressAPIPath := .Values.ingress.api.path -}}
+
+      {{- if .Values.ingress.ui.enabled -}}
+        apiVersion: extensions/v1beta1
+         kind: Ingress
+         metadata:
+         name: {{ $fullName }}-ui
+        labels:
+            app: {{ template "containerum.name" . }}
+              chart: {{ template "containerum.chart" . }}
+              release: {{ .Release.Name }}
+              heritage: {{ .Release.Service }}
+        {{- with .Values.ingress.annotations }}
+            annotations:
+          {{ toYaml . | indent 4 }}
+          {{- end }}
+            spec:
+            {{- if .Values.ingress.ui.tls }}
+                tls:
+                {{- range .Values.ingress.ui.tls }}
+                    - hosts:
+                      {{- range .hosts }}
+                          - {{ . }}
+                          {{- end }}
+                              secretName: {{ .secretName }}
+                              {{- end }}
+                                {{- end }}
+                                    rules:
+                                    {{- range .Values.ingress.ui.hosts }}
+                                        - host: {{ . }}
+                                          http:
+                                              paths:
+                                                - path: {{ $ingressUIPath }}
+                                                backend:
+                                                    serviceName: {{ $fullName }}-ui
+                                                      servicePort: http
+                                        {{- end }}
+                                          {{- end }}
+
+---
+
+{{- if .Values.ingress.api.enabled -}}
+  apiVersion: extensions/v1beta1
+   kind: Ingress
+   metadata:
+   name: {{ $fullName }}-api
+  labels:
+      app: {{ template "containerum.name" . }}
+        chart: {{ template "containerum.chart" . }}
+        release: {{ .Release.Name }}
+        heritage: {{ .Release.Service }}
+  {{- with .Values.ingress.annotations }}
+      annotations:
+    {{ toYaml . | indent 4 }}
+    {{- end }}
+      spec:
+      {{- if .Values.ingress.api.tls }}
+          tls:
+          {{- range .Values.ingress.api.tls }}
+              - hosts:
+                {{- range .hosts }}
+                    - {{ . }}
+                    {{- end }}
+                        secretName: {{ .secretName }}
+                        {{- end }}
+                          {{- end }}
+                              rules:
+                              {{- range .Values.ingress.api.hosts }}
+                                  - host: {{ . }}
+                                    http:
+                                        paths:
+                                          - path: {{ $ingressAPIPath }}
+                                          backend:
+                                              serviceName: {{ $fullName }}-api-gateway
+                                                servicePort: 8082
+                                  {{- end }}
+                                    {{- end }}

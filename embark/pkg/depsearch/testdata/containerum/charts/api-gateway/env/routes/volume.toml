@@ -1,0 +1,139 @@
+[routes.volume_create]
+active = true
+name = "Create Volume"
+method = "POST"
+roles = ["*"]
+upstream = "http://volume:4343"
+listen = "/namespaces/:namespace/volumes"
+strip = false
+group = "volume"
+
+[routes.limits_volume_create]
+active = true
+name = "Create Volume through limits"
+method = "POST"
+roles = ["admin"]
+upstream = "http://volume:4343"
+listen = "/limits/namespaces/:namespace/volumes"
+strip = false
+group = "volume"
+
+[routes.volume_delete]
+active = true
+name = "Delete Volume"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://volume:4343"
+listen = "/namespaces/:namespace/volumes/:volume"
+strip = false
+group = "volume"
+
+[routes.volume_delete_from_namespace]
+active = true
+name = "Delete Volumes from Namespace"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://volume:4343"
+listen = "/namespaces/:namespace/volumes"
+strip = false
+group = "volume"
+
+[routes.volume_delete_user_all]
+active = true
+name = "Delete all User Volumes"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://volume:4343"
+listen = "/volumes"
+strip = false
+group = "volume"
+
+[routes.volume_list_get]
+active = true
+name = "Get Volumes"
+method = "GET"
+roles = ["*"]
+upstream = "http://volume:4343"
+listen = "/namespaces/:namespace/volumes"
+strip = false
+group = "volume"
+
+[routes.volume_get]
+active = true
+name = "Get Volume"
+method = "GET"
+roles = ["*"]
+upstream = "http://volume:4343"
+listen = "/namespaces/:namespace/volumes/:volume"
+strip = false
+group = "volume"
+
+[routes.volume_get_all]
+active = true
+name = "Get All Volumes"
+method = "GET"
+roles = ["*"]
+upstream = "http://volume:4343"
+listen = "/admin/volumes"
+strip = false
+group = "volume"
+
+[routes.volume_resize]
+active = true
+name = "Resize Volume"
+method = "PUT"
+roles = ["*"]
+upstream = "http://volume:4343"
+listen = "/namespaces/:namespace/volumes/:volume"
+strip = false
+group = "volume"
+
+[routes.volume_resize_admin]
+active = true
+name = "Admin Resize Volume"
+method = "PUT"
+roles = ["admin"]
+upstream = "http://volume:4343"
+listen = "/admin/namespaces/:namespace/volumes/:volume"
+strip = false
+group = "volume"
+
+[routes.storage_add]
+active = true
+name = "Admin Add Storage"
+method = "POST"
+roles = ["admin"]
+upstream = "http://volume:4343"
+listen = "/storages"
+strip = false
+group = "volume"
+
+[routes.storage_list_get]
+active = true
+name = "Get Storage List"
+method = "GET"
+roles = ["admin"]
+upstream = "http://volume:4343"
+listen = "/storages"
+strip = false
+group = "volume"
+
+[routes.storage_update]
+active = true
+name = "Storage Update"
+method = "PUT"
+roles = ["admin"]
+upstream = "http://volume:4343"
+listen = "/storages/:storage"
+strip = false
+group = "volume"
+
+[routes.storage_delete]
+active = true
+name = "Delete Storage"
+method = "DELETE"
+roles = ["admin"]
+upstream = "http://volume:4343"
+listen = "/storages/:storage"
+strip = false
+group = "volume"

@@ -1,0 +1,8 @@
+[routes.refresh_token]
+active = true
+name = "Refresh token"
+method = "PUT"
+upstream = "http://auth:1111"
+listen = "/token/:refresh_token"
+strip = false
+group = "auth"

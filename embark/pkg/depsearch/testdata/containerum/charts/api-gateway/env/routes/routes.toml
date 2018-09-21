@@ -1,0 +1,21 @@
+[routes]
+
+#include "routes/auth.toml"
+
+#include "routes/kube.toml"
+
+#include "routes/resource.toml"
+
+#include "routes/user.toml"
+
+#include "routes/bill.toml"
+
+#include "routes/permissions.toml"
+
+#include "routes/volume.toml"
+
+#include "routes/solutions.toml"
+
+#include "routes/mail.toml"
+
+#include "routes/nodemetrics.toml"

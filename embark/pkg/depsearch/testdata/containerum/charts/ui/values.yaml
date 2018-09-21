@@ -1,0 +1,20 @@
+replicaCount: 1
+image:
+  repository: containerum/ui
+  tag: v1.0.6-rc.2
+  pullPolicy: IfNotPresent
+  secret: null
+service:
+  port: 3000
+  targetPort: 3000
+  externalIP: null
+env:
+  global:
+    COUNTRY: US
+    SOURCE_TYPE: LOCAL
+    API_PROTOCOL_TYPE: no-ssl
+  local:
+    API_HOST: null
+    API_PORT: "8082"
+    RECAPTCHA: null
+    LATEST_RELEASE: null

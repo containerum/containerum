@@ -1,0 +1,34 @@
+replicaCount: 1
+image:
+  repository: containerum/mail
+  tag: v1.0.2
+  pullPolicy: IfNotPresent
+service:
+  port: 7070
+  targetPort: 7070
+  externalIP: null
+persistence:
+  enabled: true
+  annotations: {}
+  accessMode: ReadWriteOnce
+  mountPath: /storage
+  size: 5Gi
+env:
+  global:
+    GIN_MODE: debug
+    CH_MAIL_LOG_LEVEL: 4
+    CH_MAIL_TEMPLATE_DB: /storage/template.db
+    CH_MAIL_MESSAGES_DB: /storage/messages.db
+    CH_MAIL_UPSTREAM: smtp
+    CH_MAIL_UPSTREAM_SIMPLE: smtp
+    CH_MAIL_SENDER_NAME_SIMPLE: containerum
+    CH_MAIL_SENDER_MAIL_SIMPLE: noreply-test@containerum.io
+    CH_MAIL_SENDER_NAME: containerum
+    CH_MAIL_SENDER_MAIL: noreply-test@containerum.io
+    CH_MAIL_LISTEN_ADDR: :7070
+    CH_MAIL_SMTP_ADDR: mail:465
+    CH_MAIL_SMTP_LOGIN: noreply-test@containerum.io
+  local:
+    CH_MAIL_USER_MANAGER_URL: http://user-manager:8111
+    CH_MAIL_SMTP_PASSWORD: verystrongpassword
+    CH_MAIL_MG_PASSWORD: null

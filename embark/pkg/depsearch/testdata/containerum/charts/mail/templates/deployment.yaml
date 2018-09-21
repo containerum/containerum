@@ -1,0 +1,59 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ template "chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          {{- range $key, $val := .Values.env.global }}
+              - name: {{ $key  }}
+                value: {{ $val | quote }}
+              {{- end }}
+                {{- if .Values.env.local.CH_MAIL_USER_MANAGER_URL }}
+                    - name: CH_MAIL_USER_MANAGER_URL
+                      value: "{{ .Values.env.local.CH_MAIL_USER_MANAGER_URL }}"
+                    {{- else }}
+                        - name: CH_MAIL_USER_MANAGER_URL
+                          value: "http://{{ .Release.Name }}-user-manager:8111"
+                        {{- end }}
+                          {{- if .Values.env.local.CH_MAIL_SMTP_PASSWORD }}
+                              - name: CH_MAIL_SMTP_PASSWORD
+                                valueFrom:
+                                secretKeyRef:
+                                name: {{ template "fullname" . }}
+                                key: smtp-password
+                              {{- end }}
+                                  volumeMounts:
+                                  - name: {{ template "fullname" . }}
+                                  mountPath: {{ .Values.persistence.mountPath }}
+                                  {{- with .Values.image.secret }}
+                                      imagePullSecrets:
+                                      - name: {{ . }}
+                                      {{- end }}
+                                          volumes:
+                                          - name: {{ template "fullname" . }}
+                                          {{- if .Values.persistence.enabled }}
+                                              persistentVolumeClaim:
+                                                  claimName: {{ .Values.persistence.existingClaim | default (include "fullname" .) }}
+                                              {{- else }}
+                                                  emptyDir: {}
+                                                  {{- end }}

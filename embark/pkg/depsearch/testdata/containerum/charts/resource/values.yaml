@@ -1,0 +1,31 @@
+tags:
+  db: true
+  platformdb: false
+replicaCount: 1
+image:
+  repository: containerum/resource
+  tag: v1.0.4
+  pullPolicy: IfNotPresent
+  secret: null
+service:
+  port: 1213
+  targetPort: 1213
+  externalIP: null
+env:
+  global:
+    CH_RESOURCE_DEBUG: "true"
+    CH_RESOURCE_TEXTLOG: "true"
+    CH_RESOURCE_MONGO_LOGIN: resource
+    CH_RESOURCE_MONGO_DB: resource
+  local:
+    CH_RESOURCE_MONGO_ADDR: mongo-mongodb.mongo.svc.cluster.local:27017
+    CH_RESOURCE_KUBE_API_ADDR: http://kube-api:1214
+    CH_RESOURCE_MONGO_PASSWORD: null
+    CH_RESOURCE_PERMISSIONS_ADDR: http://permissions:4242
+mongodb:
+  persistence:
+    enabled: false
+  image:
+    pullPolicy: IfNotPresent
+  mongodbUsername: mongo
+  mongodbDatabase: resource

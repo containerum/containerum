@@ -1,0 +1,119 @@
+[routes.templates_get]
+active = true
+name = "Get Solution Templates"
+method = "GET"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/templates"
+strip = false
+group = "solutions"
+
+[routes.templates_add]
+active = true
+name = "Add Solution Template"
+method = "POST"
+roles = ["admin"]
+upstream = "http://solutions:6767"
+listen = "/templates"
+strip = false
+group = "solutions"
+
+[routes.template_env_get]
+active = true
+name = "Get Solution Template Env"
+method = "GET"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/templates/:template/env"
+strip = false
+group = "solutions"
+
+[routes.template_deactivate]
+active = true
+name = "Deactivate template"
+method = "POST"
+roles = ["admin"]
+upstream = "http://solutions:6767"
+listen = "/templates/:template/deactivate"
+strip = false
+group = "solutions"
+
+[routes.solutions_get]
+active = true
+name = "Get Solutions"
+method = "GET"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/namespaces/:namespace/solutions"
+strip = false
+group = "solutions"
+
+[routes.solutions_user_delete]
+active = true
+name = "Delete All User Solutions"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/solutions"
+strip = false
+group = "solutions"
+
+[routes.solution_get]
+active = true
+name = "Get Solution"
+method = "GET"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/namespaces/:namespace/solutions/:solution"
+strip = false
+group = "solutions"
+
+[routes.solutions_run]
+active = true
+name = "Run Solutions"
+method = "POST"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/namespaces/:namespace/solutions"
+strip = false
+group = "solutions"
+
+[routes.solution_deployments_get]
+active = true
+name = "Get Solution Deployments"
+method = "GET"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/namespaces/:namespace/solutions/:solution/deployments"
+strip = false
+group = "solutions"
+
+[routes.solution_services_get]
+active = true
+name = "Get Solution Services"
+method = "GET"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/namespaces/:namespace/solutions/:solution/services"
+strip = false
+group = "solutions"
+
+[routes.solution_delete]
+active = true
+name = "Delete Solution"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/namespaces/:namespace/solutions/:solution"
+strip = false
+group = "solutions"
+
+[routes.solution_namespace_delete]
+active = true
+name = "Delete All Namespace Solutions"
+method = "DELETE"
+roles = ["*"]
+upstream = "http://solutions:6767"
+listen = "/namespaces/:namespace/solutions"
+strip = false
+group = "solutions"

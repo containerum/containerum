@@ -1,0 +1,40 @@
+[routes.mail_templates_get]
+active = true
+name = "Get templates"
+method = "GET"
+roles = ["admin"]
+upstream = "http://mail-templater:7070/templates"
+listen = "/mail/templates"
+strip = true
+group = "mail"
+
+[routes.mail_template_add]
+active = true
+name = "Add template"
+method = "POST"
+roles = ["admin"]
+upstream = "http://mail-templater:7070/templates"
+listen = "/mail/templates"
+strip = true
+group = "mail"
+
+[routes.mail_send]
+active = true
+name = "Send email"
+method = "POST"
+roles = ["admin"]
+upstream = "http://mail-templater:7070/send"
+listen = "/mail/send"
+strip = true
+group = "mail"
+
+[routes.mail_template_delete]
+active = true
+name = "Delete template"
+method = "DELETE"
+roles = ["admin"]
+upstream = "http://mail-templater:7070/templates/:template"
+listen = "/mail/templates/:template"
+strip = true
+group = "mail"
+

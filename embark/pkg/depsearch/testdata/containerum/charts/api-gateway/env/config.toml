@@ -1,0 +1,20 @@
+port = 8082
+
+[tls]
+enable = false
+
+[auth]
+enable = true
+
+[clickhouse]
+enable = true
+crypt = true
+
+[prometheus]
+enable = true
+port = 8282
+
+[rate]
+enable = true
+limit = 10
+type = "local"
