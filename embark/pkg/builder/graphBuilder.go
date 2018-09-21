@@ -31,7 +31,7 @@ func DowloadComponents(baseDir string, cont components.Components) error {
 	var client = &http.Client{
 		Timeout: timeout,
 	}
-	var components = cont.Components()
+	var components = cont.Slice()
 	var errors = make([]error, 0, len(components))
 	var mu sync.Mutex
 	var downloadNotify = make(chan struct{}, len(components))
@@ -114,7 +114,7 @@ func RenderComponents(baseDir string, cont components.Components, options ...Ren
 		option(config)
 	}
 	var components = make([]RenderedComponent, 0, len(cont))
-	for _, component := range cont.Components() {
+	for _, component := range cont.Slice() {
 		var componentPath = path.Join(baseDir, component.Name)
 		var objectGetter = ogetter.NewFSObjectGetter(componentPath)
 

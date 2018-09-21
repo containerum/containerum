@@ -18,7 +18,7 @@ func (containerum Components) Copy() Components {
 	return cp
 }
 
-func (containerum Components) Components() []ComponentWithName {
+func (containerum Components) Slice() []ComponentWithName {
 	var components = make([]ComponentWithName, 0, len(containerum))
 	for name, component := range containerum {
 		components = append(components, ComponentWithName{
