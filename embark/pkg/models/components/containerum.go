@@ -1,24 +1,24 @@
-package containerum
+package components
 
 import (
 	"gopkg.in/yaml.v2"
 )
 
-type Containerum map[string]Component
+type Components map[string]Component
 
-func (containerum Containerum) Len() int {
+func (containerum Components) Len() int {
 	return len(containerum)
 }
 
-func (containerum Containerum) Copy() Containerum {
-	var cp = make(Containerum, containerum.Len())
+func (containerum Components) Copy() Components {
+	var cp = make(Components, containerum.Len())
 	for name, component := range containerum {
 		cp[name] = component.Copy()
 	}
 	return cp
 }
 
-func (containerum Containerum) Components() []ComponentWithName {
+func (containerum Components) Components() []ComponentWithName {
 	var components = make([]ComponentWithName, 0, len(containerum))
 	for name, component := range containerum {
 		components = append(components, ComponentWithName{
@@ -29,16 +29,16 @@ func (containerum Containerum) Components() []ComponentWithName {
 	return components
 }
 
-func (containerum Containerum) String() string {
+func (containerum Components) String() string {
 	var data, _ = yaml.Marshal(containerum)
 	return string(data)
 }
 
-func (containerum Containerum) New() Containerum {
-	return make(Containerum, containerum.Len())
+func (containerum Components) New() Components {
+	return make(Components, containerum.Len())
 }
 
-func (containerum Containerum) Filter(pred func(component ComponentWithName) bool) Containerum {
+func (containerum Components) Filter(pred func(component ComponentWithName) bool) Components {
 	var filtered = containerum.New()
 	for name, component := range containerum {
 		if pred(ComponentWithName{

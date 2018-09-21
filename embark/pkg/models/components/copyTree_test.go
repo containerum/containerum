@@ -1,4 +1,4 @@
-package containerum
+package components
 
 import (
 	"testing"

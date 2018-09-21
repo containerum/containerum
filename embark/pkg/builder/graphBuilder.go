@@ -14,7 +14,7 @@ import (
 	"github.com/containerum/containerum/embark/pkg/cgraph"
 	"github.com/containerum/containerum/embark/pkg/emberr"
 	"github.com/containerum/containerum/embark/pkg/models/chart"
-	"github.com/containerum/containerum/embark/pkg/models/containerum"
+	"github.com/containerum/containerum/embark/pkg/models/components"
 	"github.com/containerum/containerum/embark/pkg/models/release"
 	"github.com/containerum/containerum/embark/pkg/ogetter"
 	"github.com/containerum/containerum/embark/pkg/utils/spin"
@@ -23,7 +23,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-func DowloadComponents(baseDir string, cont containerum.Containerum) error {
+func DowloadComponents(baseDir string, cont components.Components) error {
 	const timeout = 60 * time.Second
 	var ctx, done = context.WithTimeout(context.Background(), timeout)
 	defer done()
@@ -77,7 +77,7 @@ func DowloadComponents(baseDir string, cont containerum.Containerum) error {
 }
 
 type RenderedComponent struct {
-	containerum.ComponentWithName
+	components.ComponentWithName
 	Objects map[string]*bytes.Buffer
 }
 
@@ -106,7 +106,7 @@ func RenderWithValues(values map[string]interface{}) RenderOption {
 	}
 }
 
-func RenderComponents(baseDir string, cont containerum.Containerum, options ...RenderOption) ([]RenderedComponent, error) {
+func RenderComponents(baseDir string, cont components.Components, options ...RenderOption) ([]RenderedComponent, error) {
 	var config = &renderConfig{
 		release: &release.Release{},
 	}

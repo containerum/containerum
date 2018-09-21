@@ -1,4 +1,4 @@
-package containerum
+package components
 
 func copyTree(tree map[string]interface{}) map[string]interface{} {
 	var cp = make(map[string]interface{})

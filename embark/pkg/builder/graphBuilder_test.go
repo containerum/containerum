@@ -5,14 +5,14 @@ import (
 	"path"
 	"testing"
 
-	"github.com/containerum/containerum/embark/pkg/models/containerum"
+	"github.com/containerum/containerum/embark/pkg/models/components"
 )
 
 func TestBuildGraph(test *testing.T) {
 	var testdir = path.Join("./testdata", "buildGraph") //path.Join(os.TempDir(), "embark", "testBuildGraph")
 	os.MkdirAll(testdir, os.ModeDir|os.ModePerm)
-	var cont = containerum.Containerum{
-		"mongodb": containerum.Component{
+	var cont = components.Components{
+		"mongodb": components.Component{
 			Repo:    "https://charts.containerum.io",
 			Version: "3.0.4",
 			Values:  map[string]interface{}{},

@@ -1,4 +1,4 @@
-package containerum
+package components
 
 import (
 	"io/ioutil"
@@ -8,7 +8,7 @@ import (
 )
 
 func TestContainerum(test *testing.T) {
-	var containerum Containerum
+	var containerum Components
 	var data, err = ioutil.ReadFile("testdata/containerum.yaml")
 	if err != nil {
 		test.Fatal(err)
