@@ -35,8 +35,8 @@ func (index ChartIndex) Names() []string {
 }
 
 type Searcher struct {
-	baseDir    string
-	chartIndex ChartIndex
+	baseDir string
+	ChartIndex
 }
 
 func (searcher Searcher) ChartNames() []string {
@@ -104,15 +104,15 @@ func (searcher Searcher) ResolveVersion(name, version string) (chartPath string,
 }
 
 func (searcher Searcher) ResolveNameToPath(chartName string) (paths []string) {
-	return searcher.chartIndex.ResolveChartNameToPaths(chartName)
+	return searcher.ChartIndex.ResolveChartNameToPaths(chartName)
 }
 
 func NewSearcher(chartDir string) (Searcher, error) {
 	var searcher = Searcher{
 		baseDir:    chartDir,
-		chartIndex: make(ChartIndex),
+		ChartIndex: make(ChartIndex),
 	}
-	return searcher, searchCharts(chartDir, searcher.chartIndex)
+	return searcher, searchCharts(chartDir, searcher.ChartIndex)
 }
 
 func searchCharts(chartDir string, index ChartIndex) error {
