@@ -13,9 +13,10 @@ import (
 	"github.com/containerum/containerum/embark/pkg/emberr"
 	"github.com/containerum/containerum/embark/pkg/kube"
 	"github.com/containerum/containerum/embark/pkg/models/components"
-	"github.com/containerum/containerum/embark/pkg/render"
 	"github.com/containerum/containerum/embark/pkg/utils/why"
 )
+
+const Containerum = "containerum"
 
 type Installer struct {
 	ContainerumConfigPath string
@@ -38,13 +39,13 @@ func (installer Installer) Install() error {
 		return loadContDataErr
 	}
 
-	if containerumComponents.Contains(render.Containerum) {
+	if containerumComponents.Contains(Containerum) {
 		var getter = &http.Client{
 			Timeout: 10 * time.Second,
 		}
 		var downloadContainerumErr = builder.DownloadComponent(getter,
 			installer.TempDir,
-			containerumComponents.MustGet(render.Containerum).URL())
+			containerumComponents.MustGet(Containerum).URL())
 		if downloadContainerumErr != nil {
 			return downloadContainerumErr
 		}
