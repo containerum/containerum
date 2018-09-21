@@ -39,10 +39,6 @@ type Searcher struct {
 	ChartIndex
 }
 
-func (searcher Searcher) ChartNames() []string {
-	return searcher.ChartNames()
-}
-
 func (searcher Searcher) Versions(name string) []string {
 	var versions []string
 	for _, chartPath := range searcher.ResolveNameToPath(name) {

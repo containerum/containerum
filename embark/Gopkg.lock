@@ -440,6 +440,14 @@
   revision = "dcecefd839c4193db0d35b88ec65b4c12d360ab0"
 
 [[projects]]
+  digest = "1:1393b1d27b0f34636434023e3cebd4d277392349a31b1f5c6cf42499c513b343"
+  name = "github.com/zyedidia/micro"
+  packages = ["tools/semver"]
+  pruneopts = "NUT"
+  revision = "1856891622af0e4616288df6207451553622d465"
+  version = "v1.4.1"
+
+[[projects]]
   branch = "master"
   digest = "1:d00cb1696bcbe32cfcfc1c35cd32fd53aa94f741ce5c20e570eb3916ada5ec20"
   name = "golang.org/x/crypto"
@@ -639,6 +647,7 @@
     "github.com/spf13/cobra",
     "github.com/stretchr/testify/assert",
     "github.com/thoas/go-funk",
+    "github.com/zyedidia/micro/tools/semver",
     "golang.org/x/net/webdav",
     "golang.org/x/sync/errgroup",
     "gopkg.in/yaml.v2",

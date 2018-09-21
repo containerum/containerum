@@ -71,3 +71,7 @@ required = ["github.com/UnnoTed/fileb0x"]
 [[constraint]]
   name = "github.com/mitchellh/mapstructure"
   version = "1.0.0"
+
+[[constraint]]
+  name = "github.com/zyedidia/micro"
+  version = "1.4.1"
