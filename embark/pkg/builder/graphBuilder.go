@@ -23,7 +23,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-func DowloadComponents(baseDir string, cont components.Components) error {
+func DownloadComponents(baseDir string, cont components.Components) error {
 	const timeout = 60 * time.Second
 	var ctx, done = context.WithTimeout(context.Background(), timeout)
 	defer done()
