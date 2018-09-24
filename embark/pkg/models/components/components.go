@@ -1,61 +1,86 @@
 package components
 
 import (
-	"net/url"
-	"path"
-	"strings"
+	"gopkg.in/yaml.v2"
 )
 
-type ComponentWithName struct {
-	Name string `json:"name"`
-	Component
+type Components map[string]Component
+
+func (comps Components) Len() int {
+	return len(comps)
 }
 
-func (component ComponentWithName) Copy() ComponentWithName {
-	return ComponentWithName{
-		Name:      component.Name,
-		Component: component.Component.Copy(),
+func (comps Components) Copy() Components {
+	var cp = make(Components, comps.Len())
+	for name, component := range comps {
+		cp[name] = component.Copy()
 	}
+	return cp
 }
 
-func (component ComponentWithName) URL() string {
-	var repo = strings.TrimPrefix(component.Repo, "http://")
-	repo = strings.TrimPrefix(repo, "https://")
-	return "http://" + repo + "/charts/" + url.PathEscape(component.Name+"-"+component.Version+".tgz")
+func (comps Components) Slice() []ComponentWithName {
+	var components = make([]ComponentWithName, 0, len(comps))
+	for name, component := range comps {
+		components = append(components, ComponentWithName{
+			Name:      name,
+			Component: component.Copy(),
+		})
+	}
+	return components
 }
 
-type Component struct {
-	Version   string                 `json:"version"`
-	Repo      string                 `json:"repo"`
-	Objects   []string               `json:"objects"`
-	DependsOn []string               `json:"depends_on"`
-	Values    map[string]interface{} `json:"values"`
+func (comps Components) String() string {
+	var data, _ = yaml.Marshal(comps)
+	return string(data)
 }
 
-func (component Component) WithValues(mixins ...map[string]interface{}) map[string]interface{} {
-	var values = copyTree(component.Values)
-	for _, mixin := range mixins {
-		for k, v := range mixin {
-			values[k] = v
+func (comps Components) New() Components {
+	return make(Components, comps.Len())
+}
+
+func (comps Components) Filter(pred func(component ComponentWithName) bool) Components {
+	var filtered = comps.New()
+	for name, component := range comps {
+		if pred(ComponentWithName{
+			Name:      name,
+			Component: component.Copy(),
+		}) {
+			filtered[name] = component.Copy()
 		}
 	}
-	return values
+	return filtered
 }
 
-func (component Component) Copy() Component {
-	var cp = component
-	cp.Objects = append([]string{}, cp.Objects...)
-	cp.DependsOn = append([]string{}, cp.DependsOn...)
-	component.Values = copyTree(component.Values)
-	return component
+func (comps Components) Contains(name string) bool {
+	var _, contains = comps[name]
+	return contains
 }
 
-func (component Component) ObjectNames() []string {
-	var names = make([]string, 0, len(component.Objects))
-	for _, object := range component.Objects {
-		var nameWithExt = path.Base(object)
-		var ext = path.Ext(nameWithExt)
-		var name = strings.TrimSuffix(nameWithExt, ext)
+func (comps Components) Get(name string) (ComponentWithName, bool) {
+	var component, ok = comps[name]
+	if !ok {
+		return ComponentWithName{}, false
+	}
+	return ComponentWithName{
+		Name:      name,
+		Component: component.Copy(),
+	}, true
+}
+
+func (comps Components) MustGet(name string) ComponentWithName {
+	var component, ok = comps[name]
+	if !ok {
+		return ComponentWithName{}
+	}
+	return ComponentWithName{
+		Name:      name,
+		Component: component.Copy(),
+	}
+}
+
+func (comps Components) Names() []string {
+	var names = make([]string, 0, comps.Len())
+	for name := range comps {
 		names = append(names, name)
 	}
 	return names
