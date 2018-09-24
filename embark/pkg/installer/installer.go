@@ -1,8 +1,6 @@
 package installer
 
 import (
-	"fmt"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
@@ -13,6 +11,7 @@ import (
 	"github.com/containerum/containerum/embark/pkg/emberr"
 	"github.com/containerum/containerum/embark/pkg/kube"
 	"github.com/containerum/containerum/embark/pkg/models/components"
+	"github.com/containerum/containerum/embark/pkg/object"
 	"github.com/containerum/containerum/embark/pkg/utils/why"
 )
 
@@ -25,6 +24,39 @@ type Installer struct {
 }
 
 func (installer Installer) Install() error {
+	if err := installer.setupTempDir(); err != nil {
+		return err
+	}
+
+	var containerumComponents, loadContDataErr = installer.loadContainerumConfig()
+	if loadContDataErr != nil {
+		return loadContDataErr
+	}
+
+	if err := installer.downloadContainerumIfPresents(containerumComponents); err != nil {
+		return err
+	}
+
+	if err := installer.downloadUncachedComponents(containerumComponents); err != nil {
+		return err
+	}
+
+	var rendered, renderErr = builder.RenderComponents(installer.TempDir, containerumComponents, builder.RenderWithValues(map[string]interface{}{}))
+	if renderErr != nil {
+		return renderErr
+	}
+
+	var renderedObjects = make([]object.Object, 0, len(rendered))
+	_ = renderedObjects
+	var kubeClient, newKubeClientErr = kube.NewKube()
+	if newKubeClientErr != nil {
+		return newKubeClientErr
+	}
+	_ = kubeClient
+	return nil
+}
+
+func (installer Installer) setupTempDir() error {
 	if installer.TempDir == "" {
 		installer.TempDir = path.Join(os.TempDir(), "embark")
 	}
@@ -34,29 +66,35 @@ func (installer Installer) Install() error {
 			Reason: err,
 		}
 	}
-	var containerumComponents, loadContDataErr = loadContainerumConfig(installer.ContainerumConfigPath)
-	if loadContDataErr != nil {
-		return loadContDataErr
-	}
+	return nil
+}
 
-	if containerumComponents.Contains(Containerum) {
+func (installer Installer) loadContainerumConfig() (components.Components, error) {
+	return loadContainerumConfig(installer.ContainerumConfigPath)
+}
+
+func (installer Installer) downloadContainerumIfPresents(contComponents components.Components) error {
+	if contComponents.Contains(Containerum) {
 		var getter = &http.Client{
 			Timeout: 10 * time.Second,
 		}
 		var downloadContainerumErr = builder.DownloadComponent(getter,
 			installer.TempDir,
-			containerumComponents.MustGet(Containerum).URL())
+			contComponents.MustGet(Containerum).URL())
 		if downloadContainerumErr != nil {
 			return downloadContainerumErr
 		}
 	}
+	return nil
+}
 
+func (installer Installer) downloadUncachedComponents(contComponents components.Components) error {
 	var chartIndex, buildingChartIndexErr = depsearch.NewSearcher(installer.TempDir)
 	if buildingChartIndexErr != nil {
 		return buildingChartIndexErr
 	}
 
-	var notDownloadedComponents = containerumComponents.
+	var notDownloadedComponents = contComponents.
 		Filter(func(component components.ComponentWithName) bool {
 			return !chartIndex.Contains(component.Name)
 		})
@@ -66,33 +104,6 @@ func (installer Installer) Install() error {
 		if err := builder.DownloadComponents(installer.TempDir, notDownloadedComponents); err != nil {
 			return err
 		}
-		// ! rebuild index!
-		chartIndex, buildingChartIndexErr = depsearch.NewSearcher(installer.TempDir)
-		if buildingChartIndexErr != nil {
-			return buildingChartIndexErr
-		}
 	}
-
-	var rendered, renderErr = builder.RenderComponents(installer.TempDir, containerumComponents, builder.RenderWithValues(map[string]interface{}{}))
-	if renderErr != nil {
-		return renderErr
-	}
-	var errs []error
-	for _, component := range rendered {
-		for objectName, object := range component.Objects {
-			var fname = path.Join(installer.TempDir, component.Name+"_"+objectName+".yaml")
-			if err := ioutil.WriteFile(fname, object.Bytes(), os.ModePerm); err != nil {
-				errs = append(errs, err)
-			}
-		}
-	}
-	if len(errs) > 0 {
-		return emberr.NewChain(fmt.Errorf("unable write rendered components"), errs...)
-	}
-	var kubeClient, newKubeClientErr = kube.NewKube()
-	if newKubeClientErr != nil {
-		return newKubeClientErr
-	}
-	_ = kubeClient
 	return nil
 }
