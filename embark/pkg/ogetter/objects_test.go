@@ -1,4 +1,4 @@
-package bobjects
+package ogetter
 
 import (
 	"bytes"

@@ -1,4 +1,4 @@
-package bobjects
+package ogetter
 
 import (
 	"bytes"
@@ -52,7 +52,7 @@ func (objects Objects) Render(bootstrap *template.Template, output map[string]*b
 			}
 			vals["Template"] = map[string]interface{}{
 				"Name":     name,
-				"BasePath": name, // not bug
+				"BasePath": name, // not a bug
 			}
 			var objectTmpl, _ = tmpl.Clone()
 			objectTmpl, parseObjectTmplErr := objectTmpl.Parse(object.String())
