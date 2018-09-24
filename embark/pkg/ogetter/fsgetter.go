@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	_ ObjectGetter = FSObjectGetter{}
+	_ ObjectGetter = new(FSObjectGetter)
 )
 
 // Loads file data from directory by name
@@ -26,14 +26,14 @@ type FSObjectGetter struct {
 	cached nameToPath
 }
 
-func NewFSObjectGetter(dir string) FSObjectGetter {
+func NewFSObjectGetter(dir string) *FSObjectGetter {
 	var expandedDir = os.ExpandEnv(dir)
-	return FSObjectGetter{
+	return &FSObjectGetter{
 		dir: path.Clean(expandedDir),
 	}
 }
 
-func (getter FSObjectGetter) ObjectNames() []string {
+func (getter *FSObjectGetter) ObjectNames() []string {
 	var o, readDirErr = getter.readDir()
 	if readDirErr != nil {
 		panic(readDirErr)
@@ -42,12 +42,12 @@ func (getter FSObjectGetter) ObjectNames() []string {
 	return o.Names()
 }
 
-func (getter FSObjectGetter) templatesDir() string {
+func (getter *FSObjectGetter) templatesDir() string {
 	return getter.dir
 }
 
-func (getter FSObjectGetter) readDir() (nameToPath, error) {
-	if getter.cached != nil {
+func (getter *FSObjectGetter) readDir() (nameToPath, error) {
+	if getter.cached != nil || len(getter.cached) != 0 {
 		return getter.cached.Copy(), nil
 	}
 	var objects = make(nameToPath)
@@ -80,7 +80,7 @@ func (getter FSObjectGetter) readDir() (nameToPath, error) {
 	return objects, nil
 }
 
-func (getter FSObjectGetter) Object(name string, output io.Writer) error {
+func (getter *FSObjectGetter) Object(name string, output io.Writer) error {
 	var objects, getObjectsErr = getter.readDir()
 	if getObjectsErr != nil {
 		return getObjectsErr
