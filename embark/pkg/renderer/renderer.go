@@ -45,7 +45,6 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 			return null, parseHelperTemplErr
 		}
 	}
-
 	var objects = make([]kube.Object, 0, len(names))
 	for _, name := range names {
 		switch name {
