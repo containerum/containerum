@@ -28,6 +28,15 @@ type Object struct {
 	body map[string]interface{}
 }
 
+func (object Object) Kind() string {
+	switch kind := object.body["kind"].(type) {
+	case string:
+		return kind
+	default:
+		return ""
+	}
+}
+
 func (object Object) Query(path string) interface{} {
 	return funk.Get(object.body, path)
 }
@@ -122,4 +131,4 @@ func init() {
 	RegisterObject()
 }
 
-var registerExactlyOnce sync.Once
+var registerExactlyOnce = &sync.Once{}

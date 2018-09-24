@@ -4,9 +4,31 @@ import (
 	"context"
 	"time"
 
-	"github.com/containerum/containerum/embark/pkg/object"
 	weirdKubeClient "github.com/ericchiang/k8s"
+	weirdMetaV1 "github.com/ericchiang/k8s/apis/meta/v1"
 )
+
+type Object interface {
+	Kind() string
+	weirdKubeClient.Resource
+}
+
+var (
+	_ Object = ObjectMock{}
+)
+
+type ObjectMock struct {
+	ObjectKind string
+	Meta       weirdMetaV1.ObjectMeta
+}
+
+func (mock ObjectMock) Kind() string {
+	return mock.ObjectKind
+}
+
+func (mock ObjectMock) GetMetadata() *weirdMetaV1.ObjectMeta {
+	return &mock.Meta
+}
 
 type Kube struct {
 	timeout time.Duration
@@ -34,8 +56,8 @@ func NewKube(options ..._Config) (Kube, error) {
 	return kubeClinent, nil
 }
 
-func (kube Kube) Create(obj object.Object) error {
+func (kube Kube) Create(obj Object) error {
 	var ctx, done = context.WithTimeout(context.Background(), kube.timeout)
 	defer done()
-	return kube.Client.Create(ctx, &obj)
+	return kube.Client.Create(ctx, obj)
 }
