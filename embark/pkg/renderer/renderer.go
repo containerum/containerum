@@ -2,11 +2,12 @@ package renderer
 
 import (
 	"bytes"
-	"html/template"
 	"io"
+	"text/template"
 
 	"github.com/containerum/containerum/embark/pkg/kube"
 	"github.com/containerum/containerum/embark/pkg/ogetter"
+	"k8s.io/helm/pkg/engine"
 )
 
 const (
@@ -29,13 +30,15 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 	var getter = renderer.Getter
 	var constructor = renderer.Contstructor
 	var values = renderer.Values
-	var templ = template.New(Template)
+	var templ = template.New(Template).Funcs(engine.FuncMap())
 	var names = getter.ObjectNames()
 	var objectExists = CheckIfObjectExists(names)
 	var null RenderedComponent
 
+	var buf = &bytes.Buffer{}
 	if objectExists(Helpers) {
-		var helpersTextBuf = &bytes.Buffer{}
+		var helpersTextBuf = buf
+		buf.Reset()
 		if err := getter.Object(Helpers, helpersTextBuf); err != nil {
 			return null, err
 		}
@@ -55,7 +58,8 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 			if cloneTemplErr != nil {
 				panic(cloneTemplErr) // something really bad happened!
 			}
-			var objectTextBuf = &bytes.Buffer{}
+			var objectTextBuf = buf
+			buf.Reset()
 			if err := getter.Object(name, objectTextBuf); err != nil {
 				return null, err
 			}

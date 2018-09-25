@@ -14,9 +14,12 @@ import (
 )
 
 func TestRenderer(test *testing.T) {
+	var getter = ogetter.NewFSObjectGetter("testdata/postgresql")
+	test.Log(getter.ObjectNames())
+
 	var component, rendererErr = Renderer{
 		Name:   "postgresql",
-		Getter: ogetter.NewFSObjectGetter("tesdata/postgresql/templates"),
+		Getter: getter,
 		Values: testValues(test),
 		Contstructor: func(reader io.Reader) (kube.Object, error) {
 			var buf = &bytes.Buffer{}
@@ -24,7 +27,9 @@ func TestRenderer(test *testing.T) {
 			return mockObject{Buffer: buf}, err
 		},
 	}.RenderComponent()
-	assert.Nil(test, rendererErr)
+	if rendererErr != nil {
+		test.Fatal(rendererErr)
+	}
 	test.Log(component.Objects())
 }
 
