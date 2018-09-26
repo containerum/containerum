@@ -3,6 +3,7 @@ package renderer
 import (
 	"bytes"
 	"io"
+	"sort"
 	"text/template"
 
 	"github.com/containerum/containerum/embark/pkg/kube"
@@ -11,9 +12,10 @@ import (
 )
 
 const (
-	Values   = "values"
-	Helpers  = "_helpers"
-	Template = "object"
+	ValuesName = "values"
+	Helpers    = "_helpers"
+	Template   = "object"
+	Notes      = "NOTES"
 )
 
 type ObjectConstructor func(io.Reader) (kube.Object, error)
@@ -49,9 +51,10 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 		}
 	}
 	var objects = make([]kube.Object, 0, len(names))
+	sort.Strings(names)
 	for _, name := range names {
 		switch name {
-		case Helpers:
+		case Helpers, Notes:
 			continue
 		default:
 			var objectTemplate, cloneTemplErr = templ.Clone()
