@@ -2,9 +2,9 @@ package ogetter
 
 import (
 	"io"
+	"io/ioutil"
 	"os"
 	"path"
-	"path/filepath"
 
 	"github.com/containerum/containerum/embark/pkg/emberr"
 )
@@ -51,30 +51,19 @@ func (getter *FSObjectGetter) readDir() (nameToPath, error) {
 		return getter.cached.Copy(), nil
 	}
 	var objects = make(nameToPath)
-	var readDirErr = filepath.Walk(
-		getter.templatesDir(),
-		func(objectPath string, info os.FileInfo, err error) error {
-			if err != nil {
-				return nil
-			}
-			if info.IsDir() {
-				return nil
-			}
-			if IsIgnored(info.Name()) {
-				return nil
-			}
-			var name = extractObjectNameFromFilename(info.Name())
-			if name == "" || IsIgnored(info.Name()) {
-				return nil
-			}
-			objects[name] = objectPath
-			return nil
-		})
+	var finfos, readDirErr = ioutil.ReadDir(getter.dir)
 	if readDirErr != nil {
 		return nil, emberr.ErrReadDir{
 			Dir:    getter.dir,
 			Reason: readDirErr,
 		}
+	}
+	for _, finfo := range finfos {
+		if finfo.IsDir() || IsIgnored(finfo.Name()) {
+			continue
+		}
+		var objectName = extractObjectNameFromFilename(finfo.Name())
+		objects[objectName] = path.Join(getter.dir, finfo.Name())
 	}
 	getter.cached = objects.Copy()
 	return objects, nil
