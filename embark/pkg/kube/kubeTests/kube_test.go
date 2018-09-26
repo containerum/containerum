@@ -1,4 +1,4 @@
-//+build KubeClientTests
+//+build KubeClientTests,IntegrationTests
 
 package kubeTests
 
