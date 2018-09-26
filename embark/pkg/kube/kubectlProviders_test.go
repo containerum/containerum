@@ -5,14 +5,6 @@ import (
 	"testing"
 )
 
-func TestLoadKubectlConfigFromPath(test *testing.T) {
-	var config, err = LoadKubectlConfigFromPath(autoKubectlConfigPath())()
-	if err != nil {
-		test.Fatal(err)
-	}
-	_ = config
-}
-
 func TestDecodeConfig(test *testing.T) {
 	var data, loadDataErr = ioutil.ReadFile("testdata/test_kube_config.yaml")
 	if loadDataErr != nil {
