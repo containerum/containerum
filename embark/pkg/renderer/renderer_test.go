@@ -23,10 +23,10 @@ func TestRenderer(test *testing.T) {
 	test.Log(getter.ObjectNames())
 
 	var component, rendererErr = Renderer{
-		Name:   "postgresql",
-		Getter: getter,
-		Values: testValues(test),
-		Contstructor: func(reader io.Reader) (kube.Object, error) {
+		Name:         "postgresql",
+		ObjectGetter: getter,
+		Values:       testValues(test),
+		Constructor: func(reader io.Reader) (kube.Object, error) {
 			var buf = &bytes.Buffer{}
 			_, err := buf.ReadFrom(reader)
 			return mockObject{Buffer: buf}, err
@@ -65,7 +65,7 @@ func (mockObject) GetMetadata() *v1.ObjectMeta {
 	return &v1.ObjectMeta{}
 }
 
-func testValues(test *testing.T) map[string]interface{} {
+func testValues(test *testing.T) Values {
 	var chartValues map[string]interface{}
 	{
 		var data, loadTestValuesErr = ioutil.ReadFile("testdata/postgresql/values.yaml")
@@ -79,14 +79,9 @@ func testValues(test *testing.T) map[string]interface{} {
 		assert.Nil(test, yaml.Unmarshal(data, &ch))
 	}
 	chartValues["strategy"] = "restart-always"
-	return map[string]interface{}{
-		"Values": chartValues,
-		"Chart":  ch,
-		"Release": map[string]interface{}{
-			"Name":    "containerum",
-			"Service": "containerum",
-		},
-	}
+	var values = DefaultValues()
+	values.Chart = ch
+	return values
 }
 
 func lines(text string) string {

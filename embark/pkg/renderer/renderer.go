@@ -18,19 +18,19 @@ const (
 	Notes      = "NOTES"
 )
 
-type ObjectConstructor func(io.Reader) (kube.Object, error)
+type ObjectConstructor = func(io.Reader) (kube.Object, error)
 
 type Renderer struct {
 	Name         string
-	Getter       ogetter.ObjectGetter
-	Contstructor ObjectConstructor
-	Values       map[string]interface{}
+	ObjectGetter ogetter.ObjectGetter
+	Constructor  ObjectConstructor
+	Values       Values
 }
 
 func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 	var name = renderer.Name
-	var getter = renderer.Getter
-	var constructor = renderer.Contstructor
+	var getter = renderer.ObjectGetter
+	var constructor = renderer.Constructor
 	var values = renderer.Values
 	var templ = template.New(Template).Funcs(engine.FuncMap())
 	var names = getter.ObjectNames()
