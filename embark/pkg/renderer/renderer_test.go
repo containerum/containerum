@@ -20,12 +20,13 @@ import (
 
 func TestRenderer(test *testing.T) {
 	var getter = ogetter.NewFSObjectGetter("testdata/postgresql/templates")
-	test.Log(getter.ObjectNames())
-
 	var component, rendererErr = Renderer{
 		Name:         "postgresql",
 		ObjectGetter: getter,
 		Values:       testValues(test),
+		ObjectsToRender: []string{
+			"deployment",
+		},
 		Constructor: func(reader io.Reader) (kube.Object, error) {
 			var buf = &bytes.Buffer{}
 			_, err := buf.ReadFrom(reader)
@@ -41,6 +42,7 @@ func TestRenderer(test *testing.T) {
 		var mock, ok = object.(mockObject)
 		if !ok {
 			test.Logf("object %d has invalid type %t", i, object)
+			continue
 		}
 		var t interface{}
 		if err := yaml.Unmarshal(mock.Bytes(), &t); err != nil {

@@ -3,8 +3,10 @@ package renderer
 import (
 	"bytes"
 	"io"
-	"sort"
+	"strings"
 	"text/template"
+
+	"github.com/containerum/containerum/embark/pkg/emberr"
 
 	"github.com/containerum/containerum/embark/pkg/kube"
 	"github.com/containerum/containerum/embark/pkg/ogetter"
@@ -21,10 +23,11 @@ const (
 type ObjectConstructor = func(io.Reader) (kube.Object, error)
 
 type Renderer struct {
-	Name         string
-	ObjectGetter ogetter.ObjectGetter
-	Constructor  ObjectConstructor
-	Values       Values
+	Name            string
+	ObjectsToRender []string
+	ObjectGetter    ogetter.ObjectGetter
+	Constructor     ObjectConstructor
+	Values          Values
 }
 
 func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
@@ -33,51 +36,71 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 	var constructor = renderer.Constructor
 	var values = renderer.Values
 	var templ = template.New(Template).Funcs(engine.FuncMap())
-	var names = getter.ObjectNames()
+	var names = renderer.ObjectsToRender
 	var objectExists = CheckIfObjectExists(names)
 	var null RenderedComponent
 
 	var buf = &bytes.Buffer{}
 	if objectExists(Helpers) {
-		var helpersTextBuf = buf
 		buf.Reset()
+		var helpersTextBuf = buf
 		if err := getter.Object(Helpers, helpersTextBuf); err != nil {
 			return null, err
 		}
 		var parseHelperTemplErr error
 		templ, parseHelperTemplErr = templ.Parse(helpersTextBuf.String())
 		if parseHelperTemplErr != nil {
-			return null, parseHelperTemplErr
+			return null, emberr.ErrUnableToRenderObject{
+				Name:   name,
+				Reason: parseHelperTemplErr,
+			}
 		}
 	}
 	var objects = make([]kube.Object, 0, len(names))
-	sort.Strings(names)
 	for _, name := range names {
 		switch name {
 		case Helpers, Notes:
 			continue
 		default:
-			var objectTemplate, cloneTemplErr = templ.Clone()
-			if cloneTemplErr != nil {
-				panic(cloneTemplErr) // something really bad happened!
-			}
+			templ = templ.New(name)
+			templ.Funcs(engine.FuncMap())
 			var objectTextBuf = buf
-			buf.Reset()
+			objectTextBuf.Reset()
 			if err := getter.Object(name, objectTextBuf); err != nil {
-				return null, err
+				return null, emberr.ErrUnableToRenderObject{
+					Name:   name,
+					Reason: err,
+				}
 			}
 			var parseObjectTemplateErr error
-			objectTemplate, parseObjectTemplateErr = objectTemplate.Parse(objectTextBuf.String())
+			templ, parseObjectTemplateErr = templ.Parse(objectTextBuf.String())
 			if parseObjectTemplateErr != nil {
-				return null, parseObjectTemplateErr
+				return null, emberr.ErrUnableToRenderObject{
+					Name:   name,
+					Reason: parseObjectTemplateErr,
+				}
 			}
+
+		}
+		for _, name := range names {
+			switch {
+			case strings.HasPrefix(name, "_"), name == Notes:
+				continue
+			}
+			var objectTextBuf = buf
 			objectTextBuf.Reset()
-			if err := objectTemplate.Execute(objectTextBuf, values); err != nil {
-				return null, err
+			if err := templ.ExecuteTemplate(objectTextBuf, name, values); err != nil {
+				return null, emberr.ErrUnableToRenderObject{
+					Name:   name,
+					Reason: err,
+				}
 			}
 			var object, createObjectErr = constructor(objectTextBuf)
 			if createObjectErr != nil {
-				return null, createObjectErr
+				return null, emberr.ErrUnableToRenderObject{
+					Name:   name,
+					Reason: createObjectErr,
+				}
 			}
 			objects = append(objects, object)
 		}
