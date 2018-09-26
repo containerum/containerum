@@ -33,10 +33,12 @@ func TestRenderedComponent_ForEachObjectGo(test *testing.T) {
 	if len(aggregated) == 0 {
 		test.Fatalf("there can't be empty aggregated result!")
 	}
-	why.PrintFromIter("aggregated results", len(aggregated), func(i int) (string, error) {
-		var kind = aggregated[i]
-		return fmt.Sprintf("%-16s %2d", kind, ObjectPriority(kind)), nil
-	})
+	if testing.Verbose() {
+		why.PrintFromIter("aggregated results", len(aggregated), func(i int) (string, error) {
+			var kind = aggregated[i]
+			return fmt.Sprintf("%-16s %2d", kind, ObjectPriority(kind)), nil
+		})
+	}
 	var prevPriority = ObjectPriority(aggregated[0])
 	var prevKind = aggregated[0]
 	for _, kind := range aggregated {

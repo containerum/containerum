@@ -41,11 +41,13 @@ func TestObjectsToBatches(test *testing.T) {
 		{"service"},
 		{"ingress"},
 	}
-	why.PrintFromIter("batches", len(batches), func(i int) (string, error) {
-		var batch = batches[i]
-		var kinds = extractKinds(batch)
-		return strings.Join(kinds, ", "), nil
-	})
+	if testing.Verbose() {
+		why.PrintFromIter("batches", len(batches), func(i int) (string, error) {
+			var batch = batches[i]
+			var kinds = extractKinds(batch)
+			return strings.Join(kinds, ", "), nil
+		})
+	}
 	for i, batch := range paragon {
 		assert.Equal(test, extractKinds(batches[i]), batch)
 	}
