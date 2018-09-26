@@ -9,5 +9,5 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   {{- if .Values.metrics.customMetrics }}
-      custom-metrics.yaml: {{ toYaml .Values.metrics.customMetrics | quote }}
-      {{- end }}
+  custom-metrics.yaml: {{ toYaml .Values.metrics.customMetrics | quote }}
+  {{- end }}
