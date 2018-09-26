@@ -33,7 +33,7 @@ func SortObjects(objects []kube.Object) {
 	sort.Slice(objects, func(i, j int) bool {
 		var a = ObjectPriority(objects[i].Kind())
 		var b = ObjectPriority(objects[j].Kind())
-		if a == b && a == 0 {
+		if a == b {
 			return objects[i].Kind() < objects[j].Kind()
 		}
 		return a < b
