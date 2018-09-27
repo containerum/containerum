@@ -1,23 +1,29 @@
 package installer
 
 import (
+	"io"
 	"net/http"
 	"os"
 	"path"
 	"time"
+
+	"github.com/containerum/containerum/embark/pkg/object"
+	"github.com/containerum/containerum/embark/pkg/ogetter"
+
+	"github.com/containerum/containerum/embark/pkg/renderer"
 
 	"github.com/containerum/containerum/embark/pkg/builder"
 	"github.com/containerum/containerum/embark/pkg/depsearch"
 	"github.com/containerum/containerum/embark/pkg/emberr"
 	"github.com/containerum/containerum/embark/pkg/kube"
 	"github.com/containerum/containerum/embark/pkg/models/components"
-	"github.com/containerum/containerum/embark/pkg/object"
 	"github.com/containerum/containerum/embark/pkg/utils/why"
 )
 
 const Containerum = "containerum"
 
 type Installer struct {
+	Static                bool
 	ContainerumConfigPath string
 	TempDir               string
 	KubectlConfigPath     string
@@ -27,27 +33,54 @@ func (installer Installer) Install() error {
 	if err := installer.setupTempDir(); err != nil {
 		return err
 	}
-
 	var containerumComponents, loadContDataErr = installer.loadContainerumConfig()
 	if loadContDataErr != nil {
 		return loadContDataErr
 	}
 
-	if err := installer.downloadContainerumIfPresents(containerumComponents); err != nil {
-		return err
+	var componentSearcher depsearch.Searcher
+	// ? maybe add more cases in the future
+	switch installer.Static {
+	case true:
+		componentSearcher = depsearch.Static()
+	default:
+		if err := installer.downloadContainerumIfPresents(containerumComponents); err != nil {
+			return err
+		}
+		if err := installer.downloadUncachedComponents(containerumComponents); err != nil {
+			return err
+		}
+		var buildIndexErr error
+		componentSearcher, buildIndexErr = depsearch.FS(installer.TempDir)
+		if buildIndexErr != nil {
+			return buildIndexErr
+		}
 	}
-
-	if err := installer.downloadUncachedComponents(containerumComponents); err != nil {
-		return err
+	var renderedComponents = make([]renderer.RenderedComponent, 0, len(containerumComponents))
+	for _, component := range containerumComponents.Slice() {
+		var componentPath, searchComponentErr = componentSearcher.ResolveVersion(component.Name, component.Version)
+		if searchComponentErr != nil {
+			return searchComponentErr
+		}
+		var gettter ogetter.ObjectGetter
+		if installer.Static {
+			gettter = ogetter.NewEmbeddedFSObjectGetter(path.Join(componentPath, "templates"))
+		} else {
+			gettter = ogetter.NewFSObjectGetter(componentPath)
+		}
+		var renderedComponent, renderErr = renderer.Renderer{
+			Name:            component.Name,
+			ObjectsToRender: component.Objects,
+			ObjectGetter:    gettter,
+			Constructor: func(reader io.Reader) (kube.Object, error) {
+				return object.ObjectFromYAML(reader)
+			},
+		}.RenderComponent()
+		if renderErr != nil {
+			return renderErr
+		}
+		renderedComponents = append(renderedComponents, renderedComponent)
 	}
-
-	var rendered, renderErr = builder.RenderComponents(installer.TempDir, containerumComponents, builder.RenderWithValues(map[string]interface{}{}))
-	if renderErr != nil {
-		return renderErr
-	}
-
-	var renderedObjects = make([]object.Object, 0, len(rendered))
-	_ = renderedObjects
 	var kubeClient, newKubeClientErr = kube.NewKube()
 	if newKubeClientErr != nil {
 		return newKubeClientErr
@@ -89,16 +122,14 @@ func (installer Installer) downloadContainerumIfPresents(contComponents componen
 }
 
 func (installer Installer) downloadUncachedComponents(contComponents components.Components) error {
-	var chartIndex, buildingChartIndexErr = depsearch.NewSearcher(installer.TempDir)
+	var chartIndex, buildingChartIndexErr = depsearch.FS(installer.TempDir)
 	if buildingChartIndexErr != nil {
 		return buildingChartIndexErr
 	}
-
 	var notDownloadedComponents = contComponents.
 		Filter(func(component components.ComponentWithName) bool {
 			return !chartIndex.Contains(component.Name)
 		})
-
 	if notDownloadedComponents.Len() > 0 {
 		why.Print("Components to download", notDownloadedComponents.Names()...)
 		if err := builder.DownloadComponents(installer.TempDir, notDownloadedComponents); err != nil {
