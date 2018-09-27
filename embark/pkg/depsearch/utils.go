@@ -8,10 +8,10 @@ import (
 	"github.com/containerum/containerum/embark/pkg/static"
 )
 
-type IndexBuilder func() (ChartIndex, error)
+type IndexBuilder func() (ComponentIndex, error)
 
-func buildIndexFromComponentPaths(componentPaths []string) ChartIndex {
-	var index = make(ChartIndex)
+func buildIndexFromComponentPaths(componentPaths []string) ComponentIndex {
+	var index = make(ComponentIndex)
 	for _, componentPath := range componentPaths {
 		var componentName = path.Base(componentPath)
 		index[componentName] = append(index[componentName], componentPath)
@@ -29,14 +29,14 @@ func FindAllComponentDirFS(root string) IndexBuilder {
 		componentPaths = append(componentPaths, componentPath)
 		return nil
 	})
-	return func() (ChartIndex, error) {
+	return func() (ComponentIndex, error) {
 		return buildIndexFromComponentPaths(componentPaths), err
 	}
 }
 
 func FindAllComponentsDirStatic() IndexBuilder {
 	var errFunc = func(err error) IndexBuilder {
-		return func() (ChartIndex, error) {
+		return func() (ComponentIndex, error) {
 			return nil, err
 		}
 	}
@@ -56,7 +56,7 @@ func FindAllComponentsDirStatic() IndexBuilder {
 		var componentPath = path.Dir(filePath)
 		componentPaths = append(componentPaths, componentPath)
 	}
-	return func() (ChartIndex, error) {
+	return func() (ComponentIndex, error) {
 		return buildIndexFromComponentPaths(componentPaths), nil
 	}
 }
