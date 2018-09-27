@@ -8,14 +8,15 @@ import (
 	"strconv"
 	"strings"
 	"testing"
-
-	"github.com/containerum/containerum/embark/pkg/models/chart"
+	"text/template"
 
 	"github.com/containerum/containerum/embark/pkg/kube"
+	"github.com/containerum/containerum/embark/pkg/models/chart"
 	"github.com/containerum/containerum/embark/pkg/ogetter"
 	"github.com/ericchiang/k8s/apis/meta/v1"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v2"
+	"k8s.io/helm/pkg/engine"
 )
 
 func TestRenderer(test *testing.T) {
@@ -26,6 +27,8 @@ func TestRenderer(test *testing.T) {
 		Values:       testValues(test),
 		ObjectsToRender: []string{
 			"deployment",
+			"svc",
+			"configmap",
 		},
 		Constructor: func(reader io.Reader) (kube.Object, error) {
 			var buf = &bytes.Buffer{}
@@ -49,6 +52,31 @@ func TestRenderer(test *testing.T) {
 			test.Fatalf("%v\n\n%s", err, lines(mock.String()))
 		}
 	}
+}
+
+func TestObjectTemplate(test *testing.T) {
+	var helpersData, loadHelpersDataErrr = ioutil.ReadFile("testdata/postgresql/templates/_helpers.tpl")
+	if loadHelpersDataErrr != nil {
+		test.Fatal(loadHelpersDataErrr)
+	}
+	var tmpl = template.New("main").Funcs(engine.FuncMap())
+	var parseHelpersTemplateErr error
+	tmpl, parseHelpersTemplateErr = tmpl.New(Helpers).Parse(string(helpersData))
+	if parseHelpersTemplateErr != nil {
+		test.Fatal(parseHelpersTemplateErr)
+	}
+	var parseDeployTemplate error
+	const deploymentTemplatePath = "testdata/postgresql/templates/deployment.yaml"
+	tmpl, parseDeployTemplate = tmpl.ParseFiles(deploymentTemplatePath)
+	if parseHelpersTemplateErr != nil {
+		test.Fatal(parseDeployTemplate)
+	}
+
+	var buf = &bytes.Buffer{}
+	if err := tmpl.ExecuteTemplate(buf, "deployment.yaml", DefaultValues()); err != nil {
+		test.Fatal(err)
+	}
+	test.Log(buf)
 }
 
 var (
@@ -83,6 +111,7 @@ func testValues(test *testing.T) Values {
 	chartValues["strategy"] = "restart-always"
 	var values = DefaultValues()
 	values.Chart = ch
+	values.Values = chartValues
 	return values
 }
 

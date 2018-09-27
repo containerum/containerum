@@ -37,7 +37,7 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 	var values = renderer.Values
 	var templ = template.New(Template).Funcs(engine.FuncMap())
 	var names = renderer.ObjectsToRender
-	var objectExists = CheckIfObjectExists(names)
+	var objectExists = CheckIfObjectExists(renderer.ObjectGetter.ObjectNames())
 	var null RenderedComponent
 
 	var buf = &bytes.Buffer{}
@@ -48,7 +48,9 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 			return null, err
 		}
 		var parseHelperTemplErr error
-		templ, parseHelperTemplErr = templ.Parse(helpersTextBuf.String())
+		templ, parseHelperTemplErr = templ.New(Helpers).
+			Funcs(engine.FuncMap()).
+			Parse(helpersTextBuf.String())
 		if parseHelperTemplErr != nil {
 			return null, emberr.ErrUnableToRenderObject{
 				Name:   name,
@@ -62,8 +64,6 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 		case Helpers, Notes:
 			continue
 		default:
-			templ = templ.New(name)
-			templ.Funcs(engine.FuncMap())
 			var objectTextBuf = buf
 			objectTextBuf.Reset()
 			if err := getter.Object(name, objectTextBuf); err != nil {
@@ -73,37 +73,38 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 				}
 			}
 			var parseObjectTemplateErr error
-			templ, parseObjectTemplateErr = templ.Parse(objectTextBuf.String())
+			templ, parseObjectTemplateErr = templ.
+				New(name).
+				Parse(objectTextBuf.String())
 			if parseObjectTemplateErr != nil {
 				return null, emberr.ErrUnableToRenderObject{
 					Name:   name,
 					Reason: parseObjectTemplateErr,
 				}
 			}
-
 		}
-		for _, name := range names {
-			switch {
-			case strings.HasPrefix(name, "_"), name == Notes:
-				continue
-			}
-			var objectTextBuf = buf
-			objectTextBuf.Reset()
-			if err := templ.ExecuteTemplate(objectTextBuf, name, values); err != nil {
-				return null, emberr.ErrUnableToRenderObject{
-					Name:   name,
-					Reason: err,
-				}
-			}
-			var object, createObjectErr = constructor(objectTextBuf)
-			if createObjectErr != nil {
-				return null, emberr.ErrUnableToRenderObject{
-					Name:   name,
-					Reason: createObjectErr,
-				}
-			}
-			objects = append(objects, object)
+	}
+	for _, name := range names {
+		switch {
+		case strings.HasPrefix(name, "_"), name == Notes:
+			continue
 		}
+		var objectTextBuf = buf
+		objectTextBuf.Reset()
+		if err := templ.ExecuteTemplate(objectTextBuf, name, values); err != nil {
+			return null, emberr.ErrUnableToRenderObject{
+				Name:   name,
+				Reason: err,
+			}
+		}
+		var object, createObjectErr = constructor(objectTextBuf)
+		if createObjectErr != nil {
+			return null, emberr.ErrUnableToRenderObject{
+				Name:   name,
+				Reason: createObjectErr,
+			}
+		}
+		objects = append(objects, object)
 	}
 	return NewRenderedObject(name, objects...), nil
 }
