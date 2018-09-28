@@ -6,9 +6,23 @@ import (
 
 func TestStatic(test *testing.T) {
 	var searcher = Static()
-	for _, componentName := range []string{"auth"} {
-		if !searcher.Contains(componentName) {
-			test.Fatalf("unable to find component %q in static FS", componentName)
+	type testCase struct {
+		Component string
+		MustExist bool
+	}
+	var testCases = []testCase{
+		{Component: "auth", MustExist: true},
+		{Component: "alkf", MustExist: false},
+		{Component: "postgresql", MustExist: true},
+	}
+	for i, tc := range testCases {
+		var componentExists = searcher.Contains(tc.Component)
+		if componentExists != tc.MustExist {
+			var mustExist = "must not exist"
+			if tc.MustExist {
+				mustExist = "must exist"
+			}
+			test.Fatalf("test case %d: component %q %s", i, tc.Component, mustExist)
 		}
 	}
 }
