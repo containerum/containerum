@@ -30,10 +30,10 @@ type Installer struct {
 }
 
 func (installer Installer) Install() error {
-	if err := installer.setupTempDir(); err != nil {
+	if err := installer.SetupTempDir(); err != nil {
 		return err
 	}
-	var containerumComponents, loadContDataErr = installer.loadContainerumConfig()
+	var containerumComponents, loadContDataErr = installer.LoadContainerumConfig()
 	if loadContDataErr != nil {
 		return loadContDataErr
 	}
@@ -44,10 +44,10 @@ func (installer Installer) Install() error {
 	case true:
 		componentSearcher = depsearch.Static()
 	default:
-		if err := installer.downloadContainerumIfPresents(containerumComponents); err != nil {
+		if err := installer.DownloadContainerumChart(containerumComponents); err != nil {
 			return err
 		}
-		if err := installer.downloadUncachedComponents(containerumComponents); err != nil {
+		if err := installer.DownloadComponents(containerumComponents); err != nil {
 			return err
 		}
 		var buildIndexErr error
@@ -89,7 +89,7 @@ func (installer Installer) Install() error {
 	return nil
 }
 
-func (installer Installer) setupTempDir() error {
+func (installer Installer) SetupTempDir() error {
 	if installer.TempDir == "" {
 		installer.TempDir = path.Join(os.TempDir(), "embark")
 	}
@@ -102,11 +102,11 @@ func (installer Installer) setupTempDir() error {
 	return nil
 }
 
-func (installer Installer) loadContainerumConfig() (components.Components, error) {
+func (installer Installer) LoadContainerumConfig() (components.Components, error) {
 	return loadContainerumConfig(installer.ContainerumConfigPath)
 }
 
-func (installer Installer) downloadContainerumIfPresents(contComponents components.Components) error {
+func (installer Installer) DownloadContainerumChart(contComponents components.Components) error {
 	if contComponents.Contains(Containerum) {
 		var getter = &http.Client{
 			Timeout: 10 * time.Second,
@@ -121,7 +121,7 @@ func (installer Installer) downloadContainerumIfPresents(contComponents componen
 	return nil
 }
 
-func (installer Installer) downloadUncachedComponents(contComponents components.Components) error {
+func (installer Installer) DownloadComponents(contComponents components.Components) error {
 	var chartIndex, buildingChartIndexErr = depsearch.FS(installer.TempDir)
 	if buildingChartIndexErr != nil {
 		return buildingChartIndexErr
