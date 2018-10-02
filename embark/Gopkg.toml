@@ -1,5 +1,5 @@
 
-required = ["github.com/UnnoTed/fileb0x", "github.com/gobuffalo/packr"]
+required = ["github.com/UnnoTed/fileb0x"]
 
 [prune]
   go-tests = true
@@ -20,8 +20,8 @@ required = ["github.com/UnnoTed/fileb0x", "github.com/gobuffalo/packr"]
 
 [[constraint]]
   name = "github.com/UnnoTed/fileb0x"
-  #version = "~v1.0.0"
-  revision = "279e1dc62738d19a9106f401539c0e9b4d4ff477"
+  version = "~v1.0.0"
+  #revision = "279e1dc62738d19a9106f401539c0e9b4d4ff477"
 
 [[constraint]]
   name = "github.com/go-yaml/yaml"
@@ -30,14 +30,6 @@ required = ["github.com/UnnoTed/fileb0x", "github.com/gobuffalo/packr"]
 [[constraint]]
   name = "github.com/octago/sflags"
   version = "~0.2.0"
-
-#[[constraint]]
-#  name = "k8s.io/client-go"
-#  version = "kubernetes-1.10.0"
-
-#[[constraint]]
-#  name = "k8s.io/api"
-#  version = "kubernetes-1.9.3"
 
 [[constraint]]
   name = "github.com/sirupsen/logrus"
@@ -57,7 +49,24 @@ required = ["github.com/UnnoTed/fileb0x", "github.com/gobuffalo/packr"]
 
 [[constraint]]
   name = "github.com/gobuffalo/packr"
-  version = "v1.13.7"
+  version = "~v1.13.7"
+
+
+[[constraint]]
+  name = "github.com/mitchellh/mapstructure"
+  version = "~1.0.0"
+
+[[constraint]]
+  name = "github.com/zyedidia/micro"
+  version = "~1.4.1"
+
+[[constraint]]
+  name = "github.com/huandu/xstrings"
+  version = "~1.2.0"
+
+[[constraint]]
+  name = "github.com/common-nighthawk/go-figure"
+  revision = "18b2b544842cab16f3ff418fb5290d8f2896a069"
 
 #####################################
 
@@ -77,14 +86,3 @@ required = ["github.com/UnnoTed/fileb0x", "github.com/gobuffalo/packr"]
 #[[override]]
 #  name = "github.com/russross/blackfriday"
 #  version = "~v1.4-2-g300106c"
-[[constraint]]
-  name = "github.com/mitchellh/mapstructure"
-  version = "1.0.0"
-
-[[constraint]]
-  name = "github.com/zyedidia/micro"
-  version = "1.4.1"
-
-[[constraint]]
-  name = "github.com/elazarl/go-bindata-assetfs"
-  version = "1.0.0"

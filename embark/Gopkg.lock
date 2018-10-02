@@ -40,7 +40,8 @@
     "utils",
   ]
   pruneopts = "NUT"
-  revision = "279e1dc62738d19a9106f401539c0e9b4d4ff477"
+  revision = "a14a9cea3d73f97f1c62dabf4b2fedebf20f92ba"
+  version = "v1.0.0"
 
 [[projects]]
   digest = "1:65eb148e2f1c0261f00b310bec802a75d0fcc300a49f28b99a77de6679b463dc"
@@ -75,6 +76,13 @@
   version = "v1.1.1"
 
 [[projects]]
+  digest = "1:912797771e29fb1e3935c6297690b4a5915f4668ffbb9a4c84b856f0fdeae28a"
+  name = "github.com/common-nighthawk/go-figure"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "18b2b544842cab16f3ff418fb5290d8f2896a069"
+
+[[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
@@ -96,14 +104,6 @@
   ]
   pruneopts = "NUT"
   revision = "cc9eb1d7ad760af14e8f918698f745e80377af4f"
-
-[[projects]]
-  digest = "1:d612f023556888f38ccbaf22cde164f88a23619d5877fcd34a707c6b021ae6da"
-  name = "github.com/elazarl/go-bindata-assetfs"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "30f82fa23fd844bd5bb1e5f216db87fd77b5eb43"
-  version = "v1.0.0"
 
 [[projects]]
   digest = "1:3d62eccc90d44f5c6cb59236ee55885f1d3ce73d682d9b9a90076b78b94760b2"
@@ -162,14 +162,6 @@
   pruneopts = "NUT"
   revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
   version = "v2.2.1"
-
-[[projects]]
-  digest = "1:38cc212d9056e1e15604c1be32ee422526e5cbf52469bf49b33a00a362e1b26e"
-  name = "github.com/gobuffalo/packr"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "5a2cbb54c4e7d482e3f518c56f1f86f133d5204f"
-  version = "v1.13.7"
 
 [[projects]]
   digest = "1:6a7159c5f8f8826207545407a458b43ab6599c1c8a2271465c2e979ecea1dcd4"
@@ -649,13 +641,13 @@
     "github.com/Masterminds/sprig",
     "github.com/UnnoTed/fileb0x",
     "github.com/agnivade/levenshtein",
-    "github.com/elazarl/go-bindata-assetfs",
+    "github.com/common-nighthawk/go-figure",
     "github.com/ericchiang/k8s",
     "github.com/ericchiang/k8s/apis/meta/v1",
     "github.com/ghodss/yaml",
     "github.com/go-playground/validator",
     "github.com/go-yaml/yaml",
-    "github.com/gobuffalo/packr",
+    "github.com/huandu/xstrings",
     "github.com/magiconair/properties/assert",
     "github.com/mholt/archiver",
     "github.com/mitchellh/mapstructure",
