@@ -1,4 +1,4 @@
-package install
+package cli
 
 import (
 	"github.com/containerum/containerum/embark/pkg/cli/flags"
@@ -13,7 +13,6 @@ func Install(defaultInstallConfig *flags.Install) *cobra.Command {
 	if defaultInstallConfig != nil {
 		installConfig = *defaultInstallConfig
 	}
-
 	var command = &cobra.Command{
 		Use:     "install",
 		Aliases: []string{"!"}, // embark !
