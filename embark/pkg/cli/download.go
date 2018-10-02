@@ -1,9 +1,12 @@
 package cli
 
 import (
+	"log"
+
 	"github.com/containerum/containerum/embark/pkg/cli/flags"
-	gpflag "github.com/octago/sflags/gen/gpflag"
-	cobra "github.com/spf13/cobra"
+	"github.com/containerum/containerum/embark/pkg/installer"
+	"github.com/octago/sflags/gen/gpflag"
+	"github.com/spf13/cobra"
 )
 
 func Download() *cobra.Command {
@@ -11,7 +14,17 @@ func Download() *cobra.Command {
 	var cmd = &cobra.Command{
 		Use: "Download",
 		Run: func(cmd *cobra.Command, args []string) {
-			// write your code here
+			var inst = installer.Installer{
+				ContainerumConfigPath: config.Config,
+				TempDir:               config.Dir,
+			}
+			var components, loadContainerumConfigErr = inst.LoadContainerumConfig()
+			if loadContainerumConfigErr != nil {
+				log.Fatal(loadContainerumConfigErr)
+			}
+			if err := inst.DownloadComponents(components); err != nil {
+				log.Fatal(err)
+			}
 		},
 	}
 	if err := gpflag.ParseTo(&config, cmd.PersistentFlags()); err != nil {
