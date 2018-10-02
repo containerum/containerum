@@ -12,7 +12,7 @@ import (
 func Download() *cobra.Command {
 	var config flags.Download
 	var cmd = &cobra.Command{
-		Use: "Download",
+		Use: "download",
 		Run: func(cmd *cobra.Command, args []string) {
 			var inst = installer.Installer{
 				ContainerumConfigPath: config.Config,
