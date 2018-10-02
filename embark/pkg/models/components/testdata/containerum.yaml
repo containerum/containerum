@@ -1,22 +1,18 @@
-
 containerum:
-    version: 1.6.1
-    dependson: [mail]
-    objects:
-      - service
-      - ingress
-    values:
-      CONTAINERUM_VERSION: 1.6.1
-
-postrgesql:
-  version: 1.2.2
+  version: 1.0.2
+  repo: charts.containerum.io
   objects:
-    - "deployment.yaml"
-
-mail:
-  version: 0.9.6
+  - ingress
+  dependson:
+  - postgresql
+  values:
+    CONTAINERUM_VERSION: 1.6.1
+postgresql:
+  version: 3.1.2
+  repo: charts.containerum.io
   objects:
-    - deployment.yaml
-    - service
-    - ingress
-    - svc
+  - deployment
+  dependson: []
+  values:
+    PASS: YTtkc2xkYWxmawo=
+    USER: admin
