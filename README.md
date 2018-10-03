@@ -4,7 +4,7 @@
 
 ## Overview
 
-Containerum is an open source platform for the complete management of Kubernetes clusters. Containerum features tools for simple CI/CD pipelines setup, revision control, and role management. 
+Containerum is an open source platform for the complete management of Kubernetes clusters. Containerum features tools for simple CI/CD pipelines setup, revision control, and role management. Release notes are available [here](https://docs.containerum.com/release-notes/platform/).
 
 - Runs on top of any Kubernetes cluster
 - Managed via CLI or intuitive Web UI
