@@ -116,6 +116,8 @@ resource:
     global:
       CH_RESOURCE_MONGO_DB: containerum
       CH_RESOURCE_MONGO_LOGIN: mongo
+      CH_RESOURCE_MIN_SERVICE_PORT: 30000
+      CH_RESOURCE_MAX_SERVICE_PORT: 32767
     local:
       CH_RESOURCE_MONGO_ADDR: null
       CH_RESOURCE_KUBE_API_ADDR: null
