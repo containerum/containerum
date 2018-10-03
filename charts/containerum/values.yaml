@@ -3,47 +3,31 @@ tags:
   platform: true
   platformdb: true
   monitoring: false
-
 ingress:
   ui:
     enabled: true
     annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
     path: /
     hosts:
-      - local.containerum.io
+    - local.containerum.io
     tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
   api:
     enabled: true
     annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
     path: /
     hosts:
-      - api.local.containerum.io
+    - api.local.containerum.io
     tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
-
-
 ui:
   env:
     local:
-      ## Default user country
       COUNTRY: US
-      ## for HTTPS use: ssl
       API_PROTOCOL_TYPE: no-ssl
       API_PORT: null
-      LATEST_RELEASE: null
+      LATEST_RELEASE: 1.2.0
     global:
       API_HOST: api.local.containerum.io
       RECAPTCHA: null
-
 mail:
   persistence:
     enabled: false
@@ -56,12 +40,9 @@ mail:
       CH_MAIL_SMTP_LOGIN: null
       CH_MAIL_SENDER_MAIL_SIMPLE: null
       CH_MAIL_SENDER_MAIL: null
-
-
 auth:
   persistence:
     enabled: false
-
 user-manager:
   tags:
     platformdb: true
@@ -75,9 +56,7 @@ user-manager:
       CH_USER_AUTH_GRPC_ADDR: null
       CH_USER_AUTH_HTTP_ADDR: null
       CH_USER_PERMISSIONS_URL: null
-      ## if CH_USER_ADMIN_PASSWORD null then admin doesn't creates
       CH_USER_ADMIN_PASSWORD: verystrongpassword
-
 solutions:
   tags:
     platformdb: true
@@ -90,8 +69,6 @@ solutions:
       CH_SOLUTIONS_PG_PASSWORD: null
       CH_SOLUTIONS_RESOURCE_URL: null
       CH_SOLUTIONS_KUBE_API_URL: null
-      
-
 permissions:
   tags:
     platformdb: true
@@ -108,7 +85,6 @@ permissions:
       BILLING_ADDR: null
       SOLUTIONS_ADDR: null
       VOLUME_MANAGER_ADDR: null
-
 resource:
   tags:
     platformdb: true
@@ -120,12 +96,10 @@ resource:
       CH_RESOURCE_MONGO_ADDR: null
       CH_RESOURCE_KUBE_API_ADDR: null
       CH_RESOURCE_PERMISSIONS_ADDR: null
-
 nodemetrics:
   env:
     local:
       PROMETHEUS_ADDR: null
-
 volume:
   tags:
     platformdb: true
@@ -137,28 +111,27 @@ volume:
       DB_HOST: null
       KUBE_API_ADDR: null
       BILLING_ADDR: null
-
 api-gateway:
   env:
     local:
       SERVICE_HOST_PREFIX: release-name
       GRPC_AUTH_ADDRESS: null
-
-auth:
-  persistence:
-    enabled: false
-
+kube-importer:
+  rbac:
+    serviceAccountName: release-name
+  env:
+    global:
+      CH_KUBE_IMPORTER_EXCLUDED_NS: default,kube-system
+    local:
+      CH_KUBE_IMPORTER_RESOURCE_URL: null
+      CH_KUBE_IMPORTER_PERMISSIONS_URL: null
+      CH_KUBE_IMPORTER_VOLUMES_URL: null
 postgresql:
   persistence:
     enabled: false
   postgresDatabase: containerum
-  # postgresUser: postgres
-  # postgresPassword: password
-
-
 mongodb:
   persistence:
     enabled: false
   mongodbDatabase: containerum
   mongodbUsername: mongo
-  # mongodbPassword: password
