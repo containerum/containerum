@@ -7,7 +7,7 @@ dependencies:
       - postgresql
       - platform
   - name: mongodb
-    version: "3.0.4"
+    version: "3.0.5"
     repository: https://charts.containerum.io
     tags:
       - db
@@ -28,7 +28,7 @@ dependencies:
       - user
       - platform
   - name: resource
-    version: "v1.0.5"
+    version: "v1.0.6"
     repository: https://charts.containerum.io
     tags:
       - back
@@ -42,14 +42,14 @@ dependencies:
       - permissions
       - platform
   - name: kube
-    version: "v1.0.7-rc.0"
+    version: "v1.0.7"
     repository: https://charts.containerum.io
     tags:
       - back
       - kube
       - platform
   - name: auth
-    version: "v1.0.3"
+    version: "v1.0.4"
     repository: https://charts.containerum.io
     tags:
       - back
@@ -63,14 +63,14 @@ dependencies:
       - mail
       - platform
   - name: ui
-    version: "v1.0.7-rc.2"
+    version: "v1.0.7-rc.4"
     repository: https://charts.containerum.io
     tags:
       - front
       - ui
       - platform
   - name: nodemetrics
-    version: "v1.0.4"
+    version: "v1.0.5"
     repository: https://charts.containerum.io
     tags:
       - monitoring
@@ -91,7 +91,7 @@ dependencies:
       - solutions
       - platform
   - name: kube-importer
-    version: "v0.0.5"
+    version: "v0.0.6"
     repository: https://charts.containerum.io
     tags:
       - back
