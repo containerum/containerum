@@ -8,14 +8,18 @@ env:
   - NAME=containerum
   - IMAGE_NAME=$OWNER/$NAME
   - MUSEUM=https://charts.containerum.io
+  - CHANGE_MINIKUBE_NONE_USER=true
 
-before_install:
 
-
-install:
-  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
-  - helm init --client-only
-  - helm plugin install https://github.com/chartmuseum/helm-push
+before_script:
+  - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl && \
+    chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+  - curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
+    chmod +x minikube && sudo mv minikube /usr/local/bin/
+  - sudo minikube start --vm-driver=none --kubernetes-version=v1.7.0
+  - minikube update-context
+  - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; \
+    until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
 
 script:
   - go test ./embark/...
@@ -23,6 +27,13 @@ script:
   - helm repo add containerum ${MUSEUM}
   - helm package charts/$NAME --version="1.0" --dependency-update
   - rm $NAME-1.0.tgz
+
+before_install:
+
+install:
+  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+  - helm init --client-only
+  - helm plugin install https://github.com/chartmuseum/helm-push
 
 before_deploy:
   - mkdir -p /tmp/charts
