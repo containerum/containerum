@@ -48,11 +48,6 @@ required = ["github.com/UnnoTed/fileb0x"]
   revision = "1060394a7713649853efcb78f5c929b877efbbbb"
 
 [[constraint]]
-  name = "github.com/gobuffalo/packr"
-  version = "~v1.13.7"
-
-
-[[constraint]]
   name = "github.com/mitchellh/mapstructure"
   version = "~1.0.0"
 
