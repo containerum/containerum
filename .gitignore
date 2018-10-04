@@ -7,3 +7,4 @@
 /charts/containerum/charts/
 /embark/bin/*
 /embark/testdata/*
+.vscode/settings.json
