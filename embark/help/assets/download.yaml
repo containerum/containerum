@@ -1,0 +1,6 @@
+
+short: Download chart data to dir
+long:  |
+  Download charts archive with alldeps and unpacks them to dir, provided by --dir flag
+examples:
+  - embark download --dir containerum_charts
