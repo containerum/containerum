@@ -17,10 +17,7 @@ import (
 var (
 	_ json.Marshaler   = Object{}
 	_ json.Unmarshaler = new(Object)
-
-	//	_ yaml.Marshaler   = Object{}
-	//	_ yaml.Unmarshaler = new(Object)
-	_ k8s.Resource = Object{}
+	_ k8s.Resource     = Object{}
 )
 
 type Object struct {
@@ -123,7 +120,8 @@ func (object *Object) UnmarshalYAML(unmarshaler func(interface{}) error) error {
 
 func RegisterObject() {
 	registerExactlyOnce.Do(func() {
-		k8s.Register("embark", "v1", fmt.Sprintf("%T", Object{}), true, new(Object))
+		k8s.Register("embark", "v1", fmt.Sprintf("%T", new(Object)), true, new(Object))
+		k8s.Register("embark", "v1", fmt.Sprintf("%T", Object{}), true, Object{})
 	})
 }
 
