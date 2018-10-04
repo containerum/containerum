@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/containerum/containerum/embark/help"
+
 	"github.com/huandu/xstrings"
 
 	"github.com/common-nighthawk/go-figure"
@@ -18,7 +20,7 @@ type RootFlags struct{}
 func Root() *cobra.Command {
 	var flags RootFlags
 	var cmd = &cobra.Command{
-		Use: "Root",
+		Use: "embark",
 		Run: func(cmd *cobra.Command, args []string) {
 			var font = selectFont()
 			var greetings = figure.NewFigure("Embark to containeum!", font, false).String()
@@ -29,6 +31,7 @@ func Root() *cobra.Command {
 	cmd.AddCommand(
 		Install(nil),
 		Download())
+	help.FillHelps(cmd)
 	if err := gpflag.ParseTo(&flags, cmd.PersistentFlags()); err != nil {
 		panic(err)
 	}
