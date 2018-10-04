@@ -1,11 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: embark
+  name: containerum/embark
   labels:
     app: containerum
     name: embark
 spec:
+  serviceAccountName: embark-containerum
   selector: {}
   template:
     metadata:
@@ -17,7 +18,6 @@ spec:
         - name: embark
           image: twentydraft/embark
           imagePullPolicy: Always
-          # command: ["curl", "wttr.in"]
           volumeMounts:
             - name: kube
               mountPath: /etc/kube
