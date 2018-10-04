@@ -12,6 +12,7 @@ A tool to quickly install [Containerum](https://containerum.com/software/) on a 
   * [Installing](#installing)
   * [Running the tests](#running-the-tests)
   * [Contributing](#contributing)
+  * [Useful packages](#useful-packages)
   * [Versioning](#versioning)
   * [Authors](#authors)
   * [License](#license)
@@ -96,7 +97,7 @@ All code generation tools are vendored, so you don't need to install them, the o
 
 We welcome any help from the open source community. To submit your contributions, fork the project you want to contribute to (e.g. permissions, auth, etc.), commit changes and create a pull request to the develop branch. We will review the changes and include them to the project. Read more about contributing in this [document](../CONTRIBUTING.md).
 
-## Usefool packages 
+## Useful packages 
 You may want to use some of the components of this utility in your projects.
 First of all you should pay attention to:
   + [`cgraph`](pkg/cgraph) oriented task graph builder (used to resolve dependency conflicts)
