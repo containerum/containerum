@@ -8,6 +8,15 @@ A tool to quickly install [Containerum](https://containerum.com/software/) on a 
 
 ## Getting Started
 
+  * [Prerequisites](#prerequisites)
+  * [Installing](#installing)
+  * [Running the tests](#running-the-tests)
+  * [Contributing](#contributing)
+  * [Versioning](#versioning)
+  * [Authors](#authors)
+  * [License](#license)
+  * [Acknowledgments](#acknowledgments)
+
 ### Prerequisites
 
 Embark requires installed and configured Kubernetes node. If you need to start a Kubernetes cluster, checkout these articles:
@@ -59,6 +68,8 @@ kubectl wait --for=condition=complete containerum/embark
 ```
 
 ## Running the tests
+Requirements:
+  + go standart toolset
 
 __Run the unit tests__
 ```bash
@@ -66,6 +77,7 @@ go test ./...
 ```
 
 __Run the integration tests__
+
 You need Kubernetes kluster up and running and kubectl config `~/.kube/config`.
 
 **⛔️ !!DANGEROUS!!! ⛔️**
@@ -78,7 +90,26 @@ go test -tags="IntegrationTests" ./...
 
 ## Contributing
 
-We welcome any help from the open source community. To submit your contributions, fork the project you want to contribute to (e.g. permissions, auth, etc.), commit changes and create a pull request to the develop branch. We will review the changes and include them to the project. Read more about contributing in this document.
+We are using [`dep`](https://github.com/golang/dep) ad dependency manager and [`fileb0x`](https://github.com/UnnoTed/fileb0x) as embedded filesystem for static assets (default configs, charts, kubernetes objects, etc.)
+
+All code generation tools are vendored, so you don't need to install them, the only command required is `go generate -v`.
+
+We welcome any help from the open source community. To submit your contributions, fork the project you want to contribute to (e.g. permissions, auth, etc.), commit changes and create a pull request to the develop branch. We will review the changes and include them to the project. Read more about contributing in this [document](../CONTRIBUTING.md).
+
+## Usefool packages 
+You may want to use some of the components of this utility in your projects.
+First of all you should pay attention to:
+  + [`cgraph`](pkg/cgraph) oriented task graph builder (used to resolve dependency conflicts)
+  + [`object`](pkg/object) generic Kube object model, useful if you want to manipulate structured data and then create custom Kubernetes objects
+  + [`spin`](pkg/utils/spin) KISS terminal spinner package
+  + [`why`](pkg/utils/why) KISS package for structured printing to STDOUT and io.Writer
+    ```go
+      why.Print("root item", "first item", "second item", "third item")
+      // root item
+      //     ╠═ first item
+      //     ╠═ second item
+      //     ╚═ third item
+    ```
 
 ## Versioning
 
