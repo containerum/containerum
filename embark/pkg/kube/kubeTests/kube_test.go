@@ -1,4 +1,4 @@
-//+build KubeClientTests,IntegrationTests
+// +build IntegrationTests
 
 package kubeTests
 
@@ -7,6 +7,8 @@ import (
 	"os"
 	"testing"
 	"time"
+
+	"github.com/containerum/containerum/embark/pkg/object"
 
 	"github.com/containerum/containerum/embark/pkg/kube"
 	"github.com/ericchiang/k8s/apis/meta/v1"
@@ -25,7 +27,7 @@ func TestKubeClient(test *testing.T) {
 	}
 	defer testDeplFile.Close()
 
-	var obj, objErr = kube.ObjectFromYAML(testDeplFile)
+	var obj, objErr = object.ObjectFromYAML(testDeplFile)
 	if objErr != nil {
 		test.Fatal(objErr)
 	}
