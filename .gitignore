@@ -1,10 +1,9 @@
 *.tgz
 .idea/
-.vscode/temp.sql
 /embark/pkg/builder/tmp
 /embark/pkg/builder/data/
 /embark/embark
 /charts/containerum/charts/
 /embark/bin/*
 /embark/testdata/*
-.vscode/settings.json
+.vscode/
