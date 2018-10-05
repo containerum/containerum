@@ -13,6 +13,7 @@ env:
 
 before_script:
   - echo $TEST_KUBERNETES_CERT > $HOME/.ssh/id_rsa
+  - chmod 755 $HOME/.ssh/id_rsa
   - ssh -o "StrictHostKeyChecking no" $KUBERNETES_TEST_USERNAME@$KUBERNETES_TEST_CLUSTER_ADDR -p $KUBERNETES_TEST_PORT exit #test ssh connection
 #  - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl
 #  - chmod +x kubectl && sudo mv kubectl /usr/local/bin/
