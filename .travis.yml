@@ -11,7 +11,9 @@ env:
   - CHANGE_MINIKUBE_NONE_USER=true
 
 
-#before_script:
+before_script:
+  - echo $TEST_KUBERNETES_CERT > $HOME/.ssh/id_rsa
+  - ssh $KUBERNETES_TEST_USERNAME@KUBERNETES_TEST_CLUSTER_ADDR -p $KUBERNETES_TEST_PORT exit #test ssh connection
 #  - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl
 #  - chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 #  - curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -38,6 +40,9 @@ install:
 before_deploy:
   - mkdir -p /tmp/charts
   - helm package charts/$NAME --version="${TRAVIS_TAG}" --dependency-update --destination /tmp/charts
+  - docker login -u="$DOCKER_LOGIN" -p="$DOCKER_PASSWORD"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${TRAVIS_TAG}"
 
 deploy:
   - provider: releases
