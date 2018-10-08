@@ -1,11 +1,14 @@
 package installer
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"os"
 	"path"
 	"time"
+
+	"github.com/containerum/containerum/embark/pkg/cgraph"
 
 	"github.com/containerum/containerum/embark/pkg/object"
 	"github.com/containerum/containerum/embark/pkg/ogetter"
@@ -85,8 +88,21 @@ func (installer Installer) Install() error {
 	if newKubeClientErr != nil {
 		return newKubeClientErr
 	}
-	_ = kubeClient
-	return nil
+	var gr = cgraph.NewGraph()
+	for _, component := range renderedComponents {
+		component := component
+		var dependencies = containerumComponents[component.Name()].DependsOn
+		gr.AddNode(component.Name(), dependencies, func() error {
+			return component.ForEachObject(func(obj kube.Object) error {
+				return kubeClient.Create(obj)
+			})
+		})
+	}
+	var sinks = gr.Sinks()
+	if len(sinks) == 0 {
+		return fmt.Errorf("unable to exectude totally cycled graph")
+	}
+	return gr.Execute(sinks...)
 }
 
 func (installer Installer) SetupTempDir() error {
