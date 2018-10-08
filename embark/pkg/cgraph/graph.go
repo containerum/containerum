@@ -121,6 +121,22 @@ func (graph Graph) Nodes() []string {
 	return nodes
 }
 
+func (graph Graph) Sinks() []string {
+	var deps = make(map[string]bool)
+	for _, node := range graph {
+		for _, dep := range node.Deps {
+			deps[dep] = true
+		}
+	}
+	var sinks []string
+	for _, node := range graph {
+		if !deps[node.Name] {
+			sinks = append(sinks, node.Name)
+		}
+	}
+	return sinks
+}
+
 type queue chan string
 
 func (q queue) Push(stop <-chan struct{}, elems ...string) {
