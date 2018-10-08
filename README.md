@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/containerum/containerum.svg?branch=master)](https://travis-ci.org/containerum/containerum)
+[![Build Status](https://travis-ci.org/containerum/containerum.svg?branch=master)](https://travis-ci.org/containerum/containerum) [![GitHub release](https://img.shields.io/github/release/containerum/containerum.svg)](https://github.com/containerum/containerum/releases) [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow)](https://twitter.com/Containerumcom)
+
 
 ![Containerum logo](logo.svg)
 
