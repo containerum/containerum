@@ -89,14 +89,19 @@ func (graph Graph) GetNode(name string) *Node {
 	return node
 }
 
-func (graph Graph) Execute(name string) error {
-	var node = graph.GetNode(name)
-	for _, depName := range node.Deps {
-		if err := graph.Execute(depName); err != nil {
+func (graph Graph) Execute(names ...string) error {
+	for _, name := range names {
+		var node = graph.GetNode(name)
+		for _, depName := range node.Deps {
+			if err := graph.Execute(depName); err != nil {
+				return err
+			}
+		}
+		if err := node.Execute(); err != nil {
 			return err
 		}
 	}
-	return node.Execute()
+	return nil
 }
 
 func (graph Graph) AddNode(name string, deps []string, action func() error) Graph {
