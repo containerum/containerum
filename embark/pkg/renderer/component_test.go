@@ -16,7 +16,7 @@ func TestRenderedComponent_ForEachObjectGo(test *testing.T) {
 		"weird object",
 	}, DefaultOrder()...)
 	var objects = mocks(kinds)
-	var component = NewRenderedObject("test component", objects...)
+	var component = NewRenderedObject("test component", nil, objects...)
 	var results = make(chan string)
 
 	go func() {

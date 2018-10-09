@@ -8,11 +8,12 @@ import (
 )
 
 type RenderedComponent struct {
-	name    string
-	objects []kube.Object
+	name      string
+	objects   []kube.Object
+	dependsOn []string
 }
 
-func NewRenderedObject(name string, objects ...kube.Object) RenderedComponent {
+func NewRenderedObject(name string, dependsOn []string, objects ...kube.Object) RenderedComponent {
 	SortObjects(objects)
 	return RenderedComponent{
 		name:    name,
@@ -26,6 +27,10 @@ func (component RenderedComponent) Objects() []kube.Object {
 
 func (component RenderedComponent) Name() string {
 	return component.name
+}
+
+func (component RenderedComponent) DependsOn() []string {
+	return append([]string{}, component.dependsOn...)
 }
 
 type Op = func(obj kube.Object) error

@@ -25,6 +25,7 @@ type ObjectConstructor = func(io.Reader) (kube.Object, error)
 type Renderer struct {
 	Name            string
 	ObjectsToRender []string
+	DependsOn       []string
 	ObjectGetter    ogetter.ObjectGetter
 	Constructor     ObjectConstructor
 	Values          Values
@@ -106,7 +107,7 @@ func (renderer Renderer) RenderComponent() (RenderedComponent, error) {
 		}
 		objects = append(objects, object)
 	}
-	return NewRenderedObject(name, objects...), nil
+	return NewRenderedObject(name, renderer.DependsOn, objects...), nil
 }
 
 func CheckIfObjectExists(names []string) func(name string) bool {
