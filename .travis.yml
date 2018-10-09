@@ -30,6 +30,7 @@ script:
   - helm repo add containerum ${MUSEUM}
   - helm package charts/$NAME --version="1.0" --dependency-update
   - rm $NAME-1.0.tgz
+  - docker build -t containerum/embark ./embark
 
 before_install:
 
@@ -44,6 +45,7 @@ before_deploy:
   - docker login -u="$DOCKER_LOGIN" -p="$DOCKER_PASSWORD"
   - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
   - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${TRAVIS_TAG}"
+  - docker tag "containerum/embark:${TRAVIS_TAG}"
 
 deploy:
   - provider: releases
@@ -64,6 +66,11 @@ deploy:
     file: ./build/*
     skip_cleanup: true
     on:
+      tags: true
+  - provider: script
+    script: docker push "containerum/embark:${TRAVIS_TAG}"
+    on:
+      branch: master
       tags: true
 
 notifications:
