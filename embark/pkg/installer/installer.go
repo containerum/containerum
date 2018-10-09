@@ -32,6 +32,8 @@ type Installer struct {
 	KubectlConfigPath     string
 }
 
+type GraphExecuter = func() error
+
 func (installer Installer) Install() error {
 	if err := installer.SetupTempDir(); err != nil {
 		return err
@@ -40,58 +42,30 @@ func (installer Installer) Install() error {
 	if loadContDataErr != nil {
 		return loadContDataErr
 	}
+	var componentSearcher, loadDependenciesErr = installer.LoadDependencies(containerumComponents)
+	if loadDependenciesErr != nil {
+		return loadDependenciesErr
+	}
+	var renderedComponents, renderComponentsErr = installer.RenderComponents(componentSearcher, containerumComponents)
+	if renderComponentsErr != nil {
+		return renderComponentsErr
+	}
+	var install, buildInstallationGraphErr = installer.BuildInstallationGraph(renderedComponents)
+	if buildInstallationGraphErr != nil {
+		return buildInstallationGraphErr
+	}
+	return install()
+}
 
-	var componentSearcher depsearch.Searcher
-	// ? maybe add more cases in the future
-	switch installer.Static {
-	case true:
-		componentSearcher = depsearch.Static()
-	default:
-		if err := installer.DownloadContainerumChart(containerumComponents); err != nil {
-			return err
-		}
-		if err := installer.DownloadComponents(containerumComponents); err != nil {
-			return err
-		}
-		var buildIndexErr error
-		componentSearcher, buildIndexErr = depsearch.FS(installer.TempDir)
-		if buildIndexErr != nil {
-			return buildIndexErr
-		}
-	}
-	var renderedComponents = make([]renderer.RenderedComponent, 0, len(containerumComponents))
-	for _, component := range containerumComponents.Slice() {
-		var componentPath, searchComponentErr = componentSearcher.ResolveVersion(component.Name, component.Version)
-		if searchComponentErr != nil {
-			return searchComponentErr
-		}
-		var gettter ogetter.ObjectGetter
-		if installer.Static {
-			gettter = ogetter.NewEmbeddedFSObjectGetter(path.Join(componentPath, "templates"))
-		} else {
-			gettter = ogetter.NewFSObjectGetter(componentPath)
-		}
-		var renderedComponent, renderErr = renderer.Renderer{
-			Name:            component.Name,
-			ObjectsToRender: component.Objects,
-			ObjectGetter:    gettter,
-			Constructor: func(reader io.Reader) (kube.Object, error) {
-				return object.ObjectFromYAML(reader)
-			},
-		}.RenderComponent()
-		if renderErr != nil {
-			return renderErr
-		}
-		renderedComponents = append(renderedComponents, renderedComponent)
-	}
+func (installer Installer) BuildInstallationGraph(renderedComponents []renderer.RenderedComponent) (GraphExecuter, error) {
 	var kubeClient, newKubeClientErr = kube.NewKube()
 	if newKubeClientErr != nil {
-		return newKubeClientErr
+		return nil, newKubeClientErr
 	}
 	var gr = cgraph.NewGraph()
 	for _, component := range renderedComponents {
 		component := component
-		var dependencies = containerumComponents[component.Name()].DependsOn
+		var dependencies = component.DependsOn()
 		gr.AddNode(component.Name(), dependencies, func() error {
 			return component.ForEachObject(func(obj kube.Object) error {
 				return kubeClient.Create(obj)
@@ -100,9 +74,9 @@ func (installer Installer) Install() error {
 	}
 	var sinks = gr.Sinks()
 	if len(sinks) == 0 {
-		return fmt.Errorf("unable to exectude totally cycled graph")
+		return nil, fmt.Errorf("unable to exectude totally cycled graph")
 	}
-	return gr.Execute(sinks...)
+	return func() error { return gr.Execute(sinks...) }, nil
 }
 
 func (installer Installer) SetupTempDir() error {
@@ -153,4 +127,56 @@ func (installer Installer) DownloadComponents(contComponents components.Componen
 		}
 	}
 	return nil
+}
+
+func (installer Installer) RenderComponents(componentSearcher depsearch.Searcher, containerumComponents components.Components) ([]renderer.RenderedComponent, error) {
+	var renderedComponents = make([]renderer.RenderedComponent, 0, len(containerumComponents))
+	for _, component := range containerumComponents.Slice() {
+		var componentPath, searchComponentErr = componentSearcher.ResolveVersion(component.Name, component.Version)
+		if searchComponentErr != nil {
+			return nil, searchComponentErr
+		}
+		var gettter ogetter.ObjectGetter
+		if installer.Static {
+			gettter = ogetter.NewEmbeddedFSObjectGetter(path.Join(componentPath, "templates"))
+		} else {
+			gettter = ogetter.NewFSObjectGetter(componentPath)
+		}
+		var renderedComponent, renderErr = renderer.Renderer{
+			Name:            component.Name,
+			ObjectsToRender: component.Objects,
+			DependsOn:       component.DependsOn,
+			ObjectGetter:    gettter,
+			Constructor: func(reader io.Reader) (kube.Object, error) {
+				return object.ObjectFromYAML(reader)
+			},
+		}.RenderComponent()
+		if renderErr != nil {
+			return nil, renderErr
+		}
+		renderedComponents = append(renderedComponents, renderedComponent)
+	}
+	return renderedComponents, nil
+}
+
+func (installer Installer) LoadDependencies(containerumComponents components.Components) (depsearch.Searcher, error) {
+	var componentSearcher depsearch.Searcher
+	// ? maybe add more cases in the future
+	switch installer.Static {
+	case true:
+		componentSearcher = depsearch.Static()
+	default:
+		if err := installer.DownloadContainerumChart(containerumComponents); err != nil {
+			return componentSearcher, err
+		}
+		if err := installer.DownloadComponents(containerumComponents); err != nil {
+			return componentSearcher, err
+		}
+		var buildIndexErr error
+		componentSearcher, buildIndexErr = depsearch.FS(installer.TempDir)
+		if buildIndexErr != nil {
+			return componentSearcher, buildIndexErr
+		}
+	}
+	return componentSearcher, nil
 }
