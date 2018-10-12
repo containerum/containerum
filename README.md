@@ -63,7 +63,7 @@ To enable collecting resource utilization metrics, install Containerum with Prom
 ```
 helm repo add containerum https://charts.containerum.io
 helm repo update
-helm install containerum/containerum —set tags.monitoring=true
+helm install containerum/containerum —-set tags.monitoring=true
 ```
 
 If you already have Prometheus in your cluster and want to use it to display node utilization in Containerum Platform, install Containerum Platform with the parameters below. Containerum Platform is compatible with Prometheus `6.7.4` from the official Helm repository.
@@ -71,7 +71,7 @@ If you already have Prometheus in your cluster and want to use it to display nod
 ```
 helm repo add containerum https://charts.containerum.io
 helm repo update
-helm install containerum/containerum —set nodemetrics.env.local.PROMETHEUS_ADDR=http://{PROMETHEUS_SVC_NAME}:{PROMETHEUS_SVC_PORT}
+helm install containerum/containerum —-set nodemetrics.env.local.PROMETHEUS_ADDR=http://{PROMETHEUS_SVC_NAME}:{PROMETHEUS_SVC_PORT}
 ```
 
  This will install the Containerum Platform and create two Ingresses to expose Containerum Platform. You can view the Ingresses with `kubectl get ingress`.
