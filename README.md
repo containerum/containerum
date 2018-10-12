@@ -82,7 +82,7 @@ helm install containerum/containerum —-set nodemetrics.env.local.PROMETHEUS_AD
 ```
 
 
-> Note 2: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as `slave`.  To add the label, run:  
+> Note 2: To create deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as `slave`.  To add the label, run:  
 
 ```
 kubectl label node ubuntu-01 role=slave
