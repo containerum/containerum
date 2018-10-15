@@ -1,13 +1,15 @@
-[![Build Status](https://travis-ci.org/containerum/containerum.svg?branch=master)](https://travis-ci.org/containerum/containerum)
+[![Build Status](https://travis-ci.org/containerum/containerum.svg?branch=master)](https://travis-ci.org/containerum/containerum) [![GitHub release](https://img.shields.io/github/release/containerum/containerum.svg)](https://github.com/containerum/containerum/releases) [![Twitter Follow](https://img.shields.io/twitter/follow/containerumcom.svg?style=social&label=Follow)](https://twitter.com/Containerumcom)
+
 
 ![Containerum logo](logo.svg)
 
 ## Overview
 
-Containerum is an open source platform for the complete management of Kubernetes clusters. Containerum features tools for simple CI/CD pipelines setup, revision control, and role management. 
+Containerum is an open source platform for the complete management of Kubernetes clusters. Containerum features tools for simple CI/CD pipelines setup, revision control, and role management. Release notes are available [here](https://docs.containerum.com/release-notes/platform/).
 
 - Runs on top of any Kubernetes cluster
 - Managed via CLI or intuitive Web UI
+- Imports the resources already existing in Kubernetes
 
 ![web-ui](/web-ui.png)
 
@@ -39,16 +41,12 @@ Basically, Containerum architecture looks like this:
 Before installing Containerum make sure you have the following components:
 
 * Docker
-* Kubernetes *1.5 or higher*
+* Kubernetes *1.9 or higher*
 * Helm
 * Installed [Kubernetes Ingress Controller](ingress.md)
 
-*or*
-
-* You can use [Let's Kube](https://github.com/containerum/letskube) utility to install the latest verions of Docker and Kubernetes on your VMs.
-
 ## How to install
-To launch Containerum on your Kubernetes Cluster run: 
+To launch Containerum on your Kubernetes Cluster without metrics collection run:
 
 ```
 helm repo add containerum https://charts.containerum.io
@@ -56,18 +54,43 @@ helm repo update
 helm install containerum/containerum
 ```
 
-> Note: To launch deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as slave. To add the label, run:
+To enable collecting resource utilization metrics, install Containerum with Prometheus:
+
+```
+helm repo add containerum https://charts.containerum.io
+helm repo update
+helm install containerum/containerum —-set tags.monitoring=true
+```
+
+If you already have Prometheus in your cluster and want to use it to display node utilization in Containerum Platform, install Containerum Platform with the parameters below. Containerum Platform is compatible with Prometheus `6.7.4` from the official Helm repository.
+
+```
+helm repo add containerum https://charts.containerum.io
+helm repo update
+helm install containerum/containerum —-set nodemetrics.env.local.PROMETHEUS_ADDR=http://{PROMETHEUS_SVC_NAME}:{PROMETHEUS_SVC_PORT}
+```
+
+ This will install the Containerum Platform and create two Ingresses to expose Containerum Platform. You can view the Ingresses with `kubectl get ingress`.
+
+> Note 1: Containerum Platform allows importing existing resources (deployments, services, etc.). To specify, which namespaces SHOULD NOT be imported, set the following tag during installation and list the namespaces after `CH_KUBE_IMPORTER_EXCLUDED_NS=`.
+ ```
+--set kube-importer.env.global.CH_KUBE_IMPORTER_EXCLUDED_NS="default,kube-system"
+```
+
+
+> Note 2: To create deployments in Containerum you need to have an application node. In case you use only one node, make sure it is labeled as `slave`.  To add the label, run:  
+
 ```
 kubectl label node ubuntu-01 role=slave
 ```
-where `ubuntu-01` is the name of your node.
-
+where `ubuntu-01` is the name of your node.  
 
 To be able to reach Containerum Web UI and the API, add the machine IP address to /etc/hosts, e.g.:
 
 ```
 127.0.0.1 local.containerum.io api.local.containerum.io
 ```
+
 where ```127.0.0.1``` is the address of your machine with Containerum.
 
 Now you can access Containerum Web UI at ```local.containerum.io```. 
@@ -77,7 +100,7 @@ Default username: admin@local.containerum.io
 Password: verystrongpassword
 
 ## Getting started
-Containerum has an intuitive web interface and a simple but powerful CLI tool. Yet we recommend learning about the [object types](https://docs.containerum.com/getting-started/object-types/) in Containerum as well as the basics of working with [Containerum Web UI](https://docs.containerum.com/web-panel/) and [chkit CLI](https://docs.containerum.com/cli/) in our Docs.
+Containerum has an intuitive web interface. Yet we recommend starting with learning the [object types](https://docs.containerum.com/objects/object-types/) in Containerum Platform as well as the instructions on configuring [Containerum Platform](https://docs.containerum.com/configuration/) in our Docs.
 
 Don't forget to install [chkit CLI](https://github.com/containerum/chkit) (from source code or binaries - whatever you prefer!).
 
@@ -108,7 +131,7 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 	- Create scripts for updates
 	- Add Containerum apps to installation
 	
-- ~~Add integration with Helm
+- ~~Add integration with Helm~~
 
 - Implement ‘Project’ entity
 	- ~~Add Projects~~
@@ -143,10 +166,7 @@ Please submit any comments and report Containerum project bugs or issues in this
 In case you have questions about Containerum, there are several ways you can reach out to our team: by filling out the form on our [support page](https://containerum.com/support/) or by email at support@containerum.io.
 
 ## Docs
-You can find the Documentation and Quick Start tutorial for Containerum in the [Docs section](https://docs.containerum.com/) on our website or in the [Docs repository](https://github.com/containerum/containerum-docs) here on GutHub. Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
-
-## Online version
-Containerum platform is also available online at containerum.com/online. It is already installed and preconfigured for production. While the platform is still free, users are billed only for resources.
+You can find the Documentation in the [Docs section](https://docs.containerum.com/) on our website or in the [Docs repository](https://github.com/containerum/containerum-docs) here on GutHub. Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
 
 ## License
 Copyright (c) 2015-2018 Exon LV.

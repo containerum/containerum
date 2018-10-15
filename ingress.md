@@ -28,7 +28,7 @@ spec:
     targetPort: 443
     protocol: TCP
   selector:
-    app: ingress-nginx
+    app.kubernetes.io/name: ingress-nginx
   externalIPs:
   - %EXTERNAL IP%
   ```
@@ -39,7 +39,7 @@ Then run:
 kubectl apply -f ingress-svc.yaml
 ```
 
-Check the the services are there:
+Check if the services are there:
 ```
 kubectl get svc -n ingress-nginx
 ```
