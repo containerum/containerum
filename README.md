@@ -107,6 +107,19 @@ Don't forget to install [chkit CLI](https://github.com/containerum/chkit) (from 
 ## Roadmap
 To keep track of roadmap implementation, please refer to [Containerum Projects page](https://github.com/containerum/containerum/projects).
 
+
+- Add events collection and notifications
+
+- Add custom Dashboards
+
+- Add integration with Jira
+
+- Add integration with GitLab
+
+- Add reporting tools
+
+- Add project visualization 
+
 - Create scripts to setup CI/CD Pipelines for
 	- Jenkins
 	- TeamCity
@@ -123,20 +136,13 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 - Add Solutions and Marketplace
 	- ~~Add Solutions~~
 	- Add Marketplace
-
-- Create installation scripts for AWS, GCE, MA, DO
-	- Create scripts for automated purchase of VMs
-	- Create script for managed Kubernetes installation
-	- Create an application for backups and recovery
-	- Create scripts for updates
-	- Add Containerum apps to installation
 	
 - ~~Add integration with Helm~~
 
 - Implement ‘Project’ entity
 	- ~~Add Projects~~
 	- Add user groups to Projects
-	- Add users to Projects
+	- ~~Add users to Projects~~
 	- Add role management to Projects
 	- Add role management to stage environments
 	- Add Projects to UI (CRUD)
@@ -155,7 +161,7 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 
 - Implement revision control for Projects
 
-- Add admin control features
+- ~~Add admin control features~~
 
 
 ## Contributing
