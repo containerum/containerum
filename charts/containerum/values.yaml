@@ -90,7 +90,7 @@ solutions:
       CH_SOLUTIONS_PG_PASSWORD: null
       CH_SOLUTIONS_RESOURCE_URL: null
       CH_SOLUTIONS_KUBE_API_URL: null
-      
+
 
 permissions:
   tags:
@@ -164,6 +164,7 @@ kube-importer:
 postgresql:
   persistence:
     enabled: false
+    existingClaim:
   postgresDatabase: containerum
   # postgresUser: postgres
   # postgresPassword: password
@@ -172,6 +173,7 @@ postgresql:
 mongodb:
   persistence:
     enabled: false
+    existingClaim:
   mongodbDatabase: containerum
   mongodbUsername: mongo
   # mongodbPassword: password

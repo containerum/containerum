@@ -7,7 +7,7 @@ dependencies:
       - postgresql
       - platform
   - name: mongodb
-    version: "3.0.5"
+    version: "3.0.6"
     repository: https://charts.containerum.io
     tags:
       - db
@@ -97,4 +97,3 @@ dependencies:
       - back
       - kube-importer
       - platform
-
