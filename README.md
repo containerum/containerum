@@ -26,6 +26,9 @@ Containerum consists of several components:
 * [**solutions**](https://github.com/containerum/solutions) is a service for launching pre-built application configurations
 * [**volume-manager**](https://github.com/containerum/volume-manager) is storage class manager
 * [**nodeMetrics**](https://github.com/containerum/nodeMetrics) is Prometheus-based service for monitoring the node resource utilization
+* [**events-api**](https://github.com/containerum/events-api) is an API that formats events data from the DB and passes it to Containerum Platform
+* [**kube-events**](https://github.com/containerum/kube-events) sources events from the Kubernetes cluster and writes them in the database
+* [**kube-importer**](https://github.com/containerum/kube-importer) is a service that imports pre-existing Kubernetes objects to Containerum Platform
 * [**chkit**](https://github.com/containerum/chkit) is CLI for Containerum
 
 and 2 databases:
