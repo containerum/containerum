@@ -3,7 +3,7 @@
 Containerum project welcomes all contributions. 
 Before submitting a contribution, please read this document carefully.
 
-Containerum consists of several components written in GO. To contribute, please go to the component repository and sumbit all changes there:
+Containerum consists of several components written in Go. To contribute, please go to the component repository and sumbit all changes there:
 
 * [**api-gateway**](https://github.com/containerum/gateway) provides routing for Containerum components
 * [**user-manager**](https://github.com/containerum/user-manager) is a service for managing users, groups, credentials, blacklists for Containerum
@@ -15,7 +15,7 @@ Containerum consists of several components written in GO. To contribute, please 
 * [**ui**](https://github.com/containerum/ui) is Web User Interface for Containerum
 * [**chkit**](https://github.com/containerum/chkit) is CLI for Containerum
 
-Note: [containerum/containerum](https://github.com/containerum/containerum) contains the **helm charts** for Containerum platform. The **source code** for each component is available in the project repositories above.
+Note: [containerum/containerum](https://github.com/containerum/containerum) contains the **helm charts** for Containerum. The **source code** for each component is available in the project repositories above.
 
 ## Contribution guidelines
 
