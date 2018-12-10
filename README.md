@@ -5,31 +5,30 @@
 
 ## Overview
 
-Containerum is an open source platform for the complete management of Kubernetes clusters. Containerum features tools for simple CI/CD pipelines setup, revision control, and role management. Release notes are available [here](https://docs.containerum.com/release-notes/platform/).
+Containerum is a Web UI for Kubernetes. Containerum includes tools for simple CI/CD pipelines setup and team management. Release notes are available [here](https://docs.containerum.com/release-notes/platform/).
 
 - Runs on top of any Kubernetes cluster
-- Managed via CLI or intuitive Web UI
-- Imports the resources already existing in Kubernetes
+- Imports the resources already existing in Kubernetes clusters
 
 ![web-ui](/web-ui.png)
 
-Containerum consists of several components:
+Containerum UI consists of several components:
 
 * [**api-gateway**](https://github.com/containerum/gateway) provides routing for Containerum components
-* [**user-manager**](https://github.com/containerum/user-manager) is a service for managing users, groups, credentials, blacklists for Containerum
+* [**user-manager**](https://github.com/containerum/user-manager) is a service for managing users, groups, credentials for Containerum
 * [**resource**](https://github.com/containerum/resource) manages Kubernetes namespace objects: deployments, ingresses, etc.
 * [**permissions**](https://github.com/containerum/permissions) manage user access to enable teamwork
 * [**kube-api**](https://github.com/containerum/kube-api) is a set of API for communication between Containerum and K8s
 * [**auth**](https://github.com/containerum/auth) handles user authorization and token management
 * [**mail**](https://github.com/containerum/mail) is a mail server and newsletter template manager
-* [**ui**](https://github.com/containerum/ui) is the Web User Interface for Containerum
+* [**ui**](https://github.com/containerum/ui) is the GUI for Containerum
 * [**solutions**](https://github.com/containerum/solutions) is a service for launching pre-built application configurations
-* [**volume-manager**](https://github.com/containerum/volume-manager) is storage class manager
-* [**nodeMetrics**](https://github.com/containerum/nodeMetrics) is Prometheus-based service for monitoring the node resource utilization
-* [**events-api**](https://github.com/containerum/events-api) is an API that formats events data from the DB and passes it to Containerum Platform
+* [**volume-manager**](https://github.com/containerum/volume-manager) is a storage class manager
+* [**nodeMetrics**](https://github.com/containerum/nodeMetrics) is a Prometheus-based service for monitoring the node resource utilization
+* [**events-api**](https://github.com/containerum/events-api) is an API that formats events data from the DB and passes it to Containerum
 * [**kube-events**](https://github.com/containerum/kube-events) sources events from the Kubernetes cluster and writes them in the database
-* [**kube-importer**](https://github.com/containerum/kube-importer) is a service that imports pre-existing Kubernetes objects to Containerum Platform
-* [**chkit**](https://github.com/containerum/chkit) is CLI for Containerum
+* [**kube-importer**](https://github.com/containerum/kube-importer) is a service that imports pre-existing Kubernetes objects to Containerum
+* [**chkit**](https://github.com/containerum/chkit) is a CLI for Containerum
 
 and 2 databases:
 * MongoDB
@@ -65,7 +64,7 @@ helm repo update
 helm install containerum/containerum —-set tags.monitoring=true
 ```
 
-If you already have Prometheus in your cluster and want to use it to display node utilization in Containerum Platform, install Containerum Platform with the parameters below. Containerum Platform is compatible with Prometheus `6.7.4` from the official Helm repository.
+If you already have Prometheus in your cluster and want to use it to display node utilization in Containerum Web UI, install Containerum with the parameters below. Containerum is compatible with Prometheus `6.7.4` from the official Helm repository.
 
 ```
 helm repo add containerum https://charts.containerum.io
@@ -73,9 +72,9 @@ helm repo update
 helm install containerum/containerum —-set nodemetrics.env.local.PROMETHEUS_ADDR=http://{PROMETHEUS_SVC_NAME}:{PROMETHEUS_SVC_PORT}
 ```
 
- This will install the Containerum Platform and create two Ingresses to expose Containerum Platform. You can view the Ingresses with `kubectl get ingress`.
+ This will install Containerum and create two Ingresses to expose it. You can view the Ingresses with `kubectl get ingress`.
 
-> Note 1: Containerum Platform allows importing existing resources (deployments, services, etc.). To specify, which namespaces SHOULD NOT be imported, set the following tag during installation and list the namespaces after `CH_KUBE_IMPORTER_EXCLUDED_NS=`.
+> Note 1: Containerum allows importing existing resources (deployments, services, etc.). To specify, which namespaces SHOULD NOT be imported, set the following tag during installation and list the namespaces after `CH_KUBE_IMPORTER_EXCLUDED_NS=`.
  ```
 --set kube-importer.env.global.CH_KUBE_IMPORTER_EXCLUDED_NS="default,kube-system"
 ```
@@ -96,14 +95,14 @@ To be able to reach Containerum Web UI and the API, add the machine IP address t
 
 where ```127.0.0.1``` is the address of your machine with Containerum.
 
-Now you can access Containerum Web UI at ```local.containerum.io```. 
+Now you can access Containerum Web UI at ```local.containerum.io```.
 
 Default username: admin@local.containerum.io
 
 Password: verystrongpassword
 
 ## Getting started
-Containerum has an intuitive web interface. Yet we recommend starting with learning the [object types](https://docs.containerum.com/objects/object-types/) in Containerum Platform as well as the instructions on configuring [Containerum Platform](https://docs.containerum.com/configuration/) in our Docs.
+Containerum has an intuitive interface. Yet we recommend starting with learning the [object types](https://docs.containerum.com/objects/object-types/) in Containerum as well as the instructions on configuring [Containerum](https://docs.containerum.com/configuration/) in our Docs.
 
 Don't forget to install [chkit CLI](https://github.com/containerum/chkit) (from source code or binaries - whatever you prefer!).
 
@@ -121,7 +120,7 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 
 - Add reporting tools
 
-- Add project visualization 
+- Add project visualization
 
 - Create scripts to setup CI/CD Pipelines for
 	- Jenkins
@@ -132,14 +131,14 @@ To keep track of roadmap implementation, please refer to [Containerum Projects p
 	- Codeship
 	- Add pipeline management to chkit
  	- Add pipeline visualization to UI
-	
+
 - ~~Add node utilisation charts to the Dashboard~~
 
 
 - Add Solutions and Marketplace
 	- ~~Add Solutions~~
 	- Add Marketplace
-	
+
 - ~~Add integration with Helm~~
 
 - Implement ‘Project’ entity
