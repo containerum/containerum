@@ -42,7 +42,7 @@ dependencies:
       - permissions
       - platform
   - name: kube
-    version: "v1.0.8-rc.0"
+    version: "v1.0.8-rc.1"
     repository: https://charts.containerum.io
     tags:
       - back
