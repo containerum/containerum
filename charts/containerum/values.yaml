@@ -38,7 +38,7 @@ ui:
       COUNTRY: US
       ## for HTTPS use: ssl
       API_PROTOCOL_TYPE: no-ssl
-      API_PORT: null
+      API_PORT: ""
       LATEST_RELEASE: null
     global:
       API_HOST: api.local.containerum.io
