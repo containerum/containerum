@@ -13,7 +13,7 @@ dependencies:
   version: v1.0.6-rc.1
 - name: resource
   repository: https://charts.containerum.io
-  version: v1.0.6
+  version: v1.0.7-rc.0
 - name: permissions
   repository: https://charts.containerum.io
   version: v1.0.5
@@ -41,5 +41,5 @@ dependencies:
 - name: kube-importer
   repository: https://charts.containerum.io
   version: v0.0.6
-digest: sha256:72f8713b52c20b5b72630a6e7a570c6c81114ad3cdc87be0fd0aa67250c3e5c2
-generated: 2019-01-11T18:09:52.572749794+03:00
+digest: sha256:3ddeebaa0194b40bae6e5763d8fd3494f311e671f7c05441b5e3ffba8e4834fc
+generated: 2019-01-11T19:35:46.405091942+03:00

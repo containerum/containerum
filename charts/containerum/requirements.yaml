@@ -28,7 +28,7 @@ dependencies:
       - user
       - platform
   - name: resource
-    version: "v1.0.6"
+    version: "v1.0.7-rc.0"
     repository: https://charts.containerum.io
     tags:
       - back
