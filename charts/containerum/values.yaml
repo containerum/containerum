@@ -38,7 +38,7 @@ ui:
       COUNTRY: US
       ## for HTTPS use: ssl
       API_PROTOCOL_TYPE: no-ssl
-      API_PORT: null
+      API_PORT: ""
       LATEST_RELEASE: null
     global:
       API_HOST: api.local.containerum.io
@@ -62,21 +62,22 @@ auth:
   persistence:
     enabled: false
 
+
 user-manager:
   tags:
     platformdb: true
   env:
     global:
-      CH_USER_PG_DBNAME: containerum
-      CH_USER_PG_LOGIN: postgres
+      PG_DBNAME: containerum
+      PG_LOGIN: postgres
     local:
-      CH_USER_PG_ADDR: null
-      CH_USER_MAIL_URL: null
-      CH_USER_AUTH_GRPC_ADDR: null
-      CH_USER_AUTH_HTTP_ADDR: null
-      CH_USER_PERMISSIONS_URL: null
-      ## if CH_USER_ADMIN_PASSWORD null then admin doesn't creates
-      CH_USER_ADMIN_PASSWORD: verystrongpassword
+      PG_ADDR: null
+      MAIL_URL: null
+      AUTH_URL: null
+      PERMISSIONS_URL: null
+      ## if ADMIN_PASSWORD null then admin doesn't creates
+      ADMIN_PASSWORD: verystrongpassword
+
 
 solutions:
   tags:
@@ -150,16 +151,18 @@ auth:
   persistence:
     enabled: false
 
+
 kube-importer:
   rbac:
     serviceAccountName: release-name
   env:
     global:
-      CH_KUBE_IMPORTER_EXCLUDED_NS: "default,kube-system"
+      CH_KUBE_IMPORTER_EXCLUDED_NS: "default,kube-system,containerum"
     local:
       CH_KUBE_IMPORTER_RESOURCE_URL: null
       CH_KUBE_IMPORTER_PERMISSIONS_URL: null
       CH_KUBE_IMPORTER_VOLUMES_URL: null
+
 
 postgresql:
   persistence:
@@ -174,6 +177,8 @@ mongodb:
   persistence:
     enabled: false
     existingClaim:
+  image:
+    setPermissions: false
   mongodbDatabase: containerum
   mongodbUsername: mongo
   # mongodbPassword: password

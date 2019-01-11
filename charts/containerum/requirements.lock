@@ -4,13 +4,13 @@ dependencies:
   version: 0.15.0
 - name: mongodb
   repository: https://charts.containerum.io
-  version: 3.0.5
+  version: 3.0.7
 - name: api-gateway
   repository: https://charts.containerum.io
   version: v1.0.5
 - name: user-manager
   repository: https://charts.containerum.io
-  version: v1.0.5
+  version: v1.0.6-rc.1
 - name: resource
   repository: https://charts.containerum.io
   version: v1.0.6
@@ -41,5 +41,5 @@ dependencies:
 - name: kube-importer
   repository: https://charts.containerum.io
   version: v0.0.6
-digest: sha256:f3a7630154f7a5252da6676dc9268ab240857c3f674b8b1697d4521965b9dd4c
-generated: 2018-10-03T11:46:52.290417782+03:00
+digest: sha256:72f8713b52c20b5b72630a6e7a570c6c81114ad3cdc87be0fd0aa67250c3e5c2
+generated: 2019-01-11T18:09:52.572749794+03:00
