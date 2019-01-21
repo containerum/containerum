@@ -171,7 +171,7 @@ We welcome any help from the open source community. To submit your contributions
 
 ## Issues and Support
 Please submit any comments and report Containerum project bugs or issues in this repository.
-In case you have questions about Containerum, there are several ways you can reach out to our team: by filling out the form on our [support page](https://containerum.com/support/) or by email at support@containerum.io.
+In case you have questions about Containerum, there are several ways you can contact our team: by filling out the form on our [website](https://en.containerum.com) or by sending us an email at support@containerum.io.
 
 ## Docs
 You can find the Documentation in the [Docs section](https://docs.containerum.com/) on our website or in the [Docs repository](https://github.com/containerum/containerum-docs) here on GutHub. Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
