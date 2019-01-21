@@ -177,7 +177,7 @@ In case you have questions about Containerum, there are several ways you can rea
 You can find the Documentation in the [Docs section](https://docs.containerum.com/) on our website or in the [Docs repository](https://github.com/containerum/containerum-docs) here on GutHub. Please, feel free to contribute to the Docs to help us make them more accurate and comprehensive.
 
 ## License
-Copyright (c) 2015-2018 Exon LV.
+Copyright (c) 2015-2019 Exon LV.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
