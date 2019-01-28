@@ -28,7 +28,7 @@ dependencies:
   version: v1.0.4-rc.0
 - name: ui
   repository: https://charts.containerum.io
-  version: v1.0.7-rc.7
+  version: v1.0.7-rc.8
 - name: nodemetrics
   repository: https://charts.containerum.io
   version: v1.0.5

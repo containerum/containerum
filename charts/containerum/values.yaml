@@ -78,7 +78,6 @@ user-manager:
       ## if ADMIN_PASSWORD null then admin doesn't creates
       ADMIN_PASSWORD: verystrongpassword
 
-
 solutions:
   tags:
     platformdb: true
@@ -91,7 +90,6 @@ solutions:
       PG_PASSWORD: null
       RESOURCE_URL: null
       KUBE_API_URL: null
-
 
 permissions:
   tags:
@@ -184,6 +182,7 @@ events-api:
       MONGO_DB: containerum
       MONGO_LOGIN: mongo
     local:
+
       MONGO_ADDR: null
 
 
