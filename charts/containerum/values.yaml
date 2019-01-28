@@ -49,13 +49,13 @@ mail:
     enabled: false
   env:
     local:
-      CH_MAIL_USER_MANAGER_URL: null
-      CH_MAIL_SMTP_PASSWORD: null
+      USER_MANAGER_URL: null
+      SMTP_PASSWORD: null
     global:
-      CH_MAIL_SMTP_ADDR: null
-      CH_MAIL_SMTP_LOGIN: null
-      CH_MAIL_SENDER_MAIL_SIMPLE: null
-      CH_MAIL_SENDER_MAIL: null
+      SMTP_ADDR: null
+      SMTP_LOGIN: null
+      SENDER_MAIL_SIMPLE: null
+      SENDER_MAIL: null
 
 
 auth:
@@ -84,13 +84,13 @@ solutions:
     platformdb: true
   env:
     global:
-      CH_SOLUTIONS_PG_DBNAME: containerum
-      CH_SOLUTIONS_PG_LOGIN: postgres
+      PG_DBNAME: containerum
+      PG_LOGIN: postgres
     local:
-      CH_SOLUTIONS_PG_ADDR: null
-      CH_SOLUTIONS_PG_PASSWORD: null
-      CH_SOLUTIONS_RESOURCE_URL: null
-      CH_SOLUTIONS_KUBE_API_URL: null
+      PG_ADDR: null
+      PG_PASSWORD: null
+      RESOURCE_URL: null
+      KUBE_API_URL: null
 
 
 permissions:
@@ -157,11 +157,34 @@ kube-importer:
     serviceAccountName: release-name
   env:
     global:
-      CH_KUBE_IMPORTER_EXCLUDED_NS: "default,kube-system,containerum"
+      EXCLUDED_NS: "default,kube-system"
     local:
-      CH_KUBE_IMPORTER_RESOURCE_URL: null
-      CH_KUBE_IMPORTER_PERMISSIONS_URL: null
-      CH_KUBE_IMPORTER_VOLUMES_URL: null
+      RESOURCE_URL: null
+      PERMISSIONS_URL: null
+      VOLUMES_URL: null
+
+
+kube-events:
+  tags:
+    platformdb: true
+  rbac:
+    serviceAccountName: release-name
+  env:
+    local:
+      MONGO_ADDR: null
+    global:
+      MONGO_LOGIN: mongo
+      MONGO_DB: containerum
+
+events-api:
+  tags:
+    platformdb: true
+  env:
+    global:
+      MONGO_DB: containerum
+      MONGO_LOGIN: mongo
+    local:
+      MONGO_ADDR: null
 
 
 postgresql:

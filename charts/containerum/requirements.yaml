@@ -14,7 +14,7 @@ dependencies:
       - mongo
       - platform
   - name: api-gateway
-    version: "v1.0.5"
+    version: "v1.0.6-rc.1"
     repository: https://charts.containerum.io
     tags:
       - back
@@ -42,7 +42,7 @@ dependencies:
       - permissions
       - platform
   - name: kube
-    version: "v1.0.7"
+    version: "v1.0.8-rc.1"
     repository: https://charts.containerum.io
     tags:
       - back
@@ -56,14 +56,14 @@ dependencies:
       - auth
       - platform
   - name: mail
-    version: "v1.0.3"
+    version: "v1.0.4-rc.0"
     repository: https://charts.containerum.io
     tags:
       - back
       - mail
       - platform
   - name: ui
-    version: "v1.0.7-rc.4"
+    version: "v1.0.7-rc.8"
     repository: https://charts.containerum.io
     tags:
       - front
@@ -84,16 +84,30 @@ dependencies:
       - volume
       - platform
   - name: solutions
-    version: "v1.0.2"
+    version: "v1.0.3-rc.0"
     repository: https://charts.containerum.io
     tags:
       - back
       - solutions
       - platform
   - name: kube-importer
-    version: "v0.0.6"
+    version: "v0.0.8"
     repository: https://charts.containerum.io
     tags:
       - back
       - kube-importer
+      - platform
+  - name: kube-events
+    version: "v1.0.1-rc.23"
+    repository: https://charts.containerum.io
+    tags:
+      - back
+      - kube-events
+      - platform
+  - name: events-api
+    version: "v0.1.4-rc.1"
+    repository: https://charts.containerum.io
+    tags:
+      - back
+      - events-api
       - platform
