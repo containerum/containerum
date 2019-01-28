@@ -62,6 +62,7 @@ auth:
   persistence:
     enabled: false
 
+
 user-manager:
   tags:
     platformdb: true
@@ -89,7 +90,6 @@ solutions:
       PG_PASSWORD: null
       RESOURCE_URL: null
       KUBE_API_URL: null
-      
 
 permissions:
   tags:
@@ -149,6 +149,7 @@ auth:
   persistence:
     enabled: false
 
+
 kube-importer:
   rbac:
     serviceAccountName: release-name
@@ -159,6 +160,7 @@ kube-importer:
       RESOURCE_URL: null
       PERMISSIONS_URL: null
       VOLUMES_URL: null
+
 
 kube-events:
   tags:
@@ -180,12 +182,14 @@ events-api:
       MONGO_DB: containerum
       MONGO_LOGIN: mongo
     local:
+
       MONGO_ADDR: null
 
 
 postgresql:
   persistence:
     enabled: false
+    existingClaim:
   postgresDatabase: containerum
   # postgresUser: postgres
   # postgresPassword: password
@@ -194,6 +198,9 @@ postgresql:
 mongodb:
   persistence:
     enabled: false
+    existingClaim:
+  image:
+    setPermissions: false
   mongodbDatabase: containerum
   mongodbUsername: mongo
   # mongodbPassword: password

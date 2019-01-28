@@ -4,7 +4,7 @@ dependencies:
   version: 0.15.0
 - name: mongodb
   repository: https://charts.containerum.io
-  version: 3.0.5
+  version: 3.0.7
 - name: api-gateway
   repository: https://charts.containerum.io
   version: v1.0.6-rc.1
@@ -19,7 +19,7 @@ dependencies:
   version: v1.0.5
 - name: kube
   repository: https://charts.containerum.io
-  version: v1.0.8-rc.0
+  version: v1.0.8-rc.1
 - name: auth
   repository: https://charts.containerum.io
   version: v1.0.4
@@ -28,7 +28,7 @@ dependencies:
   version: v1.0.4-rc.0
 - name: ui
   repository: https://charts.containerum.io
-  version: v1.0.7-rc.6
+  version: v1.0.7-rc.8
 - name: nodemetrics
   repository: https://charts.containerum.io
   version: v1.0.5
@@ -47,5 +47,5 @@ dependencies:
 - name: events-api
   repository: https://charts.containerum.io
   version: v0.1.4-rc.1
-digest: sha256:34789f7bac9f1c9e7d0bf2d4bacf77650d9160c8c93fd52d11d7792916f80a79
-generated: 2018-10-29T18:12:31.854397485+03:00
+digest: sha256:ebefabe52f4038ecb250e6e090da71f91a815f63a0dae6ca6237a3920eac4c65
+generated: 2019-01-21T19:40:31.054935349+03:00
