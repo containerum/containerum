@@ -98,7 +98,7 @@ dependencies:
       - kube-importer
       - platform
   - name: kube-events
-    version: "v1.0.1-rc.23"
+    version: "v1.0.1-rc.27"
     repository: https://charts.containerum.io
     tags:
       - back

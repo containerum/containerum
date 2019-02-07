@@ -155,7 +155,7 @@ kube-importer:
     serviceAccountName: release-name
   env:
     global:
-      EXCLUDED_NS: "default,kube-system"
+      EXCLUDED_NS: "default,kube-system,containerum"
     local:
       RESOURCE_URL: null
       PERMISSIONS_URL: null
